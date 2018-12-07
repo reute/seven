@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Seven.Model;
 using System;
 
 namespace Seven.Repository
@@ -8,8 +9,13 @@ namespace Seven.Repository
         /// <summary>
         /// Creates a new Contoso DbContext.
         /// </summary>
-        public SevenContext(DbContextOptions<SevenContext> options) : base(options)
+        public SevenContext() 
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=seven.db");
         }
 
         /// <summary>
