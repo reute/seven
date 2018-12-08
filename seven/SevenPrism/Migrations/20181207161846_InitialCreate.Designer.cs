@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Seven.Repository;
+using SevenPrism.Repository;
 
 namespace SevenPrism.Migrations
 {
-    [DbContext(typeof(SevenContext))]
+    [DbContext(typeof(SqliteRepository))]
     [Migration("20181207161846_InitialCreate")]
     partial class InitialCreate
     {
@@ -32,7 +32,7 @@ namespace SevenPrism.Migrations
                     b.ToTable("Deposits");
                 });
 
-            modelBuilder.Entity("Seven.Model.Order", b =>
+            modelBuilder.Entity("Seven.Model.Sale", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();

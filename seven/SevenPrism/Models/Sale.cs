@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seven.Model
+namespace SevenPrism.Model
 {
-    public class Order : BindableBase
+    public class Sale : BindableBase
     {
         private int? _number;
         private decimal? _price;

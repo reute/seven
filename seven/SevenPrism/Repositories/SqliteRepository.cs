@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Seven.Model;
+using SevenPrism.Model;
 using System;
 
-namespace Seven.Repository
+namespace SevenPrism.Repository
 {
-    public class SevenContext : DbContext
+    public class SqliteRepository : DbContext
     {
         /// <summary>
         /// Creates a new Contoso DbContext.
         /// </summary>
-        public SevenContext() 
+        public SqliteRepository() 
         {
         }
 
@@ -21,7 +21,7 @@ namespace Seven.Repository
         /// <summary>
         /// Gets the orders DbSet.
         /// </summary>
-        public DbSet<Order> Orders
+        public DbSet<Sale> Orders
         {
             get;
             set;

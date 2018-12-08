@@ -1,0 +1,129 @@
+﻿<UserControl
+    x:Class="SevenPrism.Views.Cash"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SevenPrism.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:SevenPrism.Properties"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <DockPanel DockPanel.Dock="Top">
+        <Grid ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Stretch"
+                    Background="{Binding ElementName=ToolBarDeposit, Path=Background}"
+                    Content="Deposits" />
+                <ToolBarTray x:Name="ToolBarDeposit">
+                    <ToolBar>
+                        <Button Command="{Binding AddNewCommand}">
+                            <AccessText Text="Add" />
+                        </Button>
+                        <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=DepositGrid, Path=SelectedItems}">
+                            <AccessText Text="Remove" />
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
+                <!--  Deposits  -->
+                <DataGrid
+                    x:Name="DepositGrid"
+                    BorderThickness="0"
+                    CanUserDeleteRows="False"
+                    ItemsSource="{Binding DepositsCollectionView}"
+                    SelectedItem="{Binding SelectedDeposit}">
+
+                    <DataGrid.InputBindings>
+                        <KeyBinding
+                            Key="Del"
+                            Command="{Binding RemoveCommand}"
+                            CommandParameter="{Binding ElementName=DepositGrid, Path=SelectedItems}" />
+                    </DataGrid.InputBindings>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Date, StringFormat=d}"
+                            Header="Date" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Amount}"
+                            Header="Amount" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Grid.Column="0"
+                        Width="{Binding ElementName=DepositGrid, Path=Columns[0].ActualWidth}"
+                        Padding="5,2,2,5"
+                        Background="Beige"
+                        Text="Sum" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Width="{Binding ElementName=DepositGrid, Path=Columns[1].ActualWidth}"
+                        Padding="3,2,2,3"
+                        Background="Beige"
+                        Text="{Binding DepositsSum}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!--  Earnings  -->
+            <StackPanel
+                Grid.Column="1"
+                Margin="5,0,0,0"
+                Orientation="Vertical">
+
+                <Label
+                    HorizontalAlignment="Stretch"
+                    Background="{Binding ElementName=ToolBarDeposit, Path=Background}"
+                    Content="Earnings" />
+                <Rectangle
+                    Height="28"
+                    VerticalAlignment="Stretch"
+                    Fill="{Binding ElementName=ToolBarDeposit, Path=Background}" />
+
+                <DataGrid
+                    x:Name="EarningsGrid"
+                    BorderThickness="0"
+                    CanUserDeleteRows="False"
+                    ItemsSource="{Binding Earnings}">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Date, StringFormat=d}"
+                            Header="Date" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Amount}"
+                            Header="Amount" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Grid.Column="0"
+                        Width="{Binding ElementName=EarningsGrid, Path=Columns[0].ActualWidth}"
+                        Padding="5,2,2,5"
+                        Background="Beige"
+                        Text="Sum" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Width="{Binding ElementName=EarningsGrid, Path=Columns[1].ActualWidth}"
+                        Padding="3,2,2,3"
+                        Background="Beige"
+                        Text="{Binding EarningsSum}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

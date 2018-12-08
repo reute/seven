@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Seven.Repository;
+using SevenPrism.Repository;
 
 namespace SevenPrism.Migrations
 {
-    [DbContext(typeof(SevenContext))]
+    [DbContext(typeof(SqliteRepository))]
     partial class SevenContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace SevenPrism.Migrations
                     b.ToTable("Deposits");
                 });
 
-            modelBuilder.Entity("Seven.Model.Order", b =>
+            modelBuilder.Entity("Seven.Model.Sale", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();

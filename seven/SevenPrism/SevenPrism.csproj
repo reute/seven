@@ -56,6 +56,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\Sales.xaml.cs">
+      <DependentUpon>Sales.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Resources\Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Converter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -64,20 +83,35 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Converters\ValidationErrorConverter.cs" />
+    <Compile Include="Events\GridInEditModeEvent.cs" />
+    <Compile Include="Helpers\ApplicationInfo.cs" />
+    <Compile Include="Helpers\DataGridHelper.cs" />
     <Compile Include="Migrations\20181207161846_InitialCreate.cs" />
     <Compile Include="Migrations\20181207161846_InitialCreate.designer.cs">
       <DependentUpon>20181207161846_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\SevenContextModelSnapshot.cs" />
     <Compile Include="Models\Deposit.cs" />
-    <Compile Include="Models\Earning.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Repositories\SevenContext.cs" />
+    <Compile Include="Models\SaleDaily.cs" />
+    <Compile Include="Models\Sale.cs" />
+    <Compile Include="Repositories\SqliteRepository.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="ViewModels\CashViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\SalesViewModel.cs" />
+    <Compile Include="Views\Cash.xaml.cs">
+      <DependentUpon>Cash.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Sales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -93,8 +127,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -110,6 +145,17 @@
       <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\BookLibrary.ico" />
+    <Resource Include="Resources\Images\Copy.png" />
+    <Resource Include="Resources\Images\Cut.png" />
+    <Resource Include="Resources\Images\Delete.png" />
+    <Resource Include="Resources\Images\Email.png" />
+    <Resource Include="Resources\Images\Paste.png" />
+    <Resource Include="Resources\Images\Redo.png" />
+    <Resource Include="Resources\Images\Save.png" />
+    <Resource Include="Resources\Images\Undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

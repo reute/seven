@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
+using SevenPrism.Repository;
 
 namespace SevenPrism
 {
@@ -17,7 +18,7 @@ namespace SevenPrism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterSingleton(typeof(SqliteRepository));
         }
     }
 }

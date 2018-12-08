@@ -1,0 +1,219 @@
+﻿<UserControl
+    x:Class="SevenPrism.Views.Sales"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SevenPrism.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:SevenPrism.Properties"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Loaded="LoadedHandler"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ObjectDataProvider
+            x:Key="Categories"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:Category" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider
+            x:Key="StaffResource"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:Staff" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+    </UserControl.Resources>
+
+    <DockPanel>
+        <ToolBarTray Margin="0,1,0,1" DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="{Binding AddNewCommand}">
+                    <AccessText Text="{x:Static p:Resources.AddMenu}" />
+                </Button>
+                <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=OrderGrid, Path=SelectedItems}">
+                    <AccessText Text="{x:Static p:Resources.RemoveMenu}" />
+                </Button>
+                <Separator />
+                <Label
+                    Margin="0"
+                    Padding="5,0,7,0"
+                    VerticalAlignment="Center"
+                    Content="{x:Static p:Resources.SearchMenu}"
+                    Target="{Binding ElementName=searchBox}" />
+                <TextBox
+                    x:Name="searchBox"
+                    Width="150"
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    Text="{Binding Path=FilterString, UpdateSourceTrigger=PropertyChanged}" />
+            </ToolBar>
+        </ToolBarTray>
+
+        <DataGrid
+            x:Name="OrderGrid"
+            BorderThickness="0"
+            CanUserDeleteRows="False"
+            ItemsSource="{Binding OrdersCollectionView}"
+            SelectedItem="{Binding SelectedOrder}">
+
+            <DataGrid.InputBindings>
+                <KeyBinding
+                    Key="Del"
+                    Command="{Binding RemoveCommand}"
+                    CommandParameter="{Binding ElementName=OrderGrid, Path=SelectedItems}" />
+            </DataGrid.InputBindings>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Date, StringFormat=d}"
+                    Header="{x:Static p:Resources.ColumnHeaderDate}" />
+                <DataGridComboBoxColumn
+                    Width="*"
+                    Header="{x:Static p:Resources.ColumnHeaderStaff}"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource StaffResource}}"
+                    SelectedItemBinding="{Binding Staff}" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Detail}"
+                    Header="{x:Static p:Resources.ColumnHeaderDetail}" />
+                <DataGridComboBoxColumn
+                    Width="*"
+                    Header="{x:Static p:Resources.ColumnHeaderCategory}"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource Categories}}"
+                    SelectedItemBinding="{Binding Category}" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Number, UpdateSourceTrigger=LostFocus}"
+                    Header="{x:Static p:Resources.ColumnHeaderNumber}" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Price, UpdateSourceTrigger=LostFocus}"
+                    Header="{x:Static p:Resources.ColumnHeaderPrice}" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Sum, Mode=OneWay}"
+                    Header="{x:Static p:Resources.ColumnHeaderSum}"
+                    IsReadOnly="true" />
+
+                <!--<DataGridTextColumn
+                    Width="5*"
+                    Binding="{Binding Book.Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                    EditingElementStyle="{StaticResource TextCellEditingStyle}"
+                    ElementStyle="{StaticResource TextCellElementStyle}"
+                    Header="{x:Static p:Resources.Title}" />
+                <DataGridTextColumn
+                    Width="3*"
+                    Binding="{Binding Book.Author, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                    EditingElementStyle="{StaticResource TextCellEditingStyle}"
+                    ElementStyle="{StaticResource TextCellElementStyle}"
+                    Header="{x:Static p:Resources.Author}" />
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding Book.PublishDate, StringFormat=d, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                    EditingElementStyle="{StaticResource TextCellEditingStyle}"
+                    ElementStyle="{StaticResource TextCellElementStyle}"
+                    Header="{x:Static p:Resources.PublishDate}" />
+                <DataGridTemplateColumn
+                    Width="3*"
+                    Header="{x:Static p:Resources.LendTo}"
+                    IsReadOnly="True"
+                    SortMemberPath="Book.LendTo.Firstname">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Padding="4,2,4,3">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Book.LendTo.Firstname" ValidatesOnNotifyDataErrors="False" />
+                                            <Binding Path="Book.LendTo.Lastname" ValidatesOnNotifyDataErrors="False" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Grid.Column="1" Padding="4,2,4,3">
+                                    <Hyperlink Command="{Binding LendToCommand}" CommandParameter="{Binding Book}">
+                                        <Run Text="{x:Static p:Resources.MoreButton}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+    <!--<Grid>
+    -->
+    <!--  InitializingNewItem="DataGridRevenues_OnInitializingNewItem"  -->
+    <!--<DataGrid
+            x:Name="DataGridRevenues"
+            HorizontalAlignment="Left"
+            AlternatingRowBackground="Beige"
+            AlternationCount="3"
+            AutoGenerateColumns="False"
+            CanUserAddRows="True"
+            CanUserDeleteRows="True"
+            HorizontalScrollBarVisibility="Disabled"
+            ItemsSource="{Binding RevenuesViewSource.Source}"
+            ScrollViewer.CanContentScroll="False"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            SelectionUnit="CellOrRowHeader"
+            VerticalScrollBarVisibility="Visible">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin" Value="10,0,10,0" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    x:Name="TextColumnDate"
+                    Binding="{Binding Datum, StringFormat=d}"
+                    Header="{lex:Loc TextColumnDate}" />
+                <DataGridComboBoxColumn
+                    x:Name="ComboBoxColumnReferent"
+                    Header="{lex:Loc ComboBoxColumnReferent}"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource ReferentEnum}}"
+                    SelectedItemBinding="{Binding Referent}" />
+                <DataGridTextColumn
+                    x:Name="TextColumnDetail"
+                    Binding="{Binding Detail}"
+                    Header="{lex:Loc TextColumnDetail}" />
+                <DataGridComboBoxColumn
+                    x:Name="ComboBoxColumnCategory"
+                    Header="{lex:Loc ComboBoxColumnCategory}"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding Source={StaticResource KategorieEnum}}"
+                    SelectedItemBinding="{Binding Kategorie}" />
+                <DataGridTextColumn
+                    x:Name="TextColumnAmount"
+                    Binding="{Binding Menge}"
+                    Header="{lex:Loc TextColumnAmount}" />
+                <DataGridTextColumn
+                    x:Name="TextColumnPrice"
+                    Binding="{Binding Einzelpreis}"
+                    Header="{lex:Loc TextColumnPrice}" />
+                <DataGridTextColumn
+                    x:Name="TextColumnPriceTotal"
+                    Binding="{Binding Gesamtpreis}"
+                    Header="{lex:Loc TextColumnPriceTotal}" />
+            </DataGrid.Columns>
+        </DataGrid>-->
+    <!--
+    </Grid>-->
+</UserControl>

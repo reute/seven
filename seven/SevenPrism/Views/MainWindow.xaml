@@ -1,10 +1,195 @@
-﻿<Window x:Class="SevenPrism.Views.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525">
-    <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
-    </Grid>
+﻿<Window
+    x:Class="SevenPrism.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:p="clr-namespace:SevenPrism.Properties"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="{Binding Title}"
+    Width="525"
+    Height="350"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Icon="{StaticResource BookLibraryImageSource}">
+
+    <Window.InputBindings>
+        <KeyBinding
+            Key="S"
+            Command="{Binding SaveCommand}"
+            Modifiers="Control" />
+        <KeyBinding Key="F1" Command="{Binding AboutCommand}" />
+    </Window.InputBindings>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{x:Static p:Resources.DataMenu}">
+                <MenuItem
+                    Command="{Binding SaveCommand}"
+                    Header="{x:Static p:Resources.SaveMenu}"
+                    Icon="{StaticResource SaveImage}"
+                    InputGestureText="{x:Static p:Resources.ControlS}" />
+                <Separator />
+                <MenuItem Command="{Binding ExitCommand}" Header="{x:Static p:Resources.ExitMenu}" />
+            </MenuItem>
+            <MenuItem Header="{x:Static p:Resources.EditMenu}">
+                <MenuItem
+                    Command="ApplicationCommands.Undo"
+                    Header="{x:Static p:Resources.UndoMenu}"
+                    Icon="{StaticResource UndoImage}"
+                    InputGestureText="{x:Static p:Resources.ControlZ}" />
+                <MenuItem
+                    Command="ApplicationCommands.Redo"
+                    Header="{x:Static p:Resources.RedoMenu}"
+                    Icon="{StaticResource RedoImage}"
+                    InputGestureText="{x:Static p:Resources.ControlY}" />
+                <Separator />
+                <MenuItem
+                    Command="ApplicationCommands.Cut"
+                    Header="{x:Static p:Resources.CutMenu}"
+                    Icon="{StaticResource CutImage}"
+                    InputGestureText="{x:Static p:Resources.ControlX}" />
+                <MenuItem
+                    Command="ApplicationCommands.Copy"
+                    Header="{x:Static p:Resources.CopyMenu}"
+                    Icon="{StaticResource CopyImage}"
+                    InputGestureText="{x:Static p:Resources.ControlC}" />
+                <MenuItem
+                    Command="ApplicationCommands.Paste"
+                    Header="{x:Static p:Resources.PasteMenu}"
+                    Icon="{StaticResource PasteImage}"
+                    InputGestureText="{x:Static p:Resources.ControlV}" />
+                <MenuItem
+                    Command="EditingCommands.Delete"
+                    Header="{x:Static p:Resources.DeleteMenu}"
+                    Icon="{StaticResource DeleteImage}"
+                    InputGestureText="{x:Static p:Resources.Del}" />
+                <Separator />
+                <MenuItem
+                    Command="ApplicationCommands.SelectAll"
+                    Header="{x:Static p:Resources.SelectAllMenu}"
+                    InputGestureText="{x:Static p:Resources.ControlA}" />
+            </MenuItem>
+            <MenuItem Header="{x:Static p:Resources.HelpMenu}">
+                <MenuItem
+                    Command="{Binding AboutCommand}"
+                    Header="{x:Static p:Resources.AboutMenu}"
+                    InputGestureText="{x:Static p:Resources.F1}" />
+            </MenuItem>
+        </Menu>
+
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button
+                    Command="{Binding SaveCommand}"
+                    Content="{StaticResource SaveImage}"
+                    ToolTip="{x:Static p:Resources.Save}" />
+                <Separator />
+                <Button
+                    Command="ApplicationCommands.Undo"
+                    Content="{StaticResource UndoImage}"
+                    ToolTip="{x:Static p:Resources.Undo}" />
+                <Button
+                    Command="ApplicationCommands.Redo"
+                    Content="{StaticResource RedoImage}"
+                    ToolTip="{x:Static p:Resources.Redo}" />
+                <Button
+                    Command="ApplicationCommands.Cut"
+                    Content="{StaticResource CutImage}"
+                    ToolTip="{x:Static p:Resources.Cut}" />
+                <Button
+                    Command="ApplicationCommands.Copy"
+                    Content="{StaticResource CopyImage}"
+                    ToolTip="{x:Static p:Resources.Copy}" />
+                <Button
+                    Command="ApplicationCommands.Paste"
+                    Content="{StaticResource PasteImage}"
+                    ToolTip="{x:Static p:Resources.Paste}" />
+            </ToolBar>
+        </ToolBarTray>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="{Binding DatabasePath}" ContentStringFormat="{x:Static p:Resources.DatabasePath}" />
+        </StatusBar>
+
+        <TabControl Padding="0">
+            <TabItem Header="{x:Static p:Resources.Orders}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="300" MinWidth="{Binding Content.MinWidth, ElementName=bookViewPresenter}" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  BookListRegion  -->
+                    <ContentControl
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="0,0,5,0"
+                        prism:RegionManager.RegionName="OrderListRegion" />
+
+                    <!--  BookViewRegion  -->
+                    <ScrollViewer
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalScrollBarVisibility="Auto">
+                        <ContentControl
+                            x:Name="bookViewPresenter"
+                            prism:RegionManager.RegionName="OrderDetailsRegion"
+                            Focusable="False" />
+                    </ScrollViewer>
+
+                    <GridSplitter
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static p:Resources.Cash}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="300" MinWidth="{Binding Content.MinWidth, ElementName=personViewPresenter}" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  PersonListRegion  -->
+                    <ContentControl
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="0,0,5,0"
+                        prism:RegionManager.RegionName="CashListRegion" />
+
+                    <!--  PersonViewRegion  -->
+                    <ScrollViewer
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalScrollBarVisibility="Auto">
+                        <ContentControl
+                            x:Name="personViewPresenter"
+                            prism:RegionManager.RegionName="CashRegisterDetailsRegion"
+                            Focusable="False" />
+                    </ScrollViewer>
+
+                    <GridSplitter
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch" />
+                </Grid>
+            </TabItem>
+            <!--<TabItem Header="{x:Static p:Resources.Reporting}" Visibility="{Binding ShellService.IsReportingEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <Trigger Property="IsVisible" Value="True">
+                                    <Setter Property="Content" Value="{Binding ShellService.LazyReportingView.Value}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </TabItem>-->
+        </TabControl>
+
+    </DockPanel>
 </Window>
