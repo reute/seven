@@ -20,8 +20,7 @@ namespace SevenPrism
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton(typeof(DatabaseContext));
-            containerRegistry.RegisterSingleton(typeof(DataService));
-            
+            containerRegistry.RegisterSingleton(typeof(DataService));            
         }
     }
 }

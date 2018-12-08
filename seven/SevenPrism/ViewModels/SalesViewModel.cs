@@ -19,7 +19,6 @@ namespace SevenPrism.ViewModels
     {
 
         public ObservableCollection<Sale> Sales { get; }
-
         public ICollectionView SalesCollectionView { get; }
 
         public Sale SelectedSale

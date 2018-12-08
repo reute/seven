@@ -13,34 +13,42 @@ namespace SevenPrism.Services
     public class DataService
     {
         public ObservableCollection<Deposit> Deposits { get; }
-        public ObservableCollection<Sale> Sales { get; }
-
-        public DatabaseContext SqliteContext;
+        public ObservableCollection<Sale> Sales { get; }          
 
         //private readonly DbContextOptions<SqliteRepository> _dbOptions;
 
         // Sale changed event
 
         public DataService()
-        {
-            string databasePath = "Seven.db";
-            // string databasePath = Package.Current.InstalledLocation.Path + @"\Assets\Contoso.db";
-            // string databasePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\four\\four.db";
+        {  
+            SqliteContext = new DatabaseContext(GetSqliteContextOptions());
+            SqliteContext.Database.EnsureCreated();
 
-            //if (!File.Exists(databasePath))
-            //{
-            //    File.Copy(demoDatabasePath, databasePath);
-            //}            
-            var sqliteContextOptions = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite("Data Source=" + databasePath).Options; 
-            SqliteContext = new DatabaseContext(sqliteContextOptions);
-            var bo = SqliteContext.Database.EnsureCreated();
-
-            SqliteContext.Sales.ToList();
-            SqliteContext.Deposits.ToList();
+            SqliteContext.Sales.Load();
+            SqliteContext.Deposits.Load();
 
             Sales = SqliteContext.Sales.Local.ToObservableCollection();
             Deposits = SqliteContext.Deposits.Local.ToObservableCollection();
         }
+
+        public void Save()
+        {
+            SqliteContext.SaveChanges();
+        }
+
+        private DbContextOptions<DatabaseContext>  GetSqliteContextOptions()
+        {
+            //if (!File.Exists(databasePath))
+            //{
+            //    File.Copy(demoDatabasePath, databasePath);
+            //}       
+            string databasePath = "Seven.db";
+            // string databasePath = Package.Current.InstalledLocation.Path + @"\Assets\Contoso.db";
+            // string databasePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\four\\four.db";
+            return new DbContextOptionsBuilder<DatabaseContext>().UseSqlite("Data Source=" + databasePath).Options;
+        }
+
+        private DatabaseContext SqliteContext;
 
         //public List<Sale> GetOrders()
         //{
@@ -61,10 +69,7 @@ namespace SevenPrism.Services
         //    }          
         //}
 
-        public void Save()
-        {
-            SqliteContext.SaveChanges();
-        }
+      
 
         //public void Delete(Guid orderId)
         //{
