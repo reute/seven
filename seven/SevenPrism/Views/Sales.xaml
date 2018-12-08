@@ -39,7 +39,7 @@
                 <Button Command="{Binding AddNewCommand}">
                     <AccessText Text="{x:Static p:Resources.AddMenu}" />
                 </Button>
-                <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=OrderGrid, Path=SelectedItems}">
+                <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=SalesGrid, Path=SelectedItems}">
                     <AccessText Text="{x:Static p:Resources.RemoveMenu}" />
                 </Button>
                 <Separator />
@@ -59,17 +59,17 @@
         </ToolBarTray>
 
         <DataGrid
-            x:Name="OrderGrid"
+            x:Name="SalesGrid"
             BorderThickness="0"
             CanUserDeleteRows="False"
-            ItemsSource="{Binding OrdersCollectionView}"
-            SelectedItem="{Binding SelectedOrder}">
+            ItemsSource="{Binding SalesCollectionView}"
+            SelectedItem="{Binding SelectedSale}">
 
             <DataGrid.InputBindings>
                 <KeyBinding
                     Key="Del"
                     Command="{Binding RemoveCommand}"
-                    CommandParameter="{Binding ElementName=OrderGrid, Path=SelectedItems}" />
+                    CommandParameter="{Binding ElementName=SalesGrid, Path=SelectedItems}" />
             </DataGrid.InputBindings>
 
             <DataGrid.Columns>

@@ -15,13 +15,13 @@ namespace SevenPrism.Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=seven.db");
+            optionsBuilder.UseSqlite("Data Source=Seven.db");
         }
 
         /// <summary>
         /// Gets the orders DbSet.
         /// </summary>
-        public DbSet<Sale> Orders
+        public DbSet<Sale> Sales
         {
             get;
             set;

@@ -27,8 +27,8 @@ namespace SevenPrism.Views
 
         private void GridInEditModeEventHandler()
         {
-            OrderGrid.CancelEdit();
-            OrderGrid.CancelEdit();
+            SalesGrid.CancelEdit();
+            SalesGrid.CancelEdit();
         }
 
 
@@ -45,17 +45,17 @@ namespace SevenPrism.Views
 
         private void LoadedHandler(object sender, RoutedEventArgs e)
         {
-            if (OrderGrid.Items.Count > 0)
+            if (SalesGrid.Items.Count > 0)
             {
-                OrderGrid.SelectedIndex = 0;
+                SalesGrid.SelectedIndex = 0;
                 FocusFirstCell();
             }
         }
 
         public void FocusFirstCell()
         {
-            OrderGrid.Focus();
-            OrderGrid.CurrentCell = new DataGridCellInfo(OrderGrid.SelectedItem, OrderGrid.Columns[0]);
+            SalesGrid.Focus();
+            SalesGrid.CurrentCell = new DataGridCellInfo(SalesGrid.SelectedItem, SalesGrid.Columns[0]);
         }
     }
 }

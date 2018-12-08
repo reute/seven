@@ -18,14 +18,14 @@ namespace SevenPrism.ViewModels
     public class SalesViewModel : BindableBase
     {
 
-        public ObservableCollection<Sale> Orders { get; }
+        public ObservableCollection<Sale> Sales { get; }
 
-        public ICollectionView OrdersCollectionView { get; }
+        public ICollectionView SalesCollectionView { get; }
 
-        public Sale SelectedOrder
+        public Sale SelectedSale
         {
-            get => selectedOrder;
-            set => SetProperty(ref selectedOrder, value);
+            get => selectedSale;
+            set => SetProperty(ref selectedSale, value);
         }
 
         public DelegateCommand AddNewCommand { get; }
@@ -39,7 +39,7 @@ namespace SevenPrism.ViewModels
                 SetProperty(ref _filterString, value);
                 try
                 {
-                    OrdersCollectionView.Refresh();
+                    SalesCollectionView.Refresh();
                 }
                 catch (InvalidOperationException)
                 {
@@ -57,74 +57,74 @@ namespace SevenPrism.ViewModels
         public SalesViewModel(DataService dataService, IEventAggregator ea)
         {
             Ea = ea;
-            Orders = dataService.Orders;
+            Sales = dataService.Sales;
 
-            AddNewCommand = new DelegateCommand(AddNewOrder, CanAddNewOrder);
-            RemoveCommand = new DelegateCommand<object>(RemoveOrders, CanRemoveOrders).ObservesProperty(() => SelectedOrder);
+            AddNewCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
+            RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale).ObservesProperty(() => SelectedSale);
 
-            OrdersCollectionView = CollectionViewSource.GetDefaultView(Orders);
+            SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
 
-            OrdersCollectionView.Filter += new Predicate<object>(OrdersViewFilterHandler);
+            SalesCollectionView.Filter += new Predicate<object>(SaleViewFilterHandler);
         }
 
-        private Sale selectedOrder;
+        private Sale selectedSale;
         private string _filterString = string.Empty;
         private readonly IEventAggregator Ea;
 
-        private bool CanAddNewOrder()
+        private bool CanAddNewSale()
         {
             return true;
         }
 
-        private void AddNewOrder()
+        private void AddNewSale()
         {
             var Sale = new Sale();
 
             //TODO: Sale.Validate();
-            Orders.Add(Sale);
-            SelectedOrder = Sale;
+            Sales.Add(Sale);
+            SelectedSale = Sale;
         }
 
-        private bool CanRemoveOrders(object selectedOrders)
+        private bool CanRemoveSale(object selectedSale)
         {
-            if (selectedOrders == null)
+            if (selectedSale == null)
                 return false;
 
-            var listSelectedOrders = (IList)selectedOrders;
+            var listSelectedSales = (IList)selectedSale;
 
-            if (listSelectedOrders.Count == 0)
+            if (listSelectedSales.Count == 0)
                 return false;
             else
                 return true;
         }
 
-        private void RemoveOrders(object selectedOrders)
+        private void RemoveSale(object selectedSales)
         {
-            var listSelectedOrders = (IList)selectedOrders;
-            var removeList = listSelectedOrders.Cast<Sale>().ToList();
-            int indexOrder, highestIndex = 0;
+            var listSelectedSales = (IList)selectedSales;
+            var removeList = listSelectedSales.Cast<Sale>().ToList();
+            int indexSale, highestIndex = 0;
             foreach (Sale Sale in removeList)
             {
                 // get highest index of all orders to be removed
-                indexOrder = Orders.IndexOf(Sale);
-                if (indexOrder > highestIndex)
-                    highestIndex = indexOrder;
+                indexSale = Sales.IndexOf(Sale);
+                if (indexSale > highestIndex)
+                    highestIndex = indexSale;
                 //remove Sale
-                Orders.Remove(Sale);
+                Sales.Remove(Sale);
             }
             // select Sale below last Sale which was deleted
-            if (highestIndex == Orders.Count)
+            if (highestIndex == Sales.Count)
             {
-                SelectedOrder = Orders.Last();
+                SelectedSale = Sales.Last();
             }
             else
             {
                 var index = highestIndex - removeList.Count + 1;
-                SelectedOrder = Orders[index];
+                SelectedSale = Sales[index];
             }
         }
 
-        private bool OrdersViewFilterHandler(object obj)
+        private bool SaleViewFilterHandler(object obj)
         {
             var data = obj as Sale;
 

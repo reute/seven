@@ -13,7 +13,7 @@ namespace SevenPrism.Models
         private decimal? _price;
 
 
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
 
         public DateTime Date { get; set; } = DateTime.Now;
 

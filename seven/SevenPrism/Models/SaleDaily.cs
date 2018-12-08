@@ -9,6 +9,8 @@ namespace SevenPrism.Models
 {
     public class SaleDaily : BindableBase
     {
+        public int Id { get; set; }
+
         public DateTime Date { get; set; } = DateTime.Now;
 
         public decimal Amount { get; set; }
