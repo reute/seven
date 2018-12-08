@@ -91,7 +91,7 @@
     <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\SaleDaily.cs" />
     <Compile Include="Models\Sale.cs" />
-    <Compile Include="Repositories\SqliteRepository.cs" />
+    <Compile Include="Repositories\DatabaseContext.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="ViewModels\CashViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

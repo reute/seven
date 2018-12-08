@@ -15,7 +15,7 @@ namespace SevenPrism.Services
         public ObservableCollection<Deposit> Deposits { get; }
         public ObservableCollection<Sale> Sales { get; }
 
-        public SqliteRepository SqliteRepo;
+        public DatabaseContext SqliteContext;
 
         //private readonly DbContextOptions<SqliteRepository> _dbOptions;
 
@@ -23,23 +23,23 @@ namespace SevenPrism.Services
 
         public DataService()
         {
-            //string demoDatabasePath = Package.Current.InstalledLocation.Path + @"\Assets\Contoso.db";
+            string databasePath = "Seven.db";
+            // string databasePath = Package.Current.InstalledLocation.Path + @"\Assets\Contoso.db";
             // string databasePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\four\\four.db";
+
             //if (!File.Exists(databasePath))
             //{
             //    File.Copy(demoDatabasePath, databasePath);
-            //}
-            //var dbContextOptionsBuilder = new DbContextOptionsBuilder<SqliteRepository>().UseSqlite("Data Source=" + databasePath);
-            //_dbOptions = dbContextOptionsBuilder.Options;
+            //}            
+            var sqliteContextOptions = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite("Data Source=" + databasePath).Options; 
+            SqliteContext = new DatabaseContext(sqliteContextOptions);
+            var bo = SqliteContext.Database.EnsureCreated();
 
-            SqliteRepo = new SqliteRepository();
-            var bo = SqliteRepo.Database.EnsureCreated();
+            SqliteContext.Sales.ToList();
+            SqliteContext.Deposits.ToList();
 
-            var tmp = SqliteRepo.Sales.ToList();
-            var tmp2 = SqliteRepo.Deposits.ToList();
-
-            Sales = SqliteRepo.Sales.Local.ToObservableCollection();
-            Deposits = SqliteRepo.Deposits.Local.ToObservableCollection();
+            Sales = SqliteContext.Sales.Local.ToObservableCollection();
+            Deposits = SqliteContext.Deposits.Local.ToObservableCollection();
         }
 
         //public List<Sale> GetOrders()
@@ -63,7 +63,7 @@ namespace SevenPrism.Services
 
         public void Save()
         {
-            SqliteRepo.SaveChanges();
+            SqliteContext.SaveChanges();
         }
 
         //public void Delete(Guid orderId)

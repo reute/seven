@@ -19,7 +19,7 @@ namespace SevenPrism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton(typeof(SqliteRepository));
+            containerRegistry.RegisterSingleton(typeof(DatabaseContext));
             containerRegistry.RegisterSingleton(typeof(DataService));
             
         }

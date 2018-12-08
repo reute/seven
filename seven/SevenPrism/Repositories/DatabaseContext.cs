@@ -4,23 +4,21 @@ using System;
 
 namespace SevenPrism.Repository
 {
-    public class SqliteRepository : DbContext
+    public class DatabaseContext : DbContext
     {
         /// <summary>
         /// Creates a new Contoso DbContext.
         /// </summary>
-        public SqliteRepository() 
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=Seven.db");
-        }
-
-        /// <summary>
-        /// Gets the orders DbSet.
-        /// </summary>
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlite("Data Source=Seven.db");
+   
+        //}
+       
         public DbSet<Sale> Sales
         {
             get;
