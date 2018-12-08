@@ -562,15 +562,6 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Orders.
-        /// </summary>
-        public static string Orders {
-            get {
-                return ResourceManager.GetString("Orders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Pages.
         /// </summary>
         public static string Pages {
@@ -648,6 +639,15 @@ namespace SevenPrism.Properties {
         public static string Reporting {
             get {
                 return ResourceManager.GetString("Reporting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales.
+        /// </summary>
+        public static string SalesTabHeader {
+            get {
+                return ResourceManager.GetString("SalesTabHeader", resourceCulture);
             }
         }
         

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SevenPrism.Model
+namespace SevenPrism.Models
 {
     public class Deposit : BindableBase
     {

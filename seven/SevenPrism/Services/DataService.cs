@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SevenPrism.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
-using SevenPrism.Model;
+using SevenPrism.Models;
 
 namespace SevenPrism.Services
 {

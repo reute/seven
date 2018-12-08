@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
-using SevenPrism.Model;
+using SevenPrism.Models;
 using SevenPrism.Repository;
 using SevenPrism.Services;
 using Prism.Commands;

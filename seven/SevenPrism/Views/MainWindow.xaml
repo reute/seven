@@ -5,8 +5,8 @@
     xmlns:p="clr-namespace:SevenPrism.Properties"
     xmlns:prism="http://prismlibrary.com/"
     Title="{Binding Title}"
-    Width="525"
-    Height="350"
+    Width="900"
+    Height="600"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Icon="{StaticResource BookLibraryImageSource}">
 
@@ -110,7 +110,7 @@
         </StatusBar>
 
         <TabControl Padding="0">
-            <TabItem Header="{x:Static p:Resources.Orders}">
+            <TabItem Header="{x:Static p:Resources.SalesTabHeader}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -122,7 +122,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="0,0,5,0"
-                        prism:RegionManager.RegionName="OrderListRegion" />
+                        prism:RegionManager.RegionName="SalesRegion" />
 
                     <!--  BookViewRegion  -->
                     <ScrollViewer
@@ -131,7 +131,7 @@
                         VerticalScrollBarVisibility="Auto">
                         <ContentControl
                             x:Name="bookViewPresenter"
-                            prism:RegionManager.RegionName="OrderDetailsRegion"
+                            prism:RegionManager.RegionName="SalesDetailsRegion"
                             Focusable="False" />
                     </ScrollViewer>
 
@@ -155,7 +155,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="0,0,5,0"
-                        prism:RegionManager.RegionName="CashListRegion" />
+                        prism:RegionManager.RegionName="CashRegion" />
 
                     <!--  PersonViewRegion  -->
                     <ScrollViewer
@@ -164,7 +164,7 @@
                         VerticalScrollBarVisibility="Auto">
                         <ContentControl
                             x:Name="personViewPresenter"
-                            prism:RegionManager.RegionName="CashRegisterDetailsRegion"
+                            prism:RegionManager.RegionName="CashDetailsRegion"
                             Focusable="False" />
                     </ScrollViewer>
 

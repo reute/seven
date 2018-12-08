@@ -1,19 +1,60 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using System.ComponentModel;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Input;
+using Prism.Commands;
+using Prism.Mvvm;
+using SevenPrism.Properties;
+using Prism.Regions;
+using SevenPrism.Views;
+using SevenPrism.Helpers;
+using SevenPrism.Models;
+using SevenPrism.Services;
 
 namespace SevenPrism.ViewModels
-{
-    public class MainWindowViewModel : BindableBase
-    {
-        private string _title = "Prism Application";
-        public string Title
+{   
+        public class MainWindowViewModel : BindableBase
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
+            public DelegateCommand AboutCommand { get; }
+            public DelegateCommand SaveCommand { get; }
+            public DelegateCommand ExitCommand { get; }
 
-        public MainWindowViewModel()
-        {
+            public string DatabasePath { get; set; } = Resources.NotAvailable;
+            public string Title { get; set; } = ApplicationInfo.ProductName;
 
+            /// <summary>
+            /// Constructor
+            /// </summary>
+            /// <param name="regionManager"></param>
+            public MainWindowViewModel(DataService ds, IRegionManager regionManager)
+            {
+                DataService = ds;
+
+                AboutCommand = new DelegateCommand(ShowAboutMessage);
+                SaveCommand = new DelegateCommand(OnSave, CanSave);
+
+                regionManager.RegisterViewWithRegion("SalesRegion", typeof(Sales));
+                regionManager.RegisterViewWithRegion("CashRegion", typeof(Cash));
+            }
+
+            private DataService DataService;
+
+            private void ShowAboutMessage()
+            {
+                var mainWin = Application.Current.MainWindow;
+                MessageBox.Show(mainWin, string.Format(CultureInfo.CurrentCulture, Resources.AboutText, ApplicationInfo.ProductName, ApplicationInfo.Version));
+            }
+
+            private bool CanSave()
+            {
+                return true;
+            }
+
+            private void OnSave()
+            {
+                DataService.Save();
+            }
         }
-    }
+    
 }

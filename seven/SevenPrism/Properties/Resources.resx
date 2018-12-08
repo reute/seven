@@ -288,8 +288,8 @@ https://github.com/reute/four</value>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Orders" xml:space="preserve">
-    <value>Orders</value>
+  <data name="SalesTabHeader" xml:space="preserve">
+    <value>Sales</value>
   </data>
   <data name="Pages" xml:space="preserve">
     <value>Pages</value>

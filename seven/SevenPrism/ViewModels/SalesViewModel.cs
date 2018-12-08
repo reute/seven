@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 using Prism.Commands;
 using Prism.Mvvm;
-using SevenPrism.Model;
+using SevenPrism.Models;
 using SevenPrism.Repository;
 using System.Linq;
 using Prism.Events;
