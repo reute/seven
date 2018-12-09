@@ -398,4 +398,7 @@ https://github.com/reute/seven</value>
   <data name="Title1" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="ReportSalesListTotal" xml:space="preserve">
+    <value>Sum {0}</value>
+  </data>
 </root>

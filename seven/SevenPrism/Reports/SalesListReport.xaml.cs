@@ -32,6 +32,9 @@ namespace SevenPrism.Reports
         public List<Sale> Sales { get; }
 
         public int SalesCount => Sales.Count;
-     
+
+        public string SalesTotal => Sales.Sum(x => x.Sum).ToString();
+
+        public DateTime Date => DateTime.Now;
     }
 }

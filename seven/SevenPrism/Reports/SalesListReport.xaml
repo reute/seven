@@ -43,6 +43,7 @@
             <TableColumn />
             <TableColumn />
             <TableColumn />
+            <TableColumn />
         </ctrl:BindableTable.Columns>
         <ctrl:BindableTable.HeaderRowGroup>
             <TableRowGroup Background="#FF4F81BD" Foreground="White">
@@ -134,9 +135,37 @@
                                 <Run Text="{Binding Price, Mode=OneTime}" />
                             </Paragraph>
                         </TableCell>
+                        <TableCell
+                            Padding="4,2"
+                            BorderBrush="#FF4F81BD"
+                            BorderThickness="0,0,1,1">
+                            <Paragraph>
+                                <Run Text="{Binding Sum, Mode=OneTime}" />
+                            </Paragraph>
+                        </TableCell>
                     </TableRow>
                 </ctrl:ContentElement>
             </DataTemplate>
         </ctrl:BindableTable.ItemTemplate>
     </ctrl:BindableTable>
+    <Table>
+        <TableRowGroup>
+            <TableRow
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="#365F91">
+                <TableCell TextAlignment="Right">
+                    <Paragraph>
+                        <Run Text="{Binding SalesTotal, StringFormat={x:Static p:Resources.ReportSalesListTotal}, Mode=OneTime}" />
+                    </Paragraph>
+                </TableCell>
+            </TableRow>
+        </TableRowGroup>
+    </Table>
+    <Paragraph>
+        <Run Text="Date, Signature" />
+    </Paragraph>
+    <Paragraph>
+        <Run Text="{Binding Date, StringFormat='{}{0} ,  _____________________________________', Mode=OneTime}" />
+    </Paragraph>
 </FlowDocument>

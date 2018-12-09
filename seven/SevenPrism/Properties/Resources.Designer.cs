@@ -733,6 +733,15 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sum {0}.
+        /// </summary>
+        public static string ReportSalesListTotal {
+            get {
+                return ResourceManager.GetString("ReportSalesListTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sales.
         /// </summary>
         public static string SalesTabHeader {
