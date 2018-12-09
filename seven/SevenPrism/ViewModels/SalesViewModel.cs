@@ -141,64 +141,8 @@ namespace SevenPrism.ViewModels
         }
     }
 }
-
-
-
-//class OrderListViewModel
-//{        
+    
 //    private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-//    // State
-//    private bool _needsToBeSaved;
-//    private string _filePath = Properties.Settings.Default.defaultPath;
-//    private string _fileExt;
-//    private const string ProgramName = "Kassenbuchprogramm";
-
-//    public decimal Kasse { get; set; }
-
-//    private decimal _sum;
-//    public decimal Sum
-//    {
-//        get { return _sum; }
-//        set
-//        {
-//            _sum = value;
-//            Kasse = Logic.CalcKasse(value, Change);
-//        }
-//    }
-
-//    private decimal _change = Properties.Settings.Default.defaultChange;
-//    public decimal Change
-//    {
-//        get { return _change; }
-//        set
-//        {
-//            _change = value;
-//            Kasse = Logic.CalcKasse(Sum, value);
-//        }
-//    }
-
-
-
-//    public string MainWindowTitle
-//    {
-//        get { return _filePath + " - " + ProgramName; }
-//    }
-
-//    private List<Article> _revenues;
-//    public List<Article> Revenues
-//    {
-//        get { return _revenues; }
-//        set
-//        {
-//            _revenues = value;
-//            _revenues.CollectionChanged += OnArticleCollectionChanged;
-//            RevenuesViewSource.Source = _revenues;
-//            foreach (Article article in _revenues)
-//            {
-//                article.PropertyChanged += OnArticlePropertyChanged;
-//            }
-//        }
-//    }
 
 //    public CollectionViewSource RevenuesViewSource { get; set; }
 
@@ -215,72 +159,9 @@ namespace SevenPrism.ViewModels
 //        }
 //    }
 
-
-//    public DateTime LetzteEinzahlung { get; set; }       
-
-//    // Events
-//    public event PropertyChangedEventHandler PropertyChanged;
-
-//    // Constructor
-//    public OrderListViewModel()
-//    {            
-//        var tmp = Properties.Settings.Default.defaultPath.Split('.');
-//        _fileExt = tmp[(tmp.Length) - 1];
-//        XmlConfigurator.Configure();
-//        log.Info("Program started");
-
-//        RevenuesViewSource = new CollectionViewSource();
-//        RevenuesViewSource.Filter += RevenuesViewSourceOnFilter;
-//        if (_filePath != "")
-//        {
-//            Revenues = OpenFile(_filePath);
-//        }
-
-//        Sum = Logic.CalcSum(Revenues);
-//        Kasse = Logic.CalcKasse(Sum, Change);
-
-
 //        //DataGridRevenues.ScrollIntoView(CollectionView.NewItemPlaceholder);
-
 //        LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
 //        LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
-
-//    }
-
-//    // Event Handling
-
-//    // User generated Events
-
-//    // Clicks App Menu
-
-//    private void NewFile_OnClick(object sender, RoutedEventArgs e)
-//    {
-//        if (_needsToBeSaved) UnsavedWarningDialog(Revenues, _filePath);
-//        Revenues = new List<Article>();
-//        SaveAsDialog(Revenues);
-//    }
-
-//    private void Open_OnClick(object sender, RoutedEventArgs e)
-//    {
-//        OpenFileDialog();
-//    }
-
-
-
-
-
-
-
-
-//    // Clicks Ribbon Buttons
-
-//    private void Help_OnClick(object sender, RoutedEventArgs e)
-//    {
-//        var about = new AboutWindow();
-//        about.ShowDialog();
-//    }
-
-//    // Clicks Window
 
 //    private void MainWindow_OnClosing(object sender, CancelEventArgs e)
 //    {
@@ -288,60 +169,10 @@ namespace SevenPrism.ViewModels
 //        Properties.Settings.Default.defaultChange = Change;
 //        Properties.Settings.Default.defaultPath = _filePath;
 //        Properties.Settings.Default.Save();
+
+//    }
+
 //        log.Info("Program ended");
-//    }
-
-
-//    // Key Presses
-
-//    //private void UIElement_OnKeyUp(object sender, KeyEventArgs e)
-//    //{
-//    //    if (e.Key == Key.Delete)
-//    //    {
-//    //        foreach (DataGridRow item in this.Tabelle.SelectedCells)
-//    //        {
-//    //            Tabelle.Rows.RemoveAt(item.Index);
-//    //        }
-//    //        //Debug.Write("Delete Key presed"); 
-//    //    }
-
-//    //}
-
-//    // Automatic generated Events
-
-//    void OnArticlePropertyChanged(object sender, PropertyChangedEventArgs e)
-//    {
-//        _needsToBeSaved = true;
-//    }
-
-//    private void OnArticleCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-//    {
-//        _needsToBeSaved = true;
-//        if (e.Action == NotifyCollectionChangedAction.Add)
-//        {
-//            foreach (Article article in e.NewItems)
-//            {
-//                article.PropertyChanged += OnArticlePropertyChanged;
-//            }
-//        }
-//    }
-
-//    //private void DataGridRevenues_OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-//    //{
-//    //    if (e.PropertyType == typeof(System.DateTime))
-//    //    {
-//    //        if (e.Column is DataGridTextColumn dataGridTextColumn) dataGridTextColumn.Binding.StringFormat = "d";
-//    //    }
-//    //}
-
-//    private void DataGridRevenues_OnInitializingNewItem(object sender, InitializingNewItemEventArgs e)
-//    {
-//        Article article = e.NewItem as Article;
-//        article.Datum = DateTime.Today;
-//        Debug.Write("New Item");
-//    }
-
-//    // Implementation of UI Logic
 
 //    // FILTER Datagrid
 
@@ -364,130 +195,24 @@ namespace SevenPrism.ViewModels
 
 
 
-//    private void SaveAsDialog(List<Article> colArticles)
-//    {
-//        var dlg = new SaveFileDialog
-//        {
-//            FileName = _filePath,
-//            DefaultExt = _fileExt,
-//            Filter = "CSV Files (.csv)|*.csv"
-//        };
-//        var result = dlg.ShowDialog();
-//        if (result == true)
-//        {
-//            SaveFile(colArticles, dlg.FileName);
-//        }
-//    }
 
-//    private void OpenFileDialog()
-//    {
-//        var dlg = new OpenFileDialog
-//        {
-//            FileName = _filePath,
-//            DefaultExt = _fileExt,
-//            Filter = "CSV Files (.csv)|*.csv",
-//            RestoreDirectory = true
-//        };
-//        var result = dlg.ShowDialog();
-//        if (result == true)
-//        {
-//            Revenues = OpenFile(dlg.FileName);
-//            //DataGridRevenues.ScrollIntoView(CollectionView.NewItemPlaceholder);
-//        }
-//    }
+/* 
+  
+1.0
+- Kasse
+- lokalisierung
+- logging
+- konfigurierbare comboboxen
+- Tests
 
-//    protected void OnPropertyChanged(string name)
-//    {
-//        if (PropertyChanged != null)
-//        {
-//            PropertyChanged(this, new PropertyChangedEventArgs(name));
-//        }
-//    }
+2.0
+- input validation
+- inventar
+- azure
 
-//    // Interface to Controller
-
-//    private List<Article> OpenFile(string filePath)
-//    {
-//        List<Article> tmp;
-//        try
-//        {
-//            tmp = Logic.OpenFile(filePath);
-//        }
-//        catch (Exception e)
-//        {
-//            MessageBox.Show("Error loading file");
-//            log.Error("Error loading file", e);
-//            return null;
-//        }
-//        _needsToBeSaved = false;
-//        _filePath = filePath;
-//        OnPropertyChanged("WindowTitle");
-//        return tmp;
-//    }
-
-//    private void SaveFile(List<Article> colArticles, string filePath)
-//    {
-//        try
-//        {
-//            Logic.SaveFile(colArticles, filePath);
-//        }
-//        catch (Exception e)
-//        {
-//            MessageBox.Show("Error saving file");
-//            log.Error("Error saving file", e);
-//            return;
-//        }
-//        _needsToBeSaved = false;
-//        _filePath = filePath;
-//        OnPropertyChanged("WindowTitle");
-//    }
+*/
 
 
-//    //   private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-//    //   {
-//    ////       Debug.Write(e.Column.Header.ToString() == "Datum");
 
-//    //   }
-
-//    //   private void DataGrid_OnAddingNewItem(object sender, AddingNewItemEventArgs e)
-//    //   {
-//    //    //   Debug.Write("Added new item");
-//    //   }
-
-//    //   private void DataGrid_OnRowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-//    //   {
-//    //    //   Debug.Write("DataGrid_OnRowEditEnding");
-//    //   }
-
-//    //   private void DataGrid_OnLoadingRow(object sender, DataGridRowEventArgs e)
-//    //   {
-//    //   //    Debug.Write("DataGrid_OnLoadingRow");
-//    //   }
-
-
-//    private void Abrechnung_OnClick(object sender, RoutedEventArgs e)
-//    {
-//    }
-
-//    private void ArticleCollectionDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-//    {
-
-//    }
-
-//}
-
-//1:
-// Datagrid
-// Create PDF
-// Print Dialog
-
-// 2:
-// Definition von Artikeln
-// Preisberechnung
-// Anzeige aktueller Kassenstand
-
-// 3
-// Warenbestand
-// Statistics
 
 
