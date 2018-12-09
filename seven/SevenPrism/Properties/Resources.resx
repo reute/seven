@@ -123,9 +123,9 @@
   <data name="AboutText" xml:space="preserve">
     <value>{0} {1}
  
-This software is based on the BookLibrary Example from the Win Application Framework (WAF) on https://github.com/jbe2277/waf
+This software uses parts of the BookLibrary Example from the Win Application Framework (WAF) on https://github.com/jbe2277/waf
  
-https://github.com/reute/four</value>
+https://github.com/reute/seven</value>
   </data>
   <data name="AddMenu" xml:space="preserve">
     <value>_Add</value>

@@ -72,9 +72,9 @@ namespace SevenPrism.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} {1}
         /// 
-        ///This software is based on the BookLibrary Example from the Win Application Framework (WAF) on https://github.com/jbe2277/waf
+        ///This software uses parts of the BookLibrary Example from the Win Application Framework (WAF) on https://github.com/jbe2277/waf
         /// 
-        ///https://github.com/reute/four.
+        ///https://github.com/reute/seven.
         /// </summary>
         public static string AboutText {
             get {

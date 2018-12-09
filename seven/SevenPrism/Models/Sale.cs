@@ -9,7 +9,7 @@ namespace SevenPrism.Models
 {
     public class Sale : BindableBase
     {
-        private int? _number;
+        private int? _amount;
         private decimal? _price;
         private DateTime _date = DateTime.Now;
 
@@ -33,12 +33,12 @@ namespace SevenPrism.Models
 
         public Staff? Staff { get; set; }
 
-        public int? Number
+        public int? Amount
         {
-            get => _number;
+            get => _amount;
             set
             {
-                if (SetProperty(ref _number, value) && _price != null)
+                if (SetProperty(ref _amount, value) && _price != null)
                     RaisePropertyChanged(nameof(Sum));
             }
         }
@@ -48,7 +48,7 @@ namespace SevenPrism.Models
             get => _price;
             set
             {
-                if (SetProperty(ref _price, value) && _number != null)
+                if (SetProperty(ref _price, value) && _amount != null)
                     RaisePropertyChanged(nameof(Sum));
             }
         }
@@ -57,8 +57,8 @@ namespace SevenPrism.Models
         {
             get
             {
-                if (_number != null && _price != null)
-                    return _number * _price;
+                if (_amount != null && _price != null)
+                    return _amount * _price;
                 return null;
             }
         }

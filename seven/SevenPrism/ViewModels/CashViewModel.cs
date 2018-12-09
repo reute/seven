@@ -64,7 +64,7 @@ namespace SevenPrism.ViewModels
             // 2. for all items which are going to be removed or added to Orders
             Sales.CollectionChanged += Orders_CollectionChanged;     
 
-            UpdateEarnings(SalesDaily, Sales);
+            UpdateSaleDaily(SalesDaily, Sales);
         }
 
 
@@ -107,7 +107,7 @@ namespace SevenPrism.ViewModels
             {
                 foreach (Sale item in e.OldItems)
                     item.PropertyChanged -= Sale_PropertyChanged;
-                UpdateEarnings(SalesDaily, Sales);
+                UpdateSaleDaily(SalesDaily, Sales);
                 return;
             }
         }
@@ -116,27 +116,27 @@ namespace SevenPrism.ViewModels
         {
             if (e.PropertyName.Equals("Sum"))
               {
-                UpdateEarnings(SalesDaily, Sales);
+                UpdateSaleDaily(SalesDaily, Sales);
                 RaisePropertyChanged(nameof(SalesDailySum));
             }
 
             if (e.PropertyName.Equals("Date"))
             {
-                UpdateEarnings(SalesDaily, Sales);
+                UpdateSaleDaily(SalesDaily, Sales);
                 RaisePropertyChanged(nameof(SalesDailySum));
             }
         }
 
-        private void UpdateEarnings(ObservableCollection<SaleDaily> earnings, ObservableCollection<Sale> sales)
+        private void UpdateSaleDaily(ObservableCollection<SaleDaily> salesDaily, ObservableCollection<Sale> sales)
         {
-            earnings.Clear();
+            salesDaily.Clear();
             if (sales.Count == 0)
                 return;
-            var ordersSorted = sales.OrderBy(item => item.Date);
-            DateTime saleDate, lastDate = ordersSorted.First().Date;
+            var salesSorted = sales.OrderBy(item => item.Date);
+            DateTime saleDate, lastDate = salesSorted.First().Date;
             decimal sumDay = 0;
 
-            foreach (var Sale in ordersSorted)
+            foreach (var Sale in salesSorted)
             {
                 saleDate = Sale.Date;
                 if (saleDate.Date == lastDate.Date)
@@ -148,21 +148,21 @@ namespace SevenPrism.ViewModels
                 else
                 {
                     // current Sale has a different date, save lastDate and its sum
-                    earnings.Add(new SaleDaily(lastDate, sumDay));
+                    salesDaily.Add(new SaleDaily(lastDate, sumDay));
                     if (Sale.Sum != null)
                         sumDay = (decimal)Sale.Sum;
                 }
                 lastDate = saleDate;
             }
-            earnings.Add(new SaleDaily(lastDate, sumDay));
+            salesDaily.Add(new SaleDaily(lastDate, sumDay));
         }
 
-        //private ObservableCollection<SaleDaily> UpdateEarningsItem(ObservableCollection<Sale> orders, PropertyChangedEventArgs e)
+        //private ObservableCollection<SaleDaily> UpdateSalesDailyItem(ObservableCollection<Sale> orders, PropertyChangedEventArgs e)
         //{
         //    // remove SaleDaily item
-        //    Earnings.Remove();
+        //    SalesDaily.Remove();
         //    var newEarning = CreateNewEarning(orders, e);
-        //    Earnings.Add(newEarning);      
+        //    SalesDaily.Add(newEarning);      
         //}
 
 
@@ -229,6 +229,19 @@ namespace SevenPrism.ViewModels
                 var index = highestIndex - removeList.Count + 1;
                 SelectedDeposit = Deposits[index];
             }
+        }
+    }
+
+    public class SaleDaily : BindableBase
+    {
+        public DateTime Date { get; set; } = DateTime.Now;
+
+        public decimal Amount { get; set; }
+
+        public SaleDaily(DateTime date, decimal amount)
+        {
+            Date = date;
+            Amount = amount;
         }
     }
 }

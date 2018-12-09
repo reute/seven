@@ -14,6 +14,7 @@ namespace SevenPrism.Repository
         /// </summary>
         public DatabaseContext() : base()
         {
+            Database.EnsureCreated();
             Sales.Load();
             Deposits.Load();   
         }

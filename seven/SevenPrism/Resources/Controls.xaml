@@ -61,4 +61,10 @@
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
+    <!--<Style TargetType="TableCell">
+        <Setter Property="Padding" Value="4,2" />
+        <Setter Property="BorderBrush" Value="FF4F81BD" />
+        <Setter Property="BorderThickness" Value="0,0,1,1" />
+    </Style>-->
+
 </ResourceDictionary>

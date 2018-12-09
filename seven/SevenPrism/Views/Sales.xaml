@@ -95,7 +95,7 @@
                     SelectedItemBinding="{Binding Category, UpdateSourceTrigger=LostFocus}" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Number, UpdateSourceTrigger=LostFocus}"
+                    Binding="{Binding Amount, UpdateSourceTrigger=LostFocus}"
                     Header="{x:Static p:Resources.ColumnHeaderNumber}" />
                 <DataGridTextColumn
                     Width="*"

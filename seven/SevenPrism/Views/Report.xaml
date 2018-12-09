@@ -7,7 +7,7 @@
     prism:ViewModelLocator.AutoWireViewModel="True">
     <DockPanel>
         <Border Background="{x:Static SystemColors.ControlBrush}" DockPanel.Dock="Left">
-            <StackPanel Width="140" Margin="11,11,16,11">
+            <StackPanel Width="117" Margin="11,11,16,11">
                 <Label Content="{x:Static p:Resources.CreateReport}" Style="{StaticResource HeaderLabel}" />
 
                 <Label Margin="0,22,0,0">
@@ -16,7 +16,7 @@
                 <Button
                     x:Name="createButton"
                     Margin="0,11,0,0"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Center"
                     Command="{Binding CreateSalesListReportCommand}"
                     Content="{x:Static p:Resources.Create}"
                     Style="{StaticResource DialogButton}" />
@@ -26,7 +26,7 @@
                 </Label>
                 <Button
                     Margin="0,11,0,0"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Center"
                     Command="{Binding CreateArticlesListReportCommand}"
                     Content="{x:Static p:Resources.Create}"
                     Style="{StaticResource DialogButton}" />
@@ -36,7 +36,7 @@
                 </Label>
                 <Button
                     Margin="0,11,0,0"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Center"
                     Command="ApplicationCommands.Print"
                     CommandTarget="{Binding ElementName=reportReader}"
                     Content="{x:Static p:Resources.Print}"

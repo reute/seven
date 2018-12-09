@@ -77,7 +77,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <!--  Earnings  -->
+            <!--  Sales Daily  -->
             <StackPanel
                 Grid.Column="1"
                 Margin="5,0,0,0"
@@ -86,17 +86,17 @@
                 <Label
                     HorizontalAlignment="Stretch"
                     Background="{Binding ElementName=ToolBarDeposit, Path=Background}"
-                    Content="Earnings" />
+                    Content="Sales Daily" />
                 <Rectangle
                     Height="28"
                     VerticalAlignment="Stretch"
                     Fill="{Binding ElementName=ToolBarDeposit, Path=Background}" />
 
                 <DataGrid
-                    x:Name="EarningsGrid"
+                    x:Name="SalesDailyGrid"
                     BorderThickness="0"
                     CanUserDeleteRows="False"
-                    ItemsSource="{Binding Earnings}">
+                    ItemsSource="{Binding SalesDaily}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -112,16 +112,16 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         Grid.Column="0"
-                        Width="{Binding ElementName=EarningsGrid, Path=Columns[0].ActualWidth}"
+                        Width="{Binding ElementName=SalesDailyGrid, Path=Columns[0].ActualWidth}"
                         Padding="5,2,2,5"
                         Background="Beige"
                         Text="Sum" />
                     <TextBlock
                         Grid.Column="1"
-                        Width="{Binding ElementName=EarningsGrid, Path=Columns[1].ActualWidth}"
+                        Width="{Binding ElementName=SalesDailyGrid, Path=Columns[1].ActualWidth}"
                         Padding="3,2,2,3"
                         Background="Beige"
-                        Text="{Binding EarningsSum}" />
+                        Text="{Binding SalesDailySum}" />
                 </StackPanel>
             </StackPanel>
         </Grid>

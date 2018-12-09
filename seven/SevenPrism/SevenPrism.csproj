@@ -64,7 +64,6 @@
     <Compile Include="Reports\SalesListReport.xaml.cs">
       <DependentUpon>SalesListReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reports\SalesListReportDataModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="Views\Report.xaml.cs">
       <DependentUpon>Report.xaml</DependentUpon>
@@ -110,7 +109,6 @@
     <Compile Include="Helpers\ApplicationInfo.cs" />
     <Compile Include="Helpers\DataGridHelper.cs" />
     <Compile Include="Models\Deposit.cs" />
-    <Compile Include="Models\SaleDaily.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Repositories\DatabaseContext.cs" />
     <Compile Include="ViewModels\CashViewModel.cs" />
@@ -150,6 +148,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctrl="clr-namespace:SevenPrism.Helpers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:SevenPrism.Reports"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:SevenPrism.Properties"
     x:Name="flowDocument"
@@ -14,14 +13,6 @@
     mc:Ignorable="d">
 
     <Table>
-        <!--<Table.Columns>
-            <TableColumn />
-            <TableColumn />
-            <TableColumn />
-            <TableColumn />
-            <TableColumn />
-        </Table.Columns>-->
-
         <TableRowGroup>
             <TableRow
                 FontSize="20"
@@ -132,7 +123,7 @@
                             BorderBrush="#FF4F81BD"
                             BorderThickness="0,0,1,1">
                             <Paragraph>
-                                <Run Text="{Binding Number, Mode=OneTime}" />
+                                <Run Text="{Binding Amount, Mode=OneTime}" />
                             </Paragraph>
                         </TableCell>
                         <TableCell
