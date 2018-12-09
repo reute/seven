@@ -11,11 +11,21 @@ namespace SevenPrism.Models
     {
         private int? _number;
         private decimal? _price;
-
+        private DateTime _date = DateTime.Now;
 
         public int Id { get; set; }
-
-        public DateTime Date { get; set; } = DateTime.Now;
+     
+        public DateTime Date
+        {
+            get
+            {
+                return _date;
+            }
+            set
+            {
+                SetProperty(ref _date, value);
+            }
+        }
 
         public Category? Category { get; set; }
 

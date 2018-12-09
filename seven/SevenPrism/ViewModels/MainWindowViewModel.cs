@@ -10,7 +10,7 @@ using Prism.Regions;
 using SevenPrism.Views;
 using SevenPrism.Helpers;
 using SevenPrism.Models;
-using SevenPrism.Services;
+using SevenPrism.Repository;
 
 namespace SevenPrism.ViewModels
 {   
@@ -20,45 +20,48 @@ namespace SevenPrism.ViewModels
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand ExitCommand { get; }
 
-        public string DatabasePath { get; set; } = Resources.NotAvailable;
+        public string DatabasePath { get; set; } = Settings.Default.DatabasePath;
         public string Title { get; set; } = ApplicationInfo.ProductName;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="regionManager"></param>
-        public MainWindowViewModel(DataService ds, IRegionManager regionManager)
+        public MainWindowViewModel(DatabaseContext dc, IRegionManager regionManager)
         {
-            DataService = ds;
+            Dc = dc;
 
             AboutCommand = new DelegateCommand(ShowAboutMessage);
-            SaveCommand = new DelegateCommand(OnSave, CanSave);
+            SaveCommand = new DelegateCommand(OnSave);
+            ExitCommand = new DelegateCommand(OnExit);
 
             regionManager.RegisterViewWithRegion("SalesRegion", typeof(Sales));
             regionManager.RegisterViewWithRegion("CashRegion", typeof(Cash));
         }
+      
 
-        private DataService DataService;
+        private void OnExit()
+        {
+            OnClosing(this, null);
+            Application.Current.Shutdown();          
+        }
+
+        private DatabaseContext Dc;
 
         private void ShowAboutMessage()
         {
             var mainWin = Application.Current.MainWindow;
             MessageBox.Show(mainWin, string.Format(CultureInfo.CurrentCulture, Resources.AboutText, ApplicationInfo.ProductName, ApplicationInfo.Version));
-        }
-
-        private bool CanSave()
-        {
-            return true;
-        }
+        }       
 
         private void OnSave()
         {
-            DataService.Save();
+            Dc.SaveChanges();
         }
 
         public void OnClosing(object sender, CancelEventArgs e)
         {
-            if (DataService.HasChanges)
+            if (Dc.ChangeTracker.HasChanges())
             {
                 ShowUnsavedChangesDialog();
             }
@@ -75,7 +78,7 @@ namespace SevenPrism.ViewModels
           
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                DataService.Save();
+                Dc.SaveChanges();
             }            
         }
     }

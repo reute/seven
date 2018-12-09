@@ -7,7 +7,6 @@ using System.Linq;
 using System.Windows.Data;
 using SevenPrism.Models;
 using SevenPrism.Repository;
-using SevenPrism.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -26,15 +25,19 @@ namespace SevenPrism.ViewModels
         public DelegateCommand AddNewCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
 
+        private DatabaseContext Db;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="depositRepo"></param>
         /// <param name="orderRepo"></param>
-        public CashViewModel(DataService dataService)
-        {
-            Deposits = dataService.Deposits;
-            Sales = dataService.Sales;
+        public CashViewModel(DatabaseContext db)
+        {  
+            Db = db;        
+
+            Sales = Db.Sales.Local.ToObservableCollection();
+            Deposits = Db.Deposits.Local.ToObservableCollection();
 
             AddNewCommand = new DelegateCommand(AddNewDeposit, CanAddNewDeposit);
             RemoveCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit).ObservesProperty(() => SelectedDeposit);
@@ -88,7 +91,7 @@ namespace SevenPrism.ViewModels
             if (e.PropertyName.Equals("Amount"))
             {
                 RaisePropertyChanged(nameof(DepositsSum));
-            }
+            } 
         }
 
         private void Orders_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -112,6 +115,12 @@ namespace SevenPrism.ViewModels
         void Sale_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("Sum"))
+            {
+                UpdateEarnings(Earnings, Sales);
+                RaisePropertyChanged(nameof(EarningsSum));
+            }
+
+            if (e.PropertyName.Equals("Date"))
             {
                 UpdateEarnings(Earnings, Sales);
                 RaisePropertyChanged(nameof(EarningsSum));

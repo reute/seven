@@ -75,24 +75,24 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Date, StringFormat=d}"
+                    Binding="{Binding Date, StringFormat=d, UpdateSourceTrigger=LostFocus}"
                     Header="{x:Static p:Resources.ColumnHeaderDate}" />
                 <DataGridComboBoxColumn
                     Width="*"
                     Header="{x:Static p:Resources.ColumnHeaderStaff}"
                     IsReadOnly="False"
                     ItemsSource="{Binding Source={StaticResource StaffResource}}"
-                    SelectedItemBinding="{Binding Staff}" />
+                    SelectedItemBinding="{Binding Staff, UpdateSourceTrigger=LostFocus}" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Detail}"
+                    Binding="{Binding Detail, UpdateSourceTrigger=LostFocus}"
                     Header="{x:Static p:Resources.ColumnHeaderDetail}" />
                 <DataGridComboBoxColumn
                     Width="*"
                     Header="{x:Static p:Resources.ColumnHeaderCategory}"
                     IsReadOnly="False"
                     ItemsSource="{Binding Source={StaticResource Categories}}"
-                    SelectedItemBinding="{Binding Category}" />
+                    SelectedItemBinding="{Binding Category, UpdateSourceTrigger=LostFocus}" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Number, UpdateSourceTrigger=LostFocus}"

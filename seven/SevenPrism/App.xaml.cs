@@ -3,7 +3,8 @@ using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
 using SevenPrism.Repository;
-using SevenPrism.Services;
+using Microsoft.EntityFrameworkCore;
+using SevenPrism.Properties;
 
 namespace SevenPrism
 {
@@ -19,8 +20,7 @@ namespace SevenPrism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton(typeof(DatabaseContext));
-            containerRegistry.RegisterSingleton(typeof(DataService));            
-        }
+            containerRegistry.RegisterSingleton(typeof(DatabaseContext));          
+        }      
     }
 }

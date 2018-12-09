@@ -92,7 +92,6 @@
     <Compile Include="Models\SaleDaily.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Repositories\DatabaseContext.cs" />
-    <Compile Include="Services\DataService.cs" />
     <Compile Include="ViewModels\CashViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SalesViewModel.cs" />
@@ -127,8 +126,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
@@ -156,6 +156,9 @@
     <Resource Include="Resources\Images\Redo.png" />
     <Resource Include="Resources\Images\Save.png" />
     <Resource Include="Resources\Images\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

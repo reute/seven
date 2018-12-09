@@ -10,7 +10,6 @@ using System.Linq;
 using Prism.Events;
 using SevenPrism.Events;
 using System.Collections;
-using SevenPrism.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace SevenPrism.ViewModels
@@ -48,15 +47,19 @@ namespace SevenPrism.ViewModels
             }
         }
 
+        private DatabaseContext Db;
+
         /// <summary> 
         /// Constructor
         /// </summary>
         /// <param name="orderRepo"></param>
         /// <param name="ea"></param>
-        public SalesViewModel(DataService dataService, IEventAggregator ea)
+        public SalesViewModel(DatabaseContext db, IEventAggregator ea)
         {
             Ea = ea;
-            Sales = dataService.Sales;
+            Db = db;      
+
+            Sales = Db.Sales.Local.ToObservableCollection();          
 
             AddNewCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
             RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale).ObservesProperty(() => SelectedSale);
@@ -262,20 +265,11 @@ namespace SevenPrism.ViewModels
 //        OpenFileDialog();
 //    }
 
-//    private void Save_OnClick(object sender, RoutedEventArgs e)
-//    {
-//        SaveFile(Revenues, _filePath);
-//    }
 
-//    private void SaveAs_OnClick(object sender, RoutedEventArgs e)
-//    {
-//        SaveAsDialog(Revenues);
-//    }
 
-//    private void Exit_OnClick(object sender, RoutedEventArgs e)
-//    {
-//        Application.Current.Shutdown();
-//    }
+
+
+
 
 
 //    // Clicks Ribbon Buttons
