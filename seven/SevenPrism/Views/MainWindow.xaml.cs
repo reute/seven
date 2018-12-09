@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SevenPrism.ViewModels;
+using System.Windows;
 
 namespace SevenPrism.Views
 {
@@ -10,6 +11,7 @@ namespace SevenPrism.Views
         public MainWindow()
         {
             InitializeComponent();
-        }
+            Closing += (DataContext as MainWindowViewModel).OnClosing;
+        }      
     }
 }

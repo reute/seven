@@ -367,24 +367,7 @@ namespace SevenPrism.ViewModels
 //        //throw new NotImplementedException();
 //    }
 
-//    private void UnsavedWarningDialog(List<Article> colArticles, string filePath)
-//    {
-//        var messageBoxText =
-//            "This document has unsaved changes. Click Yes to save them or No to discard changes";
-//        var caption = "Obacht";
-//        var button = MessageBoxButton.YesNo;
-//        var icon = MessageBoxImage.Warning;
 
-//        var messageBoxResult = MessageBox.Show(messageBoxText, caption, button, icon);
-
-//        if (filePath == null)
-//        {
-//            if (messageBoxResult == MessageBoxResult.Yes)
-//            {
-//                SaveFile(colArticles, _filePath);
-//            }
-//        }
-//    }
 
 
 //    private void SaveAsDialog(List<Article> colArticles)

@@ -13,7 +13,18 @@ namespace SevenPrism.Services
     public class DataService
     {
         public ObservableCollection<Deposit> Deposits { get; }
-        public ObservableCollection<Sale> Sales { get; }          
+        public ObservableCollection<Sale> Sales { get; }    
+        
+        public bool HasChanges
+        {
+            get
+            {
+                if (SqliteContext.ChangeTracker.HasChanges())
+                    return true;
+                else
+                    return false;
+            }
+        }
 
         //private readonly DbContextOptions<SqliteRepository> _dbOptions;
 
