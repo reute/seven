@@ -1,0 +1,52 @@
+﻿<UserControl
+    x:Class="SevenPrism.Views.Report"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:p="clr-namespace:SevenPrism.Properties"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <DockPanel>
+        <Border Background="{x:Static SystemColors.ControlBrush}" DockPanel.Dock="Left">
+            <StackPanel Width="140" Margin="11,11,16,11">
+                <Label Content="{x:Static p:Resources.CreateReport}" Style="{StaticResource HeaderLabel}" />
+
+                <Label Margin="0,22,0,0">
+                    <TextBlock Text="List of all sales" TextWrapping="Wrap" />
+                </Label>
+                <Button
+                    x:Name="createButton"
+                    Margin="0,11,0,0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CreateBookListReportCommand}"
+                    Content="{x:Static p:Resources.Create}"
+                    Style="{StaticResource DialogButton}" />
+
+                <Label Margin="0,22,0,0">
+                    <TextBlock Text="Pricelist" TextWrapping="Wrap" />
+                </Label>
+                <Button
+                    Margin="0,11,0,0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CreateBorrowedBooksReportCommand}"
+                    Content="{x:Static p:Resources.Create}"
+                    Style="{StaticResource DialogButton}" />
+
+                <Label Margin="0,44,0,0">
+                    <TextBlock Text="Print the report" TextWrapping="Wrap" />
+                </Label>
+                <Button
+                    Margin="0,11,0,0"
+                    HorizontalAlignment="Right"
+                    Command="ApplicationCommands.Print"
+                    CommandTarget="{Binding ElementName=reportReader}"
+                    Content="{x:Static p:Resources.Print}"
+                    Style="{StaticResource DialogButton}" />
+            </StackPanel>
+        </Border>
+
+        <FlowDocumentReader
+            x:Name="reportReader"
+            Padding="0,-30,0,0"
+            Document="{Binding Report}" />
+    </DockPanel>
+</UserControl>

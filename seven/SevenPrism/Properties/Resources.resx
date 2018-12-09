@@ -365,4 +365,37 @@ https://github.com/reute/four</value>
   <data name="WasReturnedCheck" xml:space="preserve">
     <value>Was returned</value>
   </data>
+  <data name="Author1" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateReport" xml:space="preserve">
+    <value>Create a report</value>
+  </data>
+  <data name="ListAllBooks" xml:space="preserve">
+    <value>List all books</value>
+  </data>
+  <data name="ListBorrowedBooks" xml:space="preserve">
+    <value>List the borrowed books</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="ReportBookListCount" xml:space="preserve">
+    <value>Count {0}</value>
+  </data>
+  <data name="ReportBookListTitle" xml:space="preserve">
+    <value>Report: Book list</value>
+  </data>
+  <data name="ReportBorrowedBooksTitle" xml:space="preserve">
+    <value>Report: Borrowed books</value>
+  </data>
+  <data name="ReportPersonsCount" xml:space="preserve">
+    <value>Persons count {0}</value>
+  </data>
+  <data name="Title1" xml:space="preserve">
+    <value>Title</value>
+  </data>
 </root>

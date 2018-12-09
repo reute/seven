@@ -49,4 +49,16 @@
         <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />
     </Style>
 
+    <Style x:Key="DialogButton" TargetType="Button">
+        <Setter Property="MinWidth" Value="75" />
+        <Setter Property="MinHeight" Value="23" />
+    </Style>
+
+    <Style
+        x:Key="HeaderLabel"
+        BasedOn="{StaticResource {x:Type Label}}"
+        TargetType="Label">
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
 </ResourceDictionary>

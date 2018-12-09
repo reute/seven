@@ -37,6 +37,7 @@ namespace SevenPrism.ViewModels
 
             regionManager.RegisterViewWithRegion("SalesRegion", typeof(Sales));
             regionManager.RegisterViewWithRegion("CashRegion", typeof(Cash));
+            regionManager.RegisterViewWithRegion("ReportRegion", typeof(Report));
         }
       
 

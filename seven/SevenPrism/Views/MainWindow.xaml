@@ -176,19 +176,14 @@
                         VerticalAlignment="Stretch" />
                 </Grid>
             </TabItem>
-            <!--<TabItem Header="{x:Static p:Resources.Reporting}" Visibility="{Binding ShellService.IsReportingEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
-                <ContentControl>
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <Trigger Property="IsVisible" Value="True">
-                                    <Setter Property="Content" Value="{Binding ShellService.LazyReportingView.Value}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-            </TabItem>-->
+            <TabItem Header="{x:Static p:Resources.Reporting}">
+                <!--  ReportRegion  -->
+                <ContentControl
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    prism:RegionManager.RegionName="ReportRegion" />
+            </TabItem>
         </TabControl>
 
     </DockPanel>
