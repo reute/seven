@@ -17,10 +17,10 @@ namespace SevenPrism.ViewModels
         public ObservableCollection<Deposit> Deposits { get; }
         public ICollectionView DepositsCollectionView { get; }
         public ObservableCollection<Sale> Sales { get; }
-        public ObservableCollection<SaleDaily> Earnings { get; } = new ObservableCollection<SaleDaily>();
+        public ObservableCollection<SaleDaily> SalesDaily { get; } = new ObservableCollection<SaleDaily>();
 
         public string DepositsSum => Deposits.Sum(x => x.Amount).ToString();
-        public string EarningsSum => Earnings.Sum(x => x.Amount).ToString();
+        public string SalesDailySum => SalesDaily.Sum(x => x.Amount).ToString();
 
         public DelegateCommand AddNewCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
@@ -38,6 +38,8 @@ namespace SevenPrism.ViewModels
 
             Sales = Db.Sales.Local.ToObservableCollection();
             Deposits = Db.Deposits.Local.ToObservableCollection();
+
+            DepositsCollectionView = CollectionViewSource.GetDefaultView(Deposits);
 
             AddNewCommand = new DelegateCommand(AddNewDeposit, CanAddNewDeposit);
             RemoveCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit).ObservesProperty(() => SelectedDeposit);
@@ -60,11 +62,9 @@ namespace SevenPrism.ViewModels
                 item.PropertyChanged += Sale_PropertyChanged;
             }
             // 2. for all items which are going to be removed or added to Orders
-            Sales.CollectionChanged += Orders_CollectionChanged;
+            Sales.CollectionChanged += Orders_CollectionChanged;     
 
-            DepositsCollectionView = CollectionViewSource.GetDefaultView(Deposits);
-
-            UpdateEarnings(Earnings, Sales);
+            UpdateEarnings(SalesDaily, Sales);
         }
 
 
@@ -107,7 +107,7 @@ namespace SevenPrism.ViewModels
             {
                 foreach (Sale item in e.OldItems)
                     item.PropertyChanged -= Sale_PropertyChanged;
-                UpdateEarnings(Earnings, Sales);
+                UpdateEarnings(SalesDaily, Sales);
                 return;
             }
         }
@@ -115,15 +115,15 @@ namespace SevenPrism.ViewModels
         void Sale_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("Sum"))
-            {
-                UpdateEarnings(Earnings, Sales);
-                RaisePropertyChanged(nameof(EarningsSum));
+              {
+                UpdateEarnings(SalesDaily, Sales);
+                RaisePropertyChanged(nameof(SalesDailySum));
             }
 
             if (e.PropertyName.Equals("Date"))
             {
-                UpdateEarnings(Earnings, Sales);
-                RaisePropertyChanged(nameof(EarningsSum));
+                UpdateEarnings(SalesDaily, Sales);
+                RaisePropertyChanged(nameof(SalesDailySum));
             }
         }
 

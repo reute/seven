@@ -383,9 +383,6 @@ https://github.com/reute/four</value>
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>
-  <data name="ReportBookListCount" xml:space="preserve">
-    <value>Count {0}</value>
-  </data>
   <data name="ReportBookListTitle" xml:space="preserve">
     <value>Report: Book list</value>
   </data>
@@ -394,6 +391,9 @@ https://github.com/reute/four</value>
   </data>
   <data name="ReportPersonsCount" xml:space="preserve">
     <value>Persons count {0}</value>
+  </data>
+  <data name="ReportSalesListCount" xml:space="preserve">
+    <value>Count {0}</value>
   </data>
   <data name="Title1" xml:space="preserve">
     <value>Title</value>

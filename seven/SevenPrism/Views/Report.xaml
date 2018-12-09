@@ -17,17 +17,17 @@
                     x:Name="createButton"
                     Margin="0,11,0,0"
                     HorizontalAlignment="Right"
-                    Command="{Binding CreateBookListReportCommand}"
+                    Command="{Binding CreateSalesListReportCommand}"
                     Content="{x:Static p:Resources.Create}"
                     Style="{StaticResource DialogButton}" />
 
                 <Label Margin="0,22,0,0">
-                    <TextBlock Text="Pricelist" TextWrapping="Wrap" />
+                    <TextBlock Text="List of all articles" TextWrapping="Wrap" />
                 </Label>
                 <Button
                     Margin="0,11,0,0"
                     HorizontalAlignment="Right"
-                    Command="{Binding CreateBorrowedBooksReportCommand}"
+                    Command="{Binding CreateArticlesListReportCommand}"
                     Content="{x:Static p:Resources.Create}"
                     Style="{StaticResource DialogButton}" />
 

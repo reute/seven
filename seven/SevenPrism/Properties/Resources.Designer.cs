@@ -688,15 +688,6 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Count {0}.
-        /// </summary>
-        public static string ReportBookListCount {
-            get {
-                return ResourceManager.GetString("ReportBookListCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Report: Book list.
         /// </summary>
         public static string ReportBookListTitle {
@@ -729,6 +720,15 @@ namespace SevenPrism.Properties {
         public static string ReportPersonsCount {
             get {
                 return ResourceManager.GetString("ReportPersonsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count {0}.
+        /// </summary>
+        public static string ReportSalesListCount {
+            get {
+                return ResourceManager.GetString("ReportSalesListCount", resourceCulture);
             }
         }
         
