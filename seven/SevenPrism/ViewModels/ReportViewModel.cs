@@ -22,7 +22,8 @@ namespace SevenPrism.ViewModels
 
         private readonly IEventAggregator Ea;
 
-        private DateTime _dateSelected = Settings.Default.DateSelected;
+        private DateTime _fromDate = Settings.Default.DateSelected;
+        private DateTime _toDate = DateTime.Now;
 
         public ReportViewModel(DatabaseContext db, IEventAggregator ea)
         {
@@ -35,9 +36,10 @@ namespace SevenPrism.ViewModels
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
         }
 
-        private void DateSelectedChangedHandler(DateTime date)
+        private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
-            _dateSelected = date;
+            _fromDate = timePeriod.FromDate;
+            _toDate = timePeriod.ToDate;
         }
 
         private void CreateArticlesListReport()
@@ -46,7 +48,7 @@ namespace SevenPrism.ViewModels
 
         private void CreateSalesListReport()
         {          
-            Report = new SalesListReport(Db.Sales.ToList());           
+            Report = new SalesListReport(Db.Sales.Where(x => x.Date.Date >= _fromDate.Date || x.Date.Date <= _toDate.Date).ToList());           
         }
 
         private FlowDocument _report;

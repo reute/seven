@@ -27,7 +27,8 @@ namespace SevenPrism.ViewModels
             set => SetProperty(ref selectedSale, value);
         }
 
-        private DateTime _dateSelected = Settings.Default.DateSelected;
+        private DateTime _fromDate = Settings.Default.DateSelected;
+        private DateTime _toDate = DateTime.Now;
 
         public DelegateCommand AddNewCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
@@ -75,9 +76,11 @@ namespace SevenPrism.ViewModels
         }
 
 
-        private void DateSelectedChangedHandler(DateTime date)
+        private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
-            _dateSelected = date;
+
+            _fromDate = timePeriod.FromDate;
+            _toDate = timePeriod.ToDate;
             SalesCollectionView.Refresh();
         }
 
@@ -143,18 +146,12 @@ namespace SevenPrism.ViewModels
             var sale = obj as Sale;
 
             // if Sales date is older than set date
-
-            if (sale.Date < _dateSelected)            
-                return false;            
+            if (sale.Date.Date < _fromDate.Date || sale.Date.Date > _toDate.Date)            
+                return false;
 
             // if string is not found in sales detail column
             if (sale.Detail.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0)
-                return false;
-
-            //if (string.IsNullOrEmpty(FilterString))
-            //    return true;
-
-            //string.Compare is case sensitive          
+                return false;                
 
             return true;
         }

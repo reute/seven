@@ -20,7 +20,7 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="{x:Static p:Resources.DataMenu}">
+            <MenuItem Header="{x:Static p:Resources.FileMenu}">
                 <MenuItem
                     Command="{Binding SaveCommand}"
                     Header="{x:Static p:Resources.SaveMenu}"
@@ -103,10 +103,16 @@
                     Content="{StaticResource PasteImage}"
                     ToolTip="{x:Static p:Resources.Paste}" />
                 <Separator />
+                <TextBlock VerticalAlignment="Center" Text="From" />
                 <DatePicker
                     Margin="5"
-                    SelectedDate="{Binding DateSelected}"
-                    ToolTip="Displaying all Data starting from" />
+                    SelectedDate="{Binding FromDate}"
+                    ToolTip="Displaying data from" />
+                <TextBlock VerticalAlignment="Center" Text="To" />
+                <DatePicker
+                    Margin="5"
+                    SelectedDate="{Binding ToDate}"
+                    ToolTip="Displaying data to" />
             </ToolBar>
         </ToolBarTray>
 

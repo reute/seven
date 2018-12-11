@@ -211,8 +211,8 @@ https://github.com/reute/seven</value>
   <data name="DatabasePath" xml:space="preserve">
     <value>Database: {0}</value>
   </data>
-  <data name="DataMenu" xml:space="preserve">
-    <value>_Data</value>
+  <data name="FileMenu" xml:space="preserve">
+    <value>_File</value>
   </data>
   <data name="Del" xml:space="preserve">
     <value>Del</value>

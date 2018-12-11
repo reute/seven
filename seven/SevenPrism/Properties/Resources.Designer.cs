@@ -362,15 +362,6 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Data.
-        /// </summary>
-        public static string DataMenu {
-            get {
-                return ResourceManager.GetString("DataMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Del.
         /// </summary>
         public static string Del {
@@ -441,6 +432,15 @@ namespace SevenPrism.Properties {
         public static string F1 {
             get {
                 return ResourceManager.GetString("F1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _File.
+        /// </summary>
+        public static string FileMenu {
+            get {
+                return ResourceManager.GetString("FileMenu", resourceCulture);
             }
         }
         

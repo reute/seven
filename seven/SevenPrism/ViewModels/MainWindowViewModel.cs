@@ -19,19 +19,33 @@ namespace SevenPrism.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-
-        private DateTime _dateSelected = Settings.Default.DateSelected; 
-        public DateTime DateSelected {
+        private DateTime _fromDate = Settings.Default.DateSelected; 
+        public DateTime FromDate {
             get
             {
-                return _dateSelected;
+                return _fromDate;
             }
             set
             {
-                _dateSelected = value;
-                Ea.GetEvent<DateSelectedChangedEvent>().Publish(_dateSelected);
+                _fromDate = value;
+                Ea.GetEvent<DateSelectedChangedEvent>().Publish(new TimePeriod(value, ToDate));
             }
         }
+
+        private DateTime _toDate = DateTime.Now;
+        public DateTime ToDate
+        {
+            get
+            {
+                return _toDate;
+            }
+            set
+            {
+                _toDate = value;
+                Ea.GetEvent<DateSelectedChangedEvent>().Publish(new TimePeriod(FromDate, value));
+            }
+        }
+
         public DelegateCommand AboutCommand { get; }
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand ExitCommand { get; }
@@ -81,7 +95,7 @@ namespace SevenPrism.ViewModels
 
         public void OnClosing(object sender, CancelEventArgs e)
         {
-            Settings.Default.DateSelected = DateSelected;
+            Settings.Default.DateSelected = FromDate;
             Settings.Default.Save();
             if (Dc.ChangeTracker.HasChanges())
             {

@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace SevenPrism.Events
 {
-    class DateSelectedChangedEvent : PubSubEvent<DateTime>
+    public class DateSelectedChangedEvent : PubSubEvent<TimePeriod>
+    {}
+
+    public struct TimePeriod
     {
-        internal void Subscribe()
+        public DateTime FromDate, ToDate;
+
+        public TimePeriod(DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
+            FromDate = from;
+            ToDate = to;
         }
     }
 }

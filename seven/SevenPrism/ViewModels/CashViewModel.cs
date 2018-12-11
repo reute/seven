@@ -33,7 +33,8 @@ namespace SevenPrism.ViewModels
 
         private readonly IEventAggregator Ea;
 
-        private DateTime _dateSelected = Settings.Default.DateSelected;
+        private DateTime _fromDate = Settings.Default.DateSelected;
+        private DateTime _toDate = DateTime.Now;
 
         private DatabaseContext Db;
 
@@ -90,7 +91,7 @@ namespace SevenPrism.ViewModels
             var deposit = obj as Deposit;
 
             // if Sales date is older than set date
-            if (deposit.Date < _dateSelected)
+            if (deposit.Date.Date < _fromDate.Date || deposit.Date.Date > _toDate.Date)
                 return false;
 
             return true;
@@ -102,16 +103,18 @@ namespace SevenPrism.ViewModels
             var saleDaily = obj as SaleDaily;
 
             // if saleDaily date is older than set date
-            if (saleDaily.Date < _dateSelected)
+            if (saleDaily.Date.Date < _fromDate.Date || saleDaily.Date.Date > _toDate.Date)
                 return false;
 
             return true;
         }
 
 
-        private void DateSelectedChangedHandler(DateTime date)
+        private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
-            _dateSelected = date;
+
+            _fromDate = timePeriod.FromDate;
+            _toDate = timePeriod.ToDate;
             DepositsCollectionView.Refresh();
             RaisePropertyChanged(nameof(DepositsSum));
 
