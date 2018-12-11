@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="CustomControls\BindableTable.cs" />
     <Compile Include="CustomControls\ContentElement.cs" />
+    <Compile Include="Events\StartingDateChanged.cs" />
     <Compile Include="Reports\ArticlesListReport.xaml.cs">
       <DependentUpon>ArticlesListReport.xaml</DependentUpon>
     </Compile>

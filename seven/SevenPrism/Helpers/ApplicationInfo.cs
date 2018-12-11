@@ -11,7 +11,6 @@ namespace SevenPrism.Helpers
         private static readonly Lazy<string> copyright = new Lazy<string>(GetCopyright);
         private static readonly Lazy<string> applicationPath = new Lazy<string>(GetApplicationPath);
 
-
         /// <summary>
         /// Gets the product name of the application.
         /// </summary>

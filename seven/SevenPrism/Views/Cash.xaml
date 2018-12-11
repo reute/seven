@@ -96,7 +96,7 @@
                     x:Name="SalesDailyGrid"
                     BorderThickness="0"
                     CanUserDeleteRows="False"
-                    ItemsSource="{Binding SalesDaily}">
+                    ItemsSource="{Binding SalesDailyCollectionView}">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn

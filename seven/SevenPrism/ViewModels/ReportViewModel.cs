@@ -1,6 +1,9 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using SevenPrism.Events;
 using SevenPrism.Models;
+using SevenPrism.Properties;
 using SevenPrism.Reports;
 using SevenPrism.Repository;
 using SevenPrism.Views;
@@ -17,12 +20,24 @@ namespace SevenPrism.ViewModels
     {
         DatabaseContext Db;
 
-        public ReportViewModel(DatabaseContext db)
+        private readonly IEventAggregator Ea;
+
+        private DateTime _dateSelected = Settings.Default.DateSelected;
+
+        public ReportViewModel(DatabaseContext db, IEventAggregator ea)
         {
             CreateSalesListReportCommand = new DelegateCommand(CreateSalesListReport);
             CreateArticlesListReportCommand = new DelegateCommand(CreateArticlesListReport);
 
             Db = db;
+            Ea = ea;
+
+            Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
+        }
+
+        private void DateSelectedChangedHandler(DateTime date)
+        {
+            _dateSelected = date;
         }
 
         private void CreateArticlesListReport()

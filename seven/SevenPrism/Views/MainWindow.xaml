@@ -102,6 +102,11 @@
                     Command="ApplicationCommands.Paste"
                     Content="{StaticResource PasteImage}"
                     ToolTip="{x:Static p:Resources.Paste}" />
+                <Separator />
+                <DatePicker
+                    Margin="5"
+                    SelectedDate="{Binding DateSelected}"
+                    ToolTip="Displaying all Data starting from" />
             </ToolBar>
         </ToolBarTray>
 

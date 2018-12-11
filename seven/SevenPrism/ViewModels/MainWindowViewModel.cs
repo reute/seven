@@ -11,11 +11,27 @@ using SevenPrism.Views;
 using SevenPrism.Helpers;
 using SevenPrism.Models;
 using SevenPrism.Repository;
+using System.Linq;
+using Prism.Events;
+using SevenPrism.Events;
 
 namespace SevenPrism.ViewModels
-{   
+{
     public class MainWindowViewModel : BindableBase
     {
+
+        private DateTime _dateSelected = Settings.Default.DateSelected; 
+        public DateTime DateSelected {
+            get
+            {
+                return _dateSelected;
+            }
+            set
+            {
+                _dateSelected = value;
+                Ea.GetEvent<DateSelectedChangedEvent>().Publish(_dateSelected);
+            }
+        }
         public DelegateCommand AboutCommand { get; }
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand ExitCommand { get; }
@@ -23,13 +39,16 @@ namespace SevenPrism.ViewModels
         public string DatabasePath { get; set; } = Settings.Default.DatabasePath;
         public string Title { get; set; } = ApplicationInfo.ProductName;
 
+        private readonly IEventAggregator Ea;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="regionManager"></param>
-        public MainWindowViewModel(DatabaseContext dc, IRegionManager regionManager)
+        public MainWindowViewModel(DatabaseContext dc, IRegionManager regionManager, IEventAggregator ea)
         {
             Dc = dc;
+            Ea = ea;
 
             AboutCommand = new DelegateCommand(ShowAboutMessage);
             SaveCommand = new DelegateCommand(OnSave);
@@ -62,6 +81,8 @@ namespace SevenPrism.ViewModels
 
         public void OnClosing(object sender, CancelEventArgs e)
         {
+            Settings.Default.DateSelected = DateSelected;
+            Settings.Default.Save();
             if (Dc.ChangeTracker.HasChanges())
             {
                 ShowUnsavedChangesDialog();

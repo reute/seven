@@ -31,5 +31,17 @@ namespace SevenPrism.Properties {
                 return ((string)(this["DatabasePath"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2018-12-10")]
+        public global::System.DateTime DateSelected {
+            get {
+                return ((global::System.DateTime)(this["DateSelected"]));
+            }
+            set {
+                this["DateSelected"] = value;
+            }
+        }
     }
 }

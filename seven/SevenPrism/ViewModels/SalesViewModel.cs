@@ -11,6 +11,7 @@ using Prism.Events;
 using SevenPrism.Events;
 using System.Collections;
 using Microsoft.EntityFrameworkCore;
+using SevenPrism.Properties;
 
 namespace SevenPrism.ViewModels
 {
@@ -25,6 +26,8 @@ namespace SevenPrism.ViewModels
             get => selectedSale;
             set => SetProperty(ref selectedSale, value);
         }
+
+        private DateTime _dateSelected = Settings.Default.DateSelected;
 
         public DelegateCommand AddNewCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
@@ -57,7 +60,9 @@ namespace SevenPrism.ViewModels
         public SalesViewModel(DatabaseContext db, IEventAggregator ea)
         {
             Ea = ea;
-            Db = db;      
+            Db = db;
+
+            Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
             Sales = Db.Sales.Local.ToObservableCollection();          
 
@@ -67,6 +72,13 @@ namespace SevenPrism.ViewModels
             SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
 
             SalesCollectionView.Filter += new Predicate<object>(SaleViewFilterHandler);
+        }
+
+
+        private void DateSelectedChangedHandler(DateTime date)
+        {
+            _dateSelected = date;
+            SalesCollectionView.Refresh();
         }
 
         private Sale selectedSale;
@@ -128,16 +140,23 @@ namespace SevenPrism.ViewModels
 
         private bool SaleViewFilterHandler(object obj)
         {
-            var data = obj as Sale;
+            var sale = obj as Sale;
 
-            if (string.IsNullOrEmpty(FilterString))
-                return true;
+            // if Sales date is older than set date
 
-            //string.Compare is case sensitive
-            if (data.Detail.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) >= 0)
-                return true;
+            if (sale.Date < _dateSelected)            
+                return false;            
 
-            return false;
+            // if string is not found in sales detail column
+            if (sale.Detail.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0)
+                return false;
+
+            //if (string.IsNullOrEmpty(FilterString))
+            //    return true;
+
+            //string.Compare is case sensitive          
+
+            return true;
         }
     }
 }
