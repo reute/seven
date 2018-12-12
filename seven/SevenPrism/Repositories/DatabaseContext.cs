@@ -16,7 +16,9 @@ namespace SevenPrism.Repository
         {
             Database.EnsureCreated();
             Sales.Load();
-            Deposits.Load();   
+            Deposits.Load();
+            Referents.Load();
+            Categories.Load();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,5 +37,18 @@ namespace SevenPrism.Repository
             get;
             set;
         }
+
+        public DbSet<Referent> Referents
+        {
+            get;
+            set;
+        }
+
+        public DbSet<Category> Categories
+        {
+            get;
+            set;
+        }
     }
 }
+

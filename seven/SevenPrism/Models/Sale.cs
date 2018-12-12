@@ -27,11 +27,11 @@ namespace SevenPrism.Models
             }
         }
 
-        public Category? Category { get; set; }
+        public Category Cat { get; set; }
 
         public string Detail { get; set; } = string.Empty;
 
-        public Staff? Staff { get; set; }
+        public Referent Ref { get; set; }
 
         public int? Amount
         {
@@ -65,25 +65,25 @@ namespace SevenPrism.Models
     }
 
     //[TypeConverter(typeof(EnumDescriptionTypeConverter))]
-    public enum Category
-    {
-        // [Description("This is Kette")]
-        Kette,
-        Schlauch,
-        Bremse,
-        Licht,
-        Kurbel,
-        Kasette,
-        Griffe,
-        Klingel
-    }
+    //public enum Category
+    //{
+    //    // [Description("This is Kette")]
+    //    Kette,
+    //    Schlauch,
+    //    Bremse,
+    //    Licht,
+    //    Kurbel,
+    //    Kasette,
+    //    Griffe,
+    //    Klingel
+    //}
 
     //[TypeConverter(typeof(EnumDescriptionConverter))]
-    public enum Staff
-    {
-        //[Description("This is Jr")]
-        Jr,
-        Jc,
-        Cf
-    }
+    //public enum Staff
+    //{
+    //    //[Description("This is Jr")]
+    //    Jr,
+    //    Jc,
+    //    Cf
+    //}
 }

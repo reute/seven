@@ -12,6 +12,7 @@ using SevenPrism.Events;
 using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using SevenPrism.Properties;
+using System.Collections.Generic;
 
 namespace SevenPrism.ViewModels
 {
@@ -26,6 +27,9 @@ namespace SevenPrism.ViewModels
             get => selectedSale;
             set => SetProperty(ref selectedSale, value);
         }
+
+        public List<Referent> Refs { get; set; }
+        public List<Category> Categories { get; set; }
 
         private DateTime _fromDate = Settings.Default.DateSelected;
         private DateTime _toDate = DateTime.Now;
@@ -65,7 +69,9 @@ namespace SevenPrism.ViewModels
 
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
-            Sales = Db.Sales.Local.ToObservableCollection();          
+            Sales = Db.Sales.Local.ToObservableCollection();
+            Refs = Db.Referents.Local.ToList();
+            Categories = Db.Categories.Local.ToList();
 
             AddNewCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
             RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale).ObservesProperty(() => SelectedSale);
@@ -157,7 +163,7 @@ namespace SevenPrism.ViewModels
         }
     }
 }
-    
+
 //    private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 //    public CollectionViewSource RevenuesViewSource { get; set; }
@@ -215,10 +221,10 @@ namespace SevenPrism.ViewModels
 /* 
   
 1.0
-- Kasse
+
+- konfigurierbare comboboxen
 - lokalisierung
 - logging
-- konfigurierbare comboboxen
 - Tests
 
 2.0

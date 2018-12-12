@@ -13,7 +13,7 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     Loaded="LoadedHandler"
     mc:Ignorable="d">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <ObjectDataProvider
             x:Key="Categories"
             MethodName="GetValues"
@@ -31,6 +31,11 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
+    </UserControl.Resources>-->
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="Refs" Source="{Binding Refs}" />
+        <CollectionViewSource x:Key="Categories" Source="{Binding Categories}" />
     </UserControl.Resources>
 
     <DockPanel>
@@ -79,20 +84,22 @@
                     Header="{x:Static p:Resources.ColumnHeaderDate}" />
                 <DataGridComboBoxColumn
                     Width="*"
+                    DisplayMemberPath="Name"
                     Header="{x:Static p:Resources.ColumnHeaderStaff}"
                     IsReadOnly="False"
-                    ItemsSource="{Binding Source={StaticResource StaffResource}}"
-                    SelectedItemBinding="{Binding Staff, UpdateSourceTrigger=LostFocus}" />
+                    ItemsSource="{Binding Source={StaticResource Refs}}"
+                    SelectedItemBinding="{Binding Ref, UpdateSourceTrigger=LostFocus}" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Detail, UpdateSourceTrigger=LostFocus}"
                     Header="{x:Static p:Resources.ColumnHeaderDetail}" />
                 <DataGridComboBoxColumn
                     Width="*"
+                    DisplayMemberPath="Name"
                     Header="{x:Static p:Resources.ColumnHeaderCategory}"
                     IsReadOnly="False"
                     ItemsSource="{Binding Source={StaticResource Categories}}"
-                    SelectedItemBinding="{Binding Category, UpdateSourceTrigger=LostFocus}" />
+                    SelectedItemBinding="{Binding Cat, UpdateSourceTrigger=LostFocus}" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Amount, UpdateSourceTrigger=LostFocus}"
