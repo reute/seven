@@ -4,34 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:SevenPrism.Models"
     xmlns:p="clr-namespace:SevenPrism.Properties"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="450"
     d:DesignWidth="800"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Loaded="LoadedHandler"
     mc:Ignorable="d">
-    <!--<UserControl.Resources>
-        <ObjectDataProvider
-            x:Key="Categories"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="models:Category" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider
-            x:Key="StaffResource"
-            MethodName="GetValues"
-            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="models:Staff" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-
-    </UserControl.Resources>-->
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="Refs" Source="{Binding Refs}" />
@@ -65,6 +44,8 @@
 
         <DataGrid
             x:Name="SalesGrid"
+            AlternatingRowBackground="Beige"
+            AlternationCount="3"
             BorderThickness="0"
             CanUserDeleteRows="False"
             ItemsSource="{Binding SalesCollectionView}"

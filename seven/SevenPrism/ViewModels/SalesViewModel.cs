@@ -72,7 +72,7 @@ namespace SevenPrism.ViewModels
             Sales = Db.Sales.Local.ToObservableCollection();
             Refs = Db.Referents.Local.ToList();
             Categories = Db.Categories.Local.ToList();
-
+           
             AddNewCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
             RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale).ObservesProperty(() => SelectedSale);
 
@@ -88,6 +88,7 @@ namespace SevenPrism.ViewModels
             _fromDate = timePeriod.FromDate;
             _toDate = timePeriod.ToDate;
             SalesCollectionView.Refresh();
+            //SalesCollectionView.View.
         }
 
         private Sale selectedSale;
@@ -166,20 +167,7 @@ namespace SevenPrism.ViewModels
 
 //    private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-//    public CollectionViewSource RevenuesViewSource { get; set; }
 
-
-//    private bool _letzteEinzahlungFilter;
-//    public bool LetzteEinzahlungFilter
-//    {
-//        get { return _letzteEinzahlungFilter; }
-//        set
-//        {
-//            _letzteEinzahlungFilter = value;
-//            RevenuesViewSource.View.Refresh();
-//            OnPropertyChanged("FilterVon");
-//        }
-//    }
 
 //        //DataGridRevenues.ScrollIntoView(CollectionView.NewItemPlaceholder);
 //        LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
@@ -222,15 +210,16 @@ namespace SevenPrism.ViewModels
   
 1.0
 
-- konfigurierbare comboboxen
 - lokalisierung
 - logging
 - Tests
 
 2.0
+
 - input validation
 - inventar
 - azure
+
 
 */
 
