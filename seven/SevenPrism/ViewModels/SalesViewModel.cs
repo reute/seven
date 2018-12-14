@@ -20,13 +20,7 @@ namespace SevenPrism.ViewModels
     {
 
         public ObservableCollection<Sale> Sales { get; }
-        public ICollectionView SalesCollectionView { get; }
-
-        public Sale SelectedSale
-        {
-            get => selectedSale;
-            set => SetProperty(ref selectedSale, value);
-        }
+        public ICollectionView SalesCollectionView { get; }        
 
         public List<Referent> Refs { get; set; }
         public List<Category> Categories { get; set; }
@@ -74,21 +68,25 @@ namespace SevenPrism.ViewModels
             Categories = Db.Categories.Local.ToList();
            
             AddNewCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
-            RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale).ObservesProperty(() => SelectedSale);
+            RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);
 
             SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
 
-            SalesCollectionView.Filter += new Predicate<object>(SaleViewFilterHandler);
+            SalesCollectionView.Filter += SaleViewFilterHandler;
+            SalesCollectionView.CurrentChanged += SalesCollectionView_CurrentChanged;
         }
 
+        private void SalesCollectionView_CurrentChanged(object sender, EventArgs e)
+        {
+            RemoveCommand.RaiseCanExecuteChanged();
+        }
 
         private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
 
             _fromDate = timePeriod.FromDate;
             _toDate = timePeriod.ToDate;
-            SalesCollectionView.Refresh();
-            //SalesCollectionView.View.
+            SalesCollectionView.Refresh();      
         }
 
         private Sale selectedSale;
@@ -105,16 +103,17 @@ namespace SevenPrism.ViewModels
             var Sale = new Sale();
 
             //TODO: Sale.Validate();
-            Sales.Add(Sale);
-            SelectedSale = Sale;
+            Sales.Add(Sale);          
+            SalesCollectionView.MoveCurrentTo(Sale);
+      
         }
 
-        private bool CanRemoveSale(object selectedSale)
+        private bool CanRemoveSale(object selectedSales)
         {
-            if (selectedSale == null)
+            if (selectedSales == null)
                 return false;
 
-            var listSelectedSales = (IList)selectedSale;
+            var listSelectedSales = (IList)selectedSales;
 
             if (listSelectedSales.Count == 0)
                 return false;
@@ -138,13 +137,13 @@ namespace SevenPrism.ViewModels
             }
             // select Sale below last Sale which was deleted
             if (highestIndex == Sales.Count)
-            {
-                SelectedSale = Sales.Last();
+            {                
+                SalesCollectionView.MoveCurrentToLast();
             }
             else
             {
-                var index = highestIndex - removeList.Count + 1;
-                SelectedSale = Sales[index];
+                var index = highestIndex - removeList.Count + 1;              
+                SalesCollectionView.MoveCurrentToPosition(index);
             }
         }
 

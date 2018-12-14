@@ -9,10 +9,7 @@ namespace SevenPrism.Models
 {
     public class Sale : BindableBase
     {
-        private int? _amount;
-        private decimal? _price;
         private DateTime _date = DateTime.Now;
-
         public int Id { get; set; }
      
         public DateTime Date
@@ -33,6 +30,7 @@ namespace SevenPrism.Models
 
         public Referent Ref { get; set; }
 
+        private int? _amount;
         public int? Amount
         {
             get => _amount;
@@ -43,6 +41,7 @@ namespace SevenPrism.Models
             }
         }
 
+        private decimal? _price;
         public decimal? Price
         {
             get => _price;
@@ -63,27 +62,4 @@ namespace SevenPrism.Models
             }
         }
     }
-
-    //[TypeConverter(typeof(EnumDescriptionTypeConverter))]
-    //public enum Category
-    //{
-    //    // [Description("This is Kette")]
-    //    Kette,
-    //    Schlauch,
-    //    Bremse,
-    //    Licht,
-    //    Kurbel,
-    //    Kasette,
-    //    Griffe,
-    //    Klingel
-    //}
-
-    //[TypeConverter(typeof(EnumDescriptionConverter))]
-    //public enum Staff
-    //{
-    //    //[Description("This is Jr")]
-    //    Jr,
-    //    Jc,
-    //    Cf
-    //}
 }

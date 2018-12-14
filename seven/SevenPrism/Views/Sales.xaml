@@ -48,8 +48,8 @@
             AlternationCount="3"
             BorderThickness="0"
             CanUserDeleteRows="False"
-            ItemsSource="{Binding SalesCollectionView}"
-            SelectedItem="{Binding SelectedSale}">
+            IsSynchronizedWithCurrentItem="True"
+            ItemsSource="{Binding SalesCollectionView}">
 
             <DataGrid.InputBindings>
                 <KeyBinding
