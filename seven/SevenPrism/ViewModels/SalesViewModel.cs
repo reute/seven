@@ -17,9 +17,7 @@ using System.Collections.Generic;
 namespace SevenPrism.ViewModels
 {
     public class SalesViewModel : BindableBase
-    {
-
-        public ObservableCollection<Sale> Sales { get; }
+    {  
         public ICollectionView SalesCollectionView { get; }        
 
         public List<Referent> Refs { get; set; }
@@ -63,17 +61,16 @@ namespace SevenPrism.ViewModels
 
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
-            Sales = Db.Sales.Local.ToObservableCollection();
-            Refs = Db.Referents.Local.ToList();
-            Categories = Db.Categories.Local.ToList();
+            Sales               = Db.Sales.Local.ToObservableCollection();
+            SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
+            Refs                = Db.Referents.Local.ToList();
+            Categories          = Db.Categories.Local.ToList();
            
             AddNewCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
-            RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);
+            RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);       
 
-            SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
-
-            SalesCollectionView.Filter += SaleViewFilterHandler;
-            SalesCollectionView.CurrentChanged += SalesCollectionView_CurrentChanged;
+            SalesCollectionView.Filter          += SaleViewFilterHandler;
+            SalesCollectionView.CurrentChanged  += SalesCollectionView_CurrentChanged;
         }
 
         private void SalesCollectionView_CurrentChanged(object sender, EventArgs e)
@@ -84,12 +81,12 @@ namespace SevenPrism.ViewModels
         private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
 
-            _fromDate = timePeriod.FromDate;
-            _toDate = timePeriod.ToDate;
+            _fromDate   = timePeriod.FromDate;
+            _toDate     = timePeriod.ToDate;
             SalesCollectionView.Refresh();      
         }
 
-        private Sale selectedSale;
+        private ObservableCollection<Sale> Sales;
         private string _filterString = string.Empty;
         private readonly IEventAggregator Ea;
 
@@ -104,8 +101,7 @@ namespace SevenPrism.ViewModels
 
             //TODO: Sale.Validate();
             Sales.Add(Sale);          
-            SalesCollectionView.MoveCurrentTo(Sale);
-      
+            SalesCollectionView.MoveCurrentTo(Sale);      
         }
 
         private bool CanRemoveSale(object selectedSales)
