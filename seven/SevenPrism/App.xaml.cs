@@ -14,7 +14,7 @@ namespace SevenPrism
     public partial class App
     {
         protected override Window CreateShell()
-        {
+        {       
             return Container.Resolve<MainWindow>();
         }
 

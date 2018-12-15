@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using log4net;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using SevenPrism.Events;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
@@ -18,6 +20,8 @@ namespace SevenPrism.ViewModels
 {
     public class ReportViewModel : BindableBase
     {
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         DatabaseContext Db;
 
         private readonly IEventAggregator Ea;

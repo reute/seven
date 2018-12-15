@@ -12,11 +12,15 @@ using Prism.Mvvm;
 using Prism.Events;
 using SevenPrism.Events;
 using SevenPrism.Properties;
+using log4net;
+using System.Reflection;
 
 namespace SevenPrism.ViewModels
 {
     class CashViewModel : BindableBase
     {
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public ObservableCollection<Deposit> Deposits;
         public ICollectionView DepositsCollectionView { get; }
 

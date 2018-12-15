@@ -21,7 +21,6 @@ namespace SevenPrism.ViewModels
 {
     public class SalesViewModel : BindableBase
     {
-
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public ICollectionView SalesCollectionView { get; }        

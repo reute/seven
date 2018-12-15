@@ -48,7 +48,7 @@
             AlternationCount="3"
             BorderThickness="0"
             CanUserDeleteRows="False"
-            HeadersVisibility="All"          
+            HeadersVisibility="All"
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding SalesCollectionView}"
             RowHeaderWidth="15"

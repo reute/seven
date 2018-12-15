@@ -14,11 +14,15 @@ using SevenPrism.Repository;
 using System.Linq;
 using Prism.Events;
 using SevenPrism.Events;
+using log4net;
+using System.Reflection;
 
 namespace SevenPrism.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private DateTime _fromDate = Settings.Default.DateSelected; 
         public DateTime FromDate {
             get
