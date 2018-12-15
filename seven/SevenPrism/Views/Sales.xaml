@@ -48,8 +48,14 @@
             AlternationCount="3"
             BorderThickness="0"
             CanUserDeleteRows="False"
+            HeadersVisibility="All"
+            HorizontalScrollBarVisibility="Disabled"
             IsSynchronizedWithCurrentItem="True"
-            ItemsSource="{Binding SalesCollectionView}">
+            ItemsSource="{Binding SalesCollectionView}"
+            RowHeaderWidth="15"
+            ScrollViewer.CanContentScroll="False"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            SelectionUnit="CellOrRowHeader">
 
             <DataGrid.InputBindings>
                 <KeyBinding
@@ -94,61 +100,19 @@
                     Binding="{Binding Sum, Mode=OneWay}"
                     Header="{x:Static p:Resources.ColumnHeaderSum}"
                     IsReadOnly="true" />
-
-                <!--<DataGridTextColumn
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+    <!--<DataGridTextColumn
                     Width="5*"
                     Binding="{Binding Book.Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
                     ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.Title}" />
-                <DataGridTextColumn
-                    Width="3*"
-                    Binding="{Binding Book.Author, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
-                    EditingElementStyle="{StaticResource TextCellEditingStyle}"
-                    ElementStyle="{StaticResource TextCellElementStyle}"
-                    Header="{x:Static p:Resources.Author}" />
-                <DataGridTextColumn
-                    Width="90"
-                    Binding="{Binding Book.PublishDate, StringFormat=d, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
-                    EditingElementStyle="{StaticResource TextCellEditingStyle}"
-                    ElementStyle="{StaticResource TextCellElementStyle}"
-                    Header="{x:Static p:Resources.PublishDate}" />
-                <DataGridTemplateColumn
-                    Width="3*"
-                    Header="{x:Static p:Resources.LendTo}"
-                    IsReadOnly="True"
-                    SortMemberPath="Book.LendTo.Firstname">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Padding="4,2,4,3">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="Book.LendTo.Firstname" ValidatesOnNotifyDataErrors="False" />
-                                            <Binding Path="Book.LendTo.Lastname" ValidatesOnNotifyDataErrors="False" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Grid.Column="1" Padding="4,2,4,3">
-                                    <Hyperlink Command="{Binding LendToCommand}" CommandParameter="{Binding Book}">
-                                        <Run Text="{x:Static p:Resources.MoreButton}" />
-                                    </Hyperlink>
-                                </TextBlock>
-                            </Grid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
-            </DataGrid.Columns>
-        </DataGrid>
-    </DockPanel>
-    <!--<Grid>
-    -->
-    <!--  InitializingNewItem="DataGridRevenues_OnInitializingNewItem"  -->
-    <!--<DataGrid
+
+
+
+    <DataGrid
             x:Name="DataGridRevenues"
             HorizontalAlignment="Left"
             AlternatingRowBackground="Beige"
@@ -202,6 +166,6 @@
                     Header="{lex:Loc TextColumnPriceTotal}" />
             </DataGrid.Columns>
         </DataGrid>-->
-    <!--
-    </Grid>-->
+
+
 </UserControl>

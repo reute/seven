@@ -170,60 +170,25 @@ namespace SevenPrism.ViewModels
     }
 }
 
-
-
-
-
-//        //DataGridRevenues.ScrollIntoView(CollectionView.NewItemPlaceholder);
 //        LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
 //        LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
-
-//    private void MainWindow_OnClosing(object sender, CancelEventArgs e)
-//    {
-//        if (_needsToBeSaved) UnsavedWarningDialog(Revenues, _filePath);
-//        Properties.Settings.Default.defaultChange = Change;
-//        Properties.Settings.Default.defaultPath = _filePath;
-//        Properties.Settings.Default.Save();
-
-//    }
-
-//        log.Info("Program ended");
-
-//    // FILTER Datagrid
-
-//    private void RevenuesViewSourceOnFilter(object sender, FilterEventArgs filterEventArgs)
-//    {
-
-//        Article element = filterEventArgs.Item as Article;
-//        if (element.Datum < LetzteEinzahlung)
-//        {
-//            filterEventArgs.Accepted = false;
-//        }
-//        else
-//        {
-//            filterEventArgs.Accepted = true;
-//        }
-//        //return article.Datum.;
-//        //throw new NotImplementedException();
-//    }
-
-
-
-
 
 /* 
   
 1.0
 
-- lokalisierung
-- logging
-- Tests
 
 2.0
 
 - input validation
 - inventar
 - azure
+
+
+sonstiges
+
+- lokalisierung
+- Tests
 
 
 */
