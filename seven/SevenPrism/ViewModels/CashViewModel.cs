@@ -17,10 +17,10 @@ namespace SevenPrism.ViewModels
 {
     class CashViewModel : BindableBase
     {
-        public ObservableCollection<Deposit> Deposits { get; }
+        public ObservableCollection<Deposit> Deposits;
         public ICollectionView DepositsCollectionView { get; }
 
-        public ObservableCollection<SaleDaily> SalesDaily { get; } = new ObservableCollection<SaleDaily>();
+        public ObservableCollection<SaleDaily> SalesDaily = new ObservableCollection<SaleDaily>();
         public ICollectionView SalesDailyCollectionView { get; }
 
         public ObservableCollection<Sale> Sales { get; }
@@ -51,16 +51,18 @@ namespace SevenPrism.ViewModels
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
             AddNewCommand = new DelegateCommand(AddNewDeposit, CanAddNewDeposit);
-            RemoveCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit).ObservesProperty(() => SelectedDeposit);
+            RemoveCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit);
 
             Sales = Db.Sales.Local.ToObservableCollection();
             Deposits = Db.Deposits.Local.ToObservableCollection();
 
             DepositsCollectionView = CollectionViewSource.GetDefaultView(Deposits);
             DepositsCollectionView.Filter += new Predicate<object>(DepositsViewFilterHandler);
+            DepositsCollectionView.CurrentChanged += DepositsCollectionView_CurrentChanged;
 
             SalesDailyCollectionView = CollectionViewSource.GetDefaultView(SalesDaily);
             SalesDailyCollectionView.Filter += new Predicate<object>(SalesDailyViewFilterHandler);
+            
 
             // DEPOSITS
             // register for PropertyChanged event
@@ -85,6 +87,10 @@ namespace SevenPrism.ViewModels
             CreateSaleDailyCollection(SalesDaily, Sales);
         }
 
+        private void DepositsCollectionView_CurrentChanged(object sender, EventArgs e)
+        {
+            RemoveCommand.RaiseCanExecuteChanged();
+        }
 
         private bool DepositsViewFilterHandler(object obj)
         {
@@ -156,7 +162,7 @@ namespace SevenPrism.ViewModels
                 foreach (Sale item in e.NewItems)
                     item.PropertyChanged += Sale_PropertyChanged;
 
-                CreateSaleDailyCollection(SalesDaily, Sales);
+                //CreateSaleDailyCollection(SalesDaily, Sales);
                 return;
             }
 
@@ -218,6 +224,7 @@ namespace SevenPrism.ViewModels
                 lastDate = saleDate;
             }
             salesDaily.Add(new SaleDaily(lastDate, sumDay));
+            RaisePropertyChanged(nameof(SalesDailySum));
         }
 
         //private ObservableCollection<SaleDaily> UpdateSalesDailyItem(ObservableCollection<Sale> orders, PropertyChangedEventArgs e)
@@ -239,20 +246,20 @@ namespace SevenPrism.ViewModels
             return true;
         }
 
-        public Deposit SelectedDeposit
-        {
-            get => selectedDeposit;
-            set => SetProperty(ref selectedDeposit, value);
-        }
+        //public Deposit SelectedDeposit
+        //{
+        //    get => selectedDeposit;
+        //    set => SetProperty(ref selectedDeposit, value);
+        //}
 
-        private Deposit selectedDeposit;
+        //private Deposit selectedDeposit;
 
         private void AddNewDeposit()
         {
             var deposit = new Deposit();
             //Sale.Validate();
             Deposits.Add(deposit);
-            SelectedDeposit = deposit;
+            DepositsCollectionView.MoveCurrentTo(deposit);
         }
 
         private bool CanRemoveDeposit(object selectedDeposits)
@@ -285,12 +292,12 @@ namespace SevenPrism.ViewModels
             // select Sale below last Sale which was deleted
             if (highestIndex == Deposits.Count)
             {
-                SelectedDeposit = Deposits.Last();
+                DepositsCollectionView.MoveCurrentToLast();
             }
             else
             {
                 var index = highestIndex - removeList.Count + 1;
-                SelectedDeposit = Deposits[index];
+                DepositsCollectionView.MoveCurrentToPosition(index);
             }
         }
     }

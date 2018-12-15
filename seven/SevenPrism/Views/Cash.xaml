@@ -38,10 +38,17 @@
                 <!--  Deposits  -->
                 <DataGrid
                     x:Name="DepositGrid"
+                    AlternatingRowBackground="Beige"
+                    AlternationCount="3"
                     BorderThickness="0"
                     CanUserDeleteRows="False"
+                    HeadersVisibility="All"
+                    IsSynchronizedWithCurrentItem="True"
                     ItemsSource="{Binding DepositsCollectionView}"
-                    SelectedItem="{Binding SelectedDeposit}">
+                    RowHeaderWidth="15"
+                    ScrollViewer.CanContentScroll="False"
+                    SelectionUnit="CellOrRowHeader"
+                    VerticalScrollBarVisibility="Auto">
 
                     <DataGrid.InputBindings>
                         <KeyBinding
@@ -61,7 +68,7 @@
                             Header="Amount" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="15,0,0,0" Orientation="Horizontal">
                     <TextBlock
                         Grid.Column="0"
                         Width="{Binding ElementName=DepositGrid, Path=Columns[0].ActualWidth}"
@@ -94,9 +101,15 @@
 
                 <DataGrid
                     x:Name="SalesDailyGrid"
+                    AlternatingRowBackground="Beige"
+                    AlternationCount="3"
                     BorderThickness="0"
                     CanUserDeleteRows="False"
-                    ItemsSource="{Binding SalesDailyCollectionView}">
+                    IsReadOnly="True"
+                    ItemsSource="{Binding SalesDailyCollectionView}"
+                    RowHeaderWidth="15"
+                    SelectionUnit="CellOrRowHeader"
+                    VerticalScrollBarVisibility="Auto">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn

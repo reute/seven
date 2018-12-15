@@ -48,14 +48,13 @@
             AlternationCount="3"
             BorderThickness="0"
             CanUserDeleteRows="False"
-            HeadersVisibility="All"
-            HorizontalScrollBarVisibility="Disabled"
+            HeadersVisibility="All"          
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding SalesCollectionView}"
             RowHeaderWidth="15"
             ScrollViewer.CanContentScroll="False"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            SelectionUnit="CellOrRowHeader">
+            SelectionUnit="CellOrRowHeader"
+            VerticalScrollBarVisibility="Auto">
 
             <DataGrid.InputBindings>
                 <KeyBinding
@@ -99,7 +98,7 @@
                     Width="*"
                     Binding="{Binding Sum, Mode=OneWay}"
                     Header="{x:Static p:Resources.ColumnHeaderSum}"
-                    IsReadOnly="true" />
+                    IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
