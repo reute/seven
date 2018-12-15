@@ -13,11 +13,17 @@ using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using SevenPrism.Properties;
 using System.Collections.Generic;
+using log4net;
+using System.Reflection;
+using log4net.Config;
 
 namespace SevenPrism.ViewModels
 {
     public class SalesViewModel : BindableBase
-    {  
+    {
+
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public ICollectionView SalesCollectionView { get; }        
 
         public List<Referent> Refs { get; set; }
@@ -56,6 +62,10 @@ namespace SevenPrism.ViewModels
         /// <param name="ea"></param>
         public SalesViewModel(DatabaseContext db, IEventAggregator ea)
         {
+            XmlConfigurator.Configure();
+
+            log.Info("Test Logging");
+
             Ea = ea;
             Db = db;
 
@@ -160,7 +170,7 @@ namespace SevenPrism.ViewModels
     }
 }
 
-//    private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
 
 
 
