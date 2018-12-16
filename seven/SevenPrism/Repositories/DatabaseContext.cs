@@ -3,15 +3,11 @@ using SevenPrism.Helpers;
 using SevenPrism.Models;
 using SevenPrism.Properties;
 using System;
-using System.Collections.ObjectModel;
 
 namespace SevenPrism.Repository
 {
     public class DatabaseContext : DbContext
-    {  
-        /// <summary>
-        /// Creates a new Contoso DbContext.
-        /// </summary>
+    { 
         public DatabaseContext() : base()
         {
             Database.EnsureCreated();
