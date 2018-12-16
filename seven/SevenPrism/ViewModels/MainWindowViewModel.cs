@@ -54,7 +54,7 @@ namespace SevenPrism.ViewModels
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand ExitCommand { get; }
 
-        public string DatabasePath { get; set; } = Settings.Default.DatabasePath;
+        public string DatabasePath { get; set; } = Settings.Default.DatabaseName;
         public string Title { get; set; } = ApplicationInfo.ProductName;
 
         private readonly IEventAggregator Ea;

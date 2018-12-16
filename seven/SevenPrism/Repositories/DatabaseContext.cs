@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SevenPrism.Helpers;
 using SevenPrism.Models;
 using SevenPrism.Properties;
 using System;
@@ -7,8 +8,7 @@ using System.Collections.ObjectModel;
 namespace SevenPrism.Repository
 {
     public class DatabaseContext : DbContext
-    {
-        readonly string databasePath = Settings.Default.DatabasePath;
+    {  
         /// <summary>
         /// Creates a new Contoso DbContext.
         /// </summary>
@@ -22,8 +22,15 @@ namespace SevenPrism.Repository
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=" + databasePath);
+        {      
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            var appFolder = ApplicationInfo.ProductName;
+            var databasePath = $"{appDataPath}\\{appFolder}";
+            System.IO.Directory.CreateDirectory(databasePath);
+       
+            var databaseName = Settings.Default.DatabaseName;
+            var connectionString = $"Data Source={databasePath}\\{databaseName}"; 
+            optionsBuilder.UseSqlite(connectionString);
         }  
 
         public DbSet<Sale> Sales

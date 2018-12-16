@@ -182,16 +182,14 @@ namespace SevenPrism.ViewModels
                 saleDate = sale.Date;
                 if (saleDate.Date == lastDate.Date)
                 {
-                    if (sale.Sum != null)
-                        // current Sale belongs to same date, add to existing sum
-                        sumDay += (decimal)sale.Sum;
+                    // current Sale belongs to same date, add to existing sum
+                    sumDay += sale.Sum;
                 }
                 else
                 {
                     // current Sale has a different date, save lastDate and its sum
-                    salesDaily.Add(new SalesDaily(lastDate, sumDay));
-                    if (sale.Sum != null)
-                        sumDay = (decimal)sale.Sum;
+                    salesDaily.Add(new SalesDaily(lastDate, sumDay));                 
+                    sumDay = sale.Sum;
                 }
                 lastDate = saleDate;
             }

@@ -26,9 +26,9 @@ namespace SevenPrism.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Seven.db")]
-        public string DatabasePath {
+        public string DatabaseName {
             get {
-                return ((string)(this["DatabasePath"]));
+                return ((string)(this["DatabaseName"]));
             }
         }
         
