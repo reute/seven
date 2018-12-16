@@ -130,20 +130,11 @@ https://github.com/reute/seven</value>
   <data name="AddMenu" xml:space="preserve">
     <value>_Add</value>
   </data>
-  <data name="Author" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="BookTitle" xml:space="preserve">
-    <value>Book: {0}</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="Cash" xml:space="preserve">
     <value>Cash</value>
-  </data>
-  <data name="Chinese" xml:space="preserve">
-    <value>Chinese</value>
   </data>
   <data name="ColumnHeaderCategory" xml:space="preserve">
     <value>Category</value>
@@ -196,12 +187,6 @@ https://github.com/reute/seven</value>
   <data name="CopyMenu" xml:space="preserve">
     <value>_Copy</value>
   </data>
-  <data name="CorrectEmailAddress" xml:space="preserve">
-    <value>The Email cannot be created. Please correct the email address first.</value>
-  </data>
-  <data name="CreateEmailError" xml:space="preserve">
-    <value>The Email cannot be created. Please check that an email software is installed and configured.</value>
-  </data>
   <data name="Cut" xml:space="preserve">
     <value>Cut</value>
   </data>
@@ -223,12 +208,6 @@ https://github.com/reute/seven</value>
   <data name="EditMenu" xml:space="preserve">
     <value>_Edit</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="English" xml:space="preserve">
-    <value>English</value>
-  </data>
   <data name="EntityInvalid" xml:space="preserve">
     <value>{0}
 {1}
@@ -246,20 +225,8 @@ https://github.com/reute/seven</value>
   <data name="FirstnameMenu" xml:space="preserve">
     <value>First_name</value>
   </data>
-  <data name="French" xml:space="preserve">
-    <value>French</value>
-  </data>
-  <data name="German" xml:space="preserve">
-    <value>German</value>
-  </data>
   <data name="HelpMenu" xml:space="preserve">
     <value>_Help</value>
-  </data>
-  <data name="Isbn" xml:space="preserve">
-    <value>ISBN</value>
-  </data>
-  <data name="Japanese" xml:space="preserve">
-    <value>Japanese</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -267,20 +234,8 @@ https://github.com/reute/seven</value>
   <data name="Lastname" xml:space="preserve">
     <value>Lastname</value>
   </data>
-  <data name="LendTo" xml:space="preserve">
-    <value>Lend to</value>
-  </data>
-  <data name="LendToCheck" xml:space="preserve">
-    <value>Lend to:</value>
-  </data>
-  <data name="LoseChangesQuestion" xml:space="preserve">
-    <value>Do you really want to close the application and lose the changes you made?</value>
-  </data>
   <data name="MoreButton" xml:space="preserve">
     <value>...</value>
-  </data>
-  <data name="NewEmailMessage" xml:space="preserve">
-    <value>New email message.</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Not available.</value>
@@ -299,12 +254,6 @@ https://github.com/reute/seven</value>
   </data>
   <data name="PasteMenu" xml:space="preserve">
     <value>_Paste</value>
-  </data>
-  <data name="PublishDate" xml:space="preserve">
-    <value>Publish date</value>
-  </data>
-  <data name="Publisher" xml:space="preserve">
-    <value>Publisher</value>
   </data>
   <data name="Redo" xml:space="preserve">
     <value>Redo</value>
@@ -338,9 +287,6 @@ https://github.com/reute/seven</value>
   <data name="SelectAllMenu" xml:space="preserve">
     <value>Select _all</value>
   </data>
-  <data name="Spanish" xml:space="preserve">
-    <value>Spanish</value>
-  </data>
   <data name="String" xml:space="preserve">
     <value>{0}</value>
   </data>
@@ -365,29 +311,14 @@ https://github.com/reute/seven</value>
   <data name="WasReturnedCheck" xml:space="preserve">
     <value>Was returned</value>
   </data>
-  <data name="Author1" xml:space="preserve">
-    <value>Author</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
   <data name="CreateReport" xml:space="preserve">
     <value>Create a report</value>
   </data>
-  <data name="ListAllBooks" xml:space="preserve">
-    <value>List all books</value>
-  </data>
-  <data name="ListBorrowedBooks" xml:space="preserve">
-    <value>List the borrowed books</value>
-  </data>
   <data name="Print" xml:space="preserve">
     <value>Print</value>
-  </data>
-  <data name="ReportBookListTitle" xml:space="preserve">
-    <value>Report: Book list</value>
-  </data>
-  <data name="ReportBorrowedBooksTitle" xml:space="preserve">
-    <value>Report: Borrowed books</value>
   </data>
   <data name="ReportPersonsCount" xml:space="preserve">
     <value>Persons count {0}</value>
@@ -399,6 +330,6 @@ https://github.com/reute/seven</value>
     <value>Title</value>
   </data>
   <data name="ReportSalesListTotal" xml:space="preserve">
-    <value>Sum {0}</value>
+    <value>Total {0}</value>
   </data>
 </root>

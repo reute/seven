@@ -92,33 +92,6 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Author.
-        /// </summary>
-        public static string Author {
-            get {
-                return ResourceManager.GetString("Author", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Author.
-        /// </summary>
-        public static string Author1 {
-            get {
-                return ResourceManager.GetString("Author1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Book: {0}.
-        /// </summary>
-        public static string BookTitle {
-            get {
-                return ResourceManager.GetString("BookTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -133,15 +106,6 @@ namespace SevenPrism.Properties {
         public static string Cash {
             get {
                 return ResourceManager.GetString("Cash", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chinese.
-        /// </summary>
-        public static string Chinese {
-            get {
-                return ResourceManager.GetString("Chinese", resourceCulture);
             }
         }
         
@@ -299,29 +263,11 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Email cannot be created. Please correct the email address first..
-        /// </summary>
-        public static string CorrectEmailAddress {
-            get {
-                return ResourceManager.GetString("CorrectEmailAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Email cannot be created. Please check that an email software is installed and configured..
-        /// </summary>
-        public static string CreateEmailError {
-            get {
-                return ResourceManager.GetString("CreateEmailError", resourceCulture);
             }
         }
         
@@ -389,24 +335,6 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email.
-        /// </summary>
-        public static string Email {
-            get {
-                return ResourceManager.GetString("Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to English.
-        /// </summary>
-        public static string English {
-            get {
-                return ResourceManager.GetString("English", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///{1}
         ///.
@@ -463,47 +391,11 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to French.
-        /// </summary>
-        public static string French {
-            get {
-                return ResourceManager.GetString("French", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to German.
-        /// </summary>
-        public static string German {
-            get {
-                return ResourceManager.GetString("German", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to _Help.
         /// </summary>
         public static string HelpMenu {
             get {
                 return ResourceManager.GetString("HelpMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ISBN.
-        /// </summary>
-        public static string Isbn {
-            get {
-                return ResourceManager.GetString("Isbn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Japanese.
-        /// </summary>
-        public static string Japanese {
-            get {
-                return ResourceManager.GetString("Japanese", resourceCulture);
             }
         }
         
@@ -526,65 +418,11 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lend to.
-        /// </summary>
-        public static string LendTo {
-            get {
-                return ResourceManager.GetString("LendTo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lend to:.
-        /// </summary>
-        public static string LendToCheck {
-            get {
-                return ResourceManager.GetString("LendToCheck", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to List all books.
-        /// </summary>
-        public static string ListAllBooks {
-            get {
-                return ResourceManager.GetString("ListAllBooks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to List the borrowed books.
-        /// </summary>
-        public static string ListBorrowedBooks {
-            get {
-                return ResourceManager.GetString("ListBorrowedBooks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you really want to close the application and lose the changes you made?.
-        /// </summary>
-        public static string LoseChangesQuestion {
-            get {
-                return ResourceManager.GetString("LoseChangesQuestion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ....
         /// </summary>
         public static string MoreButton {
             get {
                 return ResourceManager.GetString("MoreButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New email message..
-        /// </summary>
-        public static string NewEmailMessage {
-            get {
-                return ResourceManager.GetString("NewEmailMessage", resourceCulture);
             }
         }
         
@@ -643,24 +481,6 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publish date.
-        /// </summary>
-        public static string PublishDate {
-            get {
-                return ResourceManager.GetString("PublishDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Publisher.
-        /// </summary>
-        public static string Publisher {
-            get {
-                return ResourceManager.GetString("Publisher", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Redo.
         /// </summary>
         public static string Redo {
@@ -684,24 +504,6 @@ namespace SevenPrism.Properties {
         public static string RemoveMenu {
             get {
                 return ResourceManager.GetString("RemoveMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Report: Book list.
-        /// </summary>
-        public static string ReportBookListTitle {
-            get {
-                return ResourceManager.GetString("ReportBookListTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Report: Borrowed books.
-        /// </summary>
-        public static string ReportBorrowedBooksTitle {
-            get {
-                return ResourceManager.GetString("ReportBorrowedBooksTitle", resourceCulture);
             }
         }
         
@@ -733,7 +535,7 @@ namespace SevenPrism.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sum {0}.
+        ///   Looks up a localized string similar to Total {0}.
         /// </summary>
         public static string ReportSalesListTotal {
             get {
@@ -803,15 +605,6 @@ namespace SevenPrism.Properties {
         public static string SelectAllMenu {
             get {
                 return ResourceManager.GetString("SelectAllMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spanish.
-        /// </summary>
-        public static string Spanish {
-            get {
-                return ResourceManager.GetString("Spanish", resourceCulture);
             }
         }
         

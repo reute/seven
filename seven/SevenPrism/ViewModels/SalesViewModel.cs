@@ -78,11 +78,13 @@ namespace SevenPrism.ViewModels
             
             XmlConfigurator.Configure();
             log.Info("Program started");
+
+            CheckForUpdates();
         }
 
         private async Task CheckForUpdates()
         {
-            using (var manager = new UpdateManager(@"C:\Temp\Releases"))
+            using (var manager = new UpdateManager(@"C:\tmp\releases"))
             {
                 await manager.UpdateApp();
             }

@@ -88,6 +88,14 @@
                             <Run Text="Price" />
                         </Paragraph>
                     </TableCell>
+                    <TableCell
+                        Padding="4,2"
+                        BorderBrush="#FF4F81BD"
+                        BorderThickness="0,0,1,1">
+                        <Paragraph>
+                            <Run Text="Sum" />
+                        </Paragraph>
+                    </TableCell>
                 </TableRow>
             </TableRowGroup>
         </ctrl:BindableTable.HeaderRowGroup>
