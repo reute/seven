@@ -23,18 +23,19 @@ namespace SevenPrism.ViewModels
         public ObservableCollection<Deposit> Deposits;
         public ICollectionView DepositsCollectionView { get; }
         public string DepositsSum => DepositsCollectionView.Cast<Deposit>().Sum(x => x.Amount).ToString();
+
         // List which shows all Sales per Day
         public ObservableCollection<SalesDaily> SalesDaily = new ObservableCollection<SalesDaily>();
         public ICollectionView SalesDailyCollectionView { get; }
-        public string SalesDailySum => SalesDailyCollectionView.Cast<SalesDaily>().Sum(x => x.Amount).ToString();
+        public string SalesDailySum => SalesDailyCollectionView.Cast<SalesDaily>().Sum(x => x.Amount).ToString();      
+
+        public DelegateCommand AddNewDepositCommand { get; }
+        public DelegateCommand<object> RemoveDepositCommand { get; }
+
         // The Sales List which is needed to create SalesDaily List
-        public ObservableCollection<Sale> Sales;
-
-        public DelegateCommand AddNewCommand { get; }
-        public DelegateCommand<object> RemoveCommand { get; }
-
+        private readonly ObservableCollection<Sale> Sales;
         private readonly IEventAggregator Ea; 
-        private DatabaseContext Db;
+        private readonly DatabaseContext Db;
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private DateTime _fromDate = Settings.Default.DateSelected;
         private DateTime _toDate = DateTime.Now;
@@ -46,8 +47,8 @@ namespace SevenPrism.ViewModels
 
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
-            AddNewCommand = new DelegateCommand(AddNewDeposit, CanAddNewDeposit);
-            RemoveCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit);
+            AddNewDepositCommand = new DelegateCommand(AddNewDeposit, CanAddNewDeposit);
+            RemoveDepositCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit);
 
             Sales = Db.Sales.Local.ToObservableCollection();
             Deposits = Db.Deposits.Local.ToObservableCollection();
@@ -62,20 +63,18 @@ namespace SevenPrism.ViewModels
             // DEPOSITS
             // register for PropertyChanged event
             // 1. for all existing items in Deposits
-            foreach (var item in Deposits)
-            {
+            foreach (var item in Deposits)            
                 item.PropertyChanged += Deposit_PropertyChanged;
-            }
+            
             // 2. for all items which are going to be removed or added to Deposits
             Deposits.CollectionChanged += Deposits_CollectionChanged;
 
             // ORDERS
             // register for PropertyChanged event
             // 1. for all existing items in Orders
-            foreach (var item in Sales)
-            {
+            foreach (var item in Sales)            
                 item.PropertyChanged += Sale_PropertyChanged;
-            }
+            
             // 2. for all items which are going to be removed or added to Orders
             Sales.CollectionChanged += Sales_CollectionChanged;     
 
@@ -84,7 +83,7 @@ namespace SevenPrism.ViewModels
 
         private void DepositsCollectionView_CurrentChanged(object sender, EventArgs e)
         {
-            RemoveCommand.RaiseCanExecuteChanged();
+            RemoveDepositCommand.RaiseCanExecuteChanged();
         }
 
         private bool DepositsViewFilterHandler(object obj)
@@ -140,10 +139,9 @@ namespace SevenPrism.ViewModels
 
         private void Deposit_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Amount"))
-            {
+            if (e.PropertyName.Equals("Amount"))            
                 RaisePropertyChanged(nameof(DepositsSum));
-            } 
+             
         }
 
         private void Sales_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -151,9 +149,7 @@ namespace SevenPrism.ViewModels
             if (e.NewItems != null)
             {
                 foreach (Sale item in e.NewItems)
-                    item.PropertyChanged += Sale_PropertyChanged;
-
-                //CreateSaleDailyCollection(SalesDaily, Sales);
+                    item.PropertyChanged += Sale_PropertyChanged;              
                 return;
             }
 
@@ -161,7 +157,6 @@ namespace SevenPrism.ViewModels
             {
                 foreach (Sale item in e.OldItems)
                     item.PropertyChanged -= Sale_PropertyChanged;
-
                 CreateSaleDailyCollection(SalesDaily, Sales);
                 return;
             }
@@ -169,17 +164,8 @@ namespace SevenPrism.ViewModels
 
         void Sale_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Sum"))
-              {
-                CreateSaleDailyCollection(SalesDaily, Sales);
-                RaisePropertyChanged(nameof(SalesDailySum));
-            }
-
-            if (e.PropertyName.Equals("Date"))
-            {
-                CreateSaleDailyCollection(SalesDaily, Sales);
-                RaisePropertyChanged(nameof(SalesDailySum));
-            }
+            if (e.PropertyName.Equals("Sum") || e.PropertyName.Equals("Date"))            
+                CreateSaleDailyCollection(SalesDaily, Sales); 
         }
        
         private void CreateSaleDailyCollection(ObservableCollection<SalesDaily> salesDaily, ObservableCollection<Sale> sales)
@@ -191,24 +177,25 @@ namespace SevenPrism.ViewModels
             DateTime saleDate, lastDate = salesSorted.First().Date;
             decimal sumDay = 0;
 
-            foreach (var Sale in salesSorted)
+            foreach (var sale in salesSorted)
             {
-                saleDate = Sale.Date;
+                saleDate = sale.Date;
                 if (saleDate.Date == lastDate.Date)
                 {
-                    if (Sale.Sum != null)
+                    if (sale.Sum != null)
                         // current Sale belongs to same date, add to existing sum
-                        sumDay += (decimal)Sale.Sum;
+                        sumDay += (decimal)sale.Sum;
                 }
                 else
                 {
                     // current Sale has a different date, save lastDate and its sum
                     salesDaily.Add(new SalesDaily(lastDate, sumDay));
-                    if (Sale.Sum != null)
-                        sumDay = (decimal)Sale.Sum;
+                    if (sale.Sum != null)
+                        sumDay = (decimal)sale.Sum;
                 }
                 lastDate = saleDate;
             }
+            // Add last SalesDaily
             salesDaily.Add(new SalesDaily(lastDate, sumDay));
             RaisePropertyChanged(nameof(SalesDailySum));
         }

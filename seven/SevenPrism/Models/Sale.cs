@@ -14,10 +14,8 @@ namespace SevenPrism.Models
      
         public DateTime Date
         {
-            get
-            {
-                return _date;
-            }
+            get => _date;
+            
             set
             {
                 SetProperty(ref _date, value);

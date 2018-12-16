@@ -27,10 +27,10 @@
                     Content="Deposits" />
                 <ToolBarTray x:Name="ToolBarDeposit">
                     <ToolBar>
-                        <Button Command="{Binding AddNewCommand}">
+                        <Button Command="{Binding AddNewDepositCommand}">
                             <AccessText Text="Add" />
                         </Button>
-                        <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding ElementName=DepositGrid, Path=SelectedItems}">
+                        <Button Command="{Binding RemoveDepositCommand}" CommandParameter="{Binding ElementName=DepositGrid, Path=SelectedItems}">
                             <AccessText Text="Remove" />
                         </Button>
                     </ToolBar>
@@ -53,7 +53,7 @@
                     <DataGrid.InputBindings>
                         <KeyBinding
                             Key="Del"
-                            Command="{Binding RemoveCommand}"
+                            Command="{Binding RemoveDepositCommand}"
                             CommandParameter="{Binding ElementName=DepositGrid, Path=SelectedItems}" />
                     </DataGrid.InputBindings>
 

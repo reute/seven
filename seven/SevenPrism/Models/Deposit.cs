@@ -11,8 +11,16 @@ namespace SevenPrism.Models
     {
         public int Id { get; set; }
 
-        public DateTime Date { get; set; } = DateTime.Now; 
+        public DateTime Date { get; set; } = DateTime.Now;
 
-        public int Amount { get; set; }       
+        private int _amount;
+        public int Amount
+        {
+            get => _amount;
+            set
+            {
+                SetProperty(ref _amount, value);
+            }
+        }
     }
 }
