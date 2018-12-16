@@ -18,35 +18,27 @@ using System.Reflection;
 namespace SevenPrism.ViewModels
 {
     class CashViewModel : BindableBase
-    {
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+    { 
+        // All Deposits
         public ObservableCollection<Deposit> Deposits;
         public ICollectionView DepositsCollectionView { get; }
-
-        public ObservableCollection<SaleDaily> SalesDaily = new ObservableCollection<SaleDaily>();
-        public ICollectionView SalesDailyCollectionView { get; }
-
-        public ObservableCollection<Sale> Sales { get; }
-
         public string DepositsSum => DepositsCollectionView.Cast<Deposit>().Sum(x => x.Amount).ToString();
-        public string SalesDailySum => SalesDailyCollectionView.Cast<SaleDaily>().Sum(x => x.Amount).ToString();
+        // List which shows all Sales per Day
+        public ObservableCollection<SalesDaily> SalesDaily = new ObservableCollection<SalesDaily>();
+        public ICollectionView SalesDailyCollectionView { get; }
+        public string SalesDailySum => SalesDailyCollectionView.Cast<SalesDaily>().Sum(x => x.Amount).ToString();
+        // The Sales List which is needed to create SalesDaily List
+        public ObservableCollection<Sale> Sales;
 
         public DelegateCommand AddNewCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
 
-        private readonly IEventAggregator Ea;
-
+        private readonly IEventAggregator Ea; 
+        private DatabaseContext Db;
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private DateTime _fromDate = Settings.Default.DateSelected;
         private DateTime _toDate = DateTime.Now;
-
-        private DatabaseContext Db;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="depositRepo"></param>
-        /// <param name="orderRepo"></param>
+      
         public CashViewModel(DatabaseContext db, IEventAggregator ea)
         {  
             Db = db;
@@ -65,8 +57,7 @@ namespace SevenPrism.ViewModels
             DepositsCollectionView.CurrentChanged += DepositsCollectionView_CurrentChanged;
 
             SalesDailyCollectionView = CollectionViewSource.GetDefaultView(SalesDaily);
-            SalesDailyCollectionView.Filter += new Predicate<object>(SalesDailyViewFilterHandler);
-            
+            SalesDailyCollectionView.Filter += new Predicate<object>(SalesDailyViewFilterHandler);            
 
             // DEPOSITS
             // register for PropertyChanged event
@@ -107,10 +98,9 @@ namespace SevenPrism.ViewModels
             return true;
         }
 
-
         private bool SalesDailyViewFilterHandler(object obj)
         {
-            var saleDaily = obj as SaleDaily;
+            var saleDaily = obj as SalesDaily;
 
             // if saleDaily date is older than set date
             if (saleDaily.Date.Date < _fromDate.Date || saleDaily.Date.Date > _toDate.Date)
@@ -119,10 +109,8 @@ namespace SevenPrism.ViewModels
             return true;
         }
 
-
         private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
-
             _fromDate = timePeriod.FromDate;
             _toDate = timePeriod.ToDate;
             DepositsCollectionView.Refresh();
@@ -131,7 +119,6 @@ namespace SevenPrism.ViewModels
             SalesDailyCollectionView.Refresh();        
             RaisePropertyChanged(nameof(SalesDailySum));
         }
-
 
         private void Deposits_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -194,13 +181,8 @@ namespace SevenPrism.ViewModels
                 RaisePropertyChanged(nameof(SalesDailySum));
             }
         }
-
-        /// <summary>
-        /// Creates the SaleDaily ObservableCollection
-        /// </summary>
-        /// <param name="salesDaily"></param>
-        /// <param name="sales"></param>
-        private void CreateSaleDailyCollection(ObservableCollection<SaleDaily> salesDaily, ObservableCollection<Sale> sales)
+       
+        private void CreateSaleDailyCollection(ObservableCollection<SalesDaily> salesDaily, ObservableCollection<Sale> sales)
         {
             salesDaily.Clear();
             if (sales.Count == 0)
@@ -221,13 +203,13 @@ namespace SevenPrism.ViewModels
                 else
                 {
                     // current Sale has a different date, save lastDate and its sum
-                    salesDaily.Add(new SaleDaily(lastDate, sumDay));
+                    salesDaily.Add(new SalesDaily(lastDate, sumDay));
                     if (Sale.Sum != null)
                         sumDay = (decimal)Sale.Sum;
                 }
                 lastDate = saleDate;
             }
-            salesDaily.Add(new SaleDaily(lastDate, sumDay));
+            salesDaily.Add(new SalesDaily(lastDate, sumDay));
             RaisePropertyChanged(nameof(SalesDailySum));
         }
 
@@ -306,13 +288,13 @@ namespace SevenPrism.ViewModels
         }
     }
 
-    public class SaleDaily : BindableBase
+    public class SalesDaily : BindableBase
     {
         public DateTime Date { get; set; } = DateTime.Now;
 
         public decimal Amount { get; set; }
 
-        public SaleDaily(DateTime date, decimal amount)
+        public SalesDaily(DateTime date, decimal amount)
         {
             Date = date;
             Amount = amount;

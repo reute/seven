@@ -37,7 +37,7 @@ namespace SevenPrism.Models
             set
             {
                 if (SetProperty(ref _amount, value) && _price != null)
-                    RaisePropertyChanged(nameof(Sum));
+                    Sum = _amount * _price;
             }
         }
 
@@ -48,17 +48,18 @@ namespace SevenPrism.Models
             set
             {
                 if (SetProperty(ref _price, value) && _amount != null)
-                    RaisePropertyChanged(nameof(Sum));
+                    Sum = _amount * _price;
             }
         }
 
+        private decimal? _sum;
         public decimal? Sum
         {
-            get
+            get => _sum;
+            
+            set
             {
-                if (_amount != null && _price != null)
-                    return _amount * _price;
-                return null;
+                SetProperty(ref _sum, value);
             }
         }
     }
