@@ -8,12 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Prism.Events;
 using SevenPrism.Events;
+using SevenPrism.Models;
 
 namespace SevenPrism.Views
 {
-    /// <summary>
-    /// Interaction logic for Sales.xaml
-    /// </summary>
     public partial class Sales : UserControl
     {
         private IEventAggregator Ea;
@@ -29,33 +27,22 @@ namespace SevenPrism.Views
         {
             SalesGrid.CancelEdit();
             SalesGrid.CancelEdit();
-        }
+        } 
 
+        //public void FocusFirstCell()
+        //{
+        //    SalesGrid.Focus();
+        //    SalesGrid.CurrentCell = new DataGridCellInfo(SalesGrid.SelectedItem, SalesGrid.Columns[0]);
+        //}   
 
-        private void FirstTimeLoadedHandler(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LoadedHandler(object sender, RoutedEventArgs e)
-        {
-            if (SalesGrid.Items.Count > 0)
-            {
-                SalesGrid.SelectedIndex = 0;
-                FocusFirstCell();
-            }
-        }
-
-        public void FocusFirstCell()
-        {
-            SalesGrid.Focus();
-            SalesGrid.CurrentCell = new DataGridCellInfo(SalesGrid.SelectedItem, SalesGrid.Columns[0]);
-        }
+        //private void SalesGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        //{
+        //    if (IsLoaded)
+        //    {
+        //        SalesGrid.Focus();
+        //        SalesGrid.UnselectAllCells();
+        //        SalesGrid.SelectedItem = e.Row.Item;
+        //    }             
+        //}
     }
 }

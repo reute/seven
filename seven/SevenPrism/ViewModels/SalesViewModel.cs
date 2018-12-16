@@ -16,24 +16,22 @@ using System.Collections.Generic;
 using log4net;
 using System.Reflection;
 using log4net.Config;
+using System.Threading.Tasks;
+using Squirrel;
 
 namespace SevenPrism.ViewModels
 {
     public class SalesViewModel : BindableBase
-    {
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+    {   
+        // CollectionView for DataGrid, used for Binding, Selecting Item and Filtering
         public ICollectionView SalesCollectionView { get; }        
-
+        // Needed for the ComboBoxes
         public List<Referent> Refs { get; set; }
         public List<Category> Categories { get; set; }
-
-        private DateTime _fromDate = Settings.Default.DateSelected;
-        private DateTime _toDate = DateTime.Now;
-
-        public DelegateCommand AddNewCommand { get; }
-        public DelegateCommand<object> RemoveCommand { get; }
-
+        // Commands
+        public DelegateCommand AddNewSaleCommand { get; }
+        public DelegateCommand<object> RemoveSaleCommand { get; }
+        // FilterString for the SalesCollectionView
         public string FilterString
         {
             get => _filterString;
@@ -52,21 +50,18 @@ namespace SevenPrism.ViewModels
             }
         }
 
+        // The DatabaseContext from EF Core
         private DatabaseContext Db;
+        // Logger
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        // Dates which are being set through EventAggregator
+        private DateTime _fromDate = Settings.Default.DateSelected;
+        private DateTime _toDate = DateTime.Now;
 
-        /// <summary> 
-        /// Constructor
-        /// </summary>
-        /// <param name="orderRepo"></param>
-        /// <param name="ea"></param>
         public SalesViewModel(DatabaseContext db, IEventAggregator ea)
         {
-            XmlConfigurator.Configure();
-
-            log.Info("Test Logging");
-
             Ea = ea;
-            Db = db;
+            Db = db;  
 
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
@@ -75,21 +70,31 @@ namespace SevenPrism.ViewModels
             Refs                = Db.Referents.Local.ToList();
             Categories          = Db.Categories.Local.ToList();
            
-            AddNewCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
-            RemoveCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);       
+            AddNewSaleCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
+            RemoveSaleCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);       
 
-            SalesCollectionView.Filter          += SaleViewFilterHandler;
-            SalesCollectionView.CurrentChanged  += SalesCollectionView_CurrentChanged;
+            SalesCollectionView.Filter            += SaleViewFilterHandler;
+            SalesCollectionView.CollectionChanged += SalesCollectionView_CollectionChanged;
+            
+            XmlConfigurator.Configure();
+            log.Info("Program started");
         }
 
-        private void SalesCollectionView_CurrentChanged(object sender, EventArgs e)
+        private async Task CheckForUpdates()
         {
-            RemoveCommand.RaiseCanExecuteChanged();
+            using (var manager = new UpdateManager(@"C:\Temp\Releases"))
+            {
+                await manager.UpdateApp();
+            }
+        }
+
+        private void SalesCollectionView_CollectionChanged(object sender, EventArgs e)
+        {
+            RemoveSaleCommand.RaiseCanExecuteChanged();
         }
 
         private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
-
             _fromDate   = timePeriod.FromDate;
             _toDate     = timePeriod.ToDate;
             SalesCollectionView.Refresh();      
@@ -109,7 +114,7 @@ namespace SevenPrism.ViewModels
             var Sale = new Sale();
 
             //TODO: Sale.Validate();
-            Sales.Add(Sale);          
+            Sales.Add(Sale);
             SalesCollectionView.MoveCurrentTo(Sale);      
         }
 
@@ -129,27 +134,11 @@ namespace SevenPrism.ViewModels
         private void RemoveSale(object selectedSales)
         {
             var listSelectedSales = (IList)selectedSales;
-            var removeList = listSelectedSales.Cast<Sale>().ToList();
-            int indexSale, highestIndex = 0;
+            var removeList = listSelectedSales.Cast<Sale>().ToList();          
             foreach (Sale Sale in removeList)
-            {
-                // get highest index of all orders to be removed
-                indexSale = Sales.IndexOf(Sale);
-                if (indexSale > highestIndex)
-                    highestIndex = indexSale;
-                //remove Sale
+            {              
                 Sales.Remove(Sale);
-            }
-            // select Sale below last Sale which was deleted
-            if (highestIndex == Sales.Count)
-            {                
-                SalesCollectionView.MoveCurrentToLast();
-            }
-            else
-            {
-                var index = highestIndex - removeList.Count + 1;              
-                SalesCollectionView.MoveCurrentToPosition(index);
-            }
+            }          
         }
 
         private bool SaleViewFilterHandler(object obj)

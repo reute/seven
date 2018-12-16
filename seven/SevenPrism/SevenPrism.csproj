@@ -175,6 +175,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;" />
+    <PackageReference Include="squirrel.windows">
+      <Version>1.9.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\BookLibrary.ico" />
