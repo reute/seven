@@ -10,7 +10,6 @@ using System.Linq;
 using Prism.Events;
 using SevenPrism.Events;
 using System.Collections;
-using Microsoft.EntityFrameworkCore;
 using SevenPrism.Properties;
 using System.Collections.Generic;
 using log4net;

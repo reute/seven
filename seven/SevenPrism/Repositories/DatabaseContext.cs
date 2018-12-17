@@ -7,7 +7,9 @@ using System;
 namespace SevenPrism.Repository
 {
     public class DatabaseContext : DbContext
-    { 
+    {
+        public string FullDatabasePath;
+
         public DatabaseContext() : base()
         {
             Database.EnsureCreated();
@@ -25,7 +27,9 @@ namespace SevenPrism.Repository
             System.IO.Directory.CreateDirectory(databasePath);
        
             var databaseName = Settings.Default.DatabaseName;
-            var connectionString = $"Data Source={databasePath}\\{databaseName}"; 
+            FullDatabasePath = $"{databasePath}\\{databaseName}";
+
+            var connectionString = $"Data Source={FullDatabasePath}"; 
             optionsBuilder.UseSqlite(connectionString);
         }  
 
