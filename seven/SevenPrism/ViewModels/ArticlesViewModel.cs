@@ -41,7 +41,7 @@ namespace SevenPrism.ViewModels
                 catch (InvalidOperationException)
                 {
                     // Tell view to leave the edit mode that causes the exception
-                    //Ea.GetEvent<GridInEditModeEvent>().Publish();
+                    Ea.GetEvent<ArticlesGridInEditModeEvent>().Publish();
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace SevenPrism.ViewModels
             var item = obj as Article;         
 
             // if string is not found in sales detail column
-            if (item.Manufacturer.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 || 
+            if (item.Manufacturer.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 && 
                 item.Model.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 )
                 return false;
 

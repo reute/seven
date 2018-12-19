@@ -8,4 +8,6 @@ using System.Threading.Tasks;
 namespace SevenPrism.Events
 {
     public class GridInEditModeEvent : PubSubEvent { }
+
+    public class ArticlesGridInEditModeEvent : PubSubEvent { }
 }

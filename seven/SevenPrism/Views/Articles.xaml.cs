@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Prism.Events;
+using SevenPrism.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,16 @@ namespace SevenPrism.Views
     /// </summary>
     public partial class Articles : UserControl
     {
-        public Articles()
+        public Articles(IEventAggregator ea)
         {
             InitializeComponent();
+            ea.GetEvent<ArticlesGridInEditModeEvent>().Subscribe(GridInEditModeEventHandler);
+        }
+
+        private void GridInEditModeEventHandler()
+        {
+            ArticlesGrid.CancelEdit();
+            ArticlesGrid.CancelEdit();
         }
     }
 }
