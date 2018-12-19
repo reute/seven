@@ -12,12 +12,45 @@ namespace SevenPrism.Repository
 
         public DatabaseContext() : base()
         {
-            Database.EnsureCreated();
+            if (Database.EnsureCreated())
+            {              
+                initDb(); 
+            }
             Sales.Load();
             Deposits.Load();
             Referents.Load();
             Categories.Load();
             Articles.Load();
+        }
+
+        // fill db with initial values
+        private void initDb()
+        {
+            Referents.Add(new Referent
+            {
+                Name = "jr"
+            });
+            Referents.Add(new Referent
+            {
+                Name = "jc"
+            });
+            Referents.Add(new Referent
+            {
+                Name = "cf"
+            });
+
+            Categories.Add(new Category
+            {
+                Name = "Bremsen"
+            });
+            Categories.Add(new Category
+            {
+                Name = "Schläuche"
+            });
+            Categories.Add(new Category
+            {
+                Name = "Ketten"
+            });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
