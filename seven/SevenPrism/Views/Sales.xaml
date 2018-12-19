@@ -44,7 +44,7 @@
 
         <DataGrid
             x:Name="SalesGrid"
-            AlternatingRowBackground="Beige"
+            AlternatingRowBackground="AntiqueWhite"
             AlternationCount="3"
             BorderThickness="0"
             CanUserDeleteRows="False"

@@ -125,23 +125,21 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="300" MinWidth="{Binding Content.MinWidth, ElementName=bookViewPresenter}" />
+                        <ColumnDefinition Width="300" MinWidth="{Binding Content.MinWidth, ElementName=SalesDetail}" />
                     </Grid.ColumnDefinitions>
 
-                    <!--  BookListRegion  -->
                     <ContentControl
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="0,0,5,0"
                         prism:RegionManager.RegionName="SalesRegion" />
 
-                    <!--  BookViewRegion  -->
                     <ScrollViewer
                         Grid.Row="0"
                         Grid.Column="1"
                         VerticalScrollBarVisibility="Auto">
                         <ContentControl
-                            x:Name="bookViewPresenter"
+                            x:Name="SalesDetail"
                             prism:RegionManager.RegionName="SalesDetailsRegion"
                             Focusable="False" />
                     </ScrollViewer>
@@ -158,24 +156,54 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="300" MinWidth="{Binding Content.MinWidth, ElementName=personViewPresenter}" />
+                        <ColumnDefinition Width="300" MinWidth="{Binding Content.MinWidth, ElementName=CashDetails}" />
                     </Grid.ColumnDefinitions>
 
-                    <!--  PersonListRegion  -->
                     <ContentControl
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="0,0,5,0"
                         prism:RegionManager.RegionName="CashRegion" />
 
-                    <!--  PersonViewRegion  -->
                     <ScrollViewer
                         Grid.Row="0"
                         Grid.Column="1"
                         VerticalScrollBarVisibility="Auto">
                         <ContentControl
-                            x:Name="personViewPresenter"
+                            x:Name="CashDetails"
                             prism:RegionManager.RegionName="CashDetailsRegion"
+                            Focusable="False" />
+                    </ScrollViewer>
+
+                    <GridSplitter
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Articles">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="300" MinWidth="{Binding Content.MinWidth, ElementName=ArticlesDetails}" />
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="0,0,5,0"
+                        prism:RegionManager.RegionName="ArticlesRegion" />
+
+
+                    <ScrollViewer
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalScrollBarVisibility="Auto">
+                        <ContentControl
+                            x:Name="ArticlesDetails"
+                            prism:RegionManager.RegionName="ArticlesDetailsRegion"
                             Focusable="False" />
                     </ScrollViewer>
 

@@ -59,6 +59,7 @@
     <Compile Include="CustomControls\BindableTable.cs" />
     <Compile Include="CustomControls\ContentElement.cs" />
     <Compile Include="Events\StartingDateChanged.cs" />
+    <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Referent.cs" />
     <Compile Include="Reports\ArticlesListReport.xaml.cs">
@@ -67,7 +68,11 @@
     <Compile Include="Reports\SalesListReport.xaml.cs">
       <DependentUpon>SalesListReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ArticlesViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="Views\Articles.xaml.cs">
+      <DependentUpon>Articles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Report.xaml.cs">
       <DependentUpon>Report.xaml</DependentUpon>
     </Compile>
@@ -91,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Articles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
