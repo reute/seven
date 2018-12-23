@@ -24,6 +24,7 @@ namespace SevenPrism.ViewModels
         public ICollectionView ArticlesCollectionView { get; }
         // Needed for the ComboBoxes
         public List<Category> Categories { get; set; }
+        public List<Manufacturer> Manufacturers { get; set; }
         // Commands
         public DelegateCommand AddCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
@@ -59,6 +60,7 @@ namespace SevenPrism.ViewModels
             Articles = Db.Articles.Local.ToObservableCollection();
             ArticlesCollectionView = CollectionViewSource.GetDefaultView(Articles);        
             Categories = Db.Categories.Local.ToList();
+            Manufacturers = Db.Manufacturers.Local.ToList();
 
             AddCommand = new DelegateCommand(Add, CanAdd);
             RemoveCommand = new DelegateCommand<object>(Remove, CanRemove);
@@ -118,7 +120,7 @@ namespace SevenPrism.ViewModels
             var item = obj as Article;         
 
             // if string is not found in sales detail column
-            if (item.Manufacturer.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 && 
+            if (item.Manufacturer.Name.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 && 
                 item.Model.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 )
                 return false;
 

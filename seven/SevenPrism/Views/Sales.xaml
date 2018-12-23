@@ -14,7 +14,7 @@
     <!--  Alternative to creating the CollectionViewSource in ViewModel like with Sales  -->
     <UserControl.Resources>
         <CollectionViewSource x:Key="Refs" Source="{Binding Refs}" />
-        <CollectionViewSource x:Key="Categories" Source="{Binding Categories}" />
+        <CollectionViewSource x:Key="Articles" Source="{Binding Articles}" />
     </UserControl.Resources>
 
     <DockPanel>
@@ -72,20 +72,30 @@
                     Width="*"
                     DisplayMemberPath="Name"
                     Header="{x:Static p:Resources.ColumnHeaderStaff}"
-                    IsReadOnly="False"
+                    IsReadOnly="false"
                     ItemsSource="{Binding Source={StaticResource Refs}}"
                     SelectedItemBinding="{Binding Ref, UpdateSourceTrigger=LostFocus}" />
-                <DataGridTextColumn
-                    Width="*"
-                    Binding="{Binding Detail, UpdateSourceTrigger=LostFocus}"
-                    Header="{x:Static p:Resources.ColumnHeaderDetail}" />
-                <DataGridComboBoxColumn
-                    Width="*"
-                    DisplayMemberPath="Name"
-                    Header="{x:Static p:Resources.ColumnHeaderCategory}"
-                    IsReadOnly="False"
-                    ItemsSource="{Binding Source={StaticResource Categories}}"
-                    SelectedItemBinding="{Binding Cat, UpdateSourceTrigger=LostFocus}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Article" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                DisplayMemberPath="Description"
+                                IsEditable="True"
+                                IsTextSearchEnabled="True"
+                                ItemsSource="{Binding Source={StaticResource Articles}}"
+                                SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
+                                Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--  Text="{Binding Art}"  -->
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Amount, UpdateSourceTrigger=LostFocus}"

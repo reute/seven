@@ -2,20 +2,19 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
 using SevenPrism.Properties;
 using Prism.Regions;
 using SevenPrism.Views;
 using SevenPrism.Helpers;
-using SevenPrism.Models;
 using SevenPrism.Repository;
 using System.Linq;
 using Prism.Events;
 using SevenPrism.Events;
 using log4net;
 using System.Reflection;
+using log4net.Config;
 
 namespace SevenPrism.ViewModels
 {
@@ -65,6 +64,8 @@ namespace SevenPrism.ViewModels
         /// <param name="regionManager"></param>
         public MainWindowViewModel(DatabaseContext dc, IRegionManager regionManager, IEventAggregator ea)
         {
+            XmlConfigurator.Configure();        
+
             Dc = dc;
             Ea = ea;
 

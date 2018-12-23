@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SevenPrism.Models
 {
-    public class Category
+    public class Manufacturer
     {
         public int Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
-    }   
+    }
 }

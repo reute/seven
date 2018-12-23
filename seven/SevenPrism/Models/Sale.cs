@@ -10,7 +10,7 @@ namespace SevenPrism.Models
 {
     public class Sale : BindableBase
     {
-  
+
         public int Id { get; set; }
 
         private DateTime _date = DateTime.Now;
@@ -18,17 +18,50 @@ namespace SevenPrism.Models
         public DateTime Date
         {
             get => _date;
-            
+
             set
             {
                 SetProperty(ref _date, value);
             }
         }
-
         public Category Cat { get; set; }
 
-        public string Detail { get; set; } = string.Empty;
-   
+        private Article _article = new Article();
+        public Article Article {
+            get
+            {
+                return _article;
+            }
+            set
+            {
+                if (value is Article)
+                {
+                    _article = value;
+                    Price = value.Price;
+                }                   
+                else
+                    _article = null;
+            }
+        }
+
+        //private string _articleDescription;
+        //public string ArticleDescription {
+        //    get
+        //    {
+        //        if (_article != null)
+        //            return _article.Description;
+        //        else
+        //            return _articleDescription;
+
+        //    }
+        //    set
+        //    {
+        //        _articleDescription = value;
+        //    }
+        //}
+
+        public string ArticleDescription { get; set; } = string.Empty;
+
         public Referent Ref { get; set; }
 
         private int _amount;

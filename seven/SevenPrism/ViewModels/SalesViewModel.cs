@@ -14,19 +14,21 @@ using SevenPrism.Properties;
 using System.Collections.Generic;
 using log4net;
 using System.Reflection;
-using log4net.Config;
 using System.Threading.Tasks;
 using Squirrel;
+using log4net.Config;
+using SevenPrism.Helpers;
 
 namespace SevenPrism.ViewModels
 {
     public class SalesViewModel : BindableBase
     {   
         // CollectionView for DataGrid, used for Binding, Selecting Item and Filtering
-        public ICollectionView SalesCollectionView { get; }        
+        public ICollectionView SalesCollectionView { get; }      
         // Needed for the ComboBoxes
         public List<Referent> Refs { get; set; }
         public List<Category> Categories { get; set; }
+        public List<Article> Articles { get; set; }
         // Commands
         public DelegateCommand AddNewSaleCommand { get; }
         public DelegateCommand<object> RemoveSaleCommand { get; }
@@ -47,7 +49,7 @@ namespace SevenPrism.ViewModels
                     Ea.GetEvent<GridInEditModeEvent>().Publish();
                 }
             }
-        }
+        }  
 
         // The DatabaseContext from EF Core
         private DatabaseContext Db;
@@ -68,7 +70,8 @@ namespace SevenPrism.ViewModels
             SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
             Refs                = Db.Referents.Local.ToList();
             Categories          = Db.Categories.Local.ToList();
-           
+            Articles            = Db.Articles.Local.ToList();       
+
             AddNewSaleCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
             RemoveSaleCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);       
 
@@ -76,7 +79,7 @@ namespace SevenPrism.ViewModels
             SalesCollectionView.CollectionChanged += SalesCollectionView_CollectionChanged;
             
             XmlConfigurator.Configure();
-            log.Info("Program started");
+            log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} launch completed *****");
 
             CheckForUpdates();
         }
@@ -151,7 +154,7 @@ namespace SevenPrism.ViewModels
                 return false;
 
             // if string is not found in sales detail column
-            if (sale.Detail.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0)
+            if (sale.ArticleDescription.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0)
                 return false;                
 
             return true;

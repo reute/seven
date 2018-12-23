@@ -13,6 +13,7 @@
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="Categories" Source="{Binding Categories}" />
+        <CollectionViewSource x:Key="Manufacturers" Source="{Binding Manufacturers}" />
     </UserControl.Resources>
 
     <DockPanel>
@@ -70,13 +71,16 @@
                     Width="*"
                     DisplayMemberPath="Name"
                     Header="{x:Static p:Resources.ColumnHeaderCategory}"
-                    IsReadOnly="False"
+                    IsReadOnly="True"
                     ItemsSource="{Binding Source={StaticResource Categories}}"
                     SelectedItemBinding="{Binding Cat, UpdateSourceTrigger=LostFocus}" />
-                <DataGridTextColumn
+                <DataGridComboBoxColumn
                     Width="*"
-                    Binding="{Binding Manufacturer, UpdateSourceTrigger=LostFocus}"
-                    Header="Manufacturer" />
+                    DisplayMemberPath="Name"
+                    Header="Manufacturer"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Source={StaticResource Manufacturers}}"
+                    SelectedItemBinding="{Binding Manufacturer, UpdateSourceTrigger=LostFocus}" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Model, UpdateSourceTrigger=LostFocus}"

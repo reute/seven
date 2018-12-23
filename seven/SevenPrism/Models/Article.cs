@@ -25,9 +25,17 @@ namespace SevenPrism.Models
         }
 
         [Required]
-        public Category Cat { get; set; }
+        public Category Cat { get; set; } = new Category();
 
-        public string Manufacturer { get; set; } = string.Empty;
+        public Manufacturer Manufacturer { get; set; } = new Manufacturer();
+
+        public string Description
+        {
+            get
+            {
+                return $"{Cat.Name} {Manufacturer.Name} {Model}";
+            }
+        }
 
         [Required]
         public string Model { get; set; } = string.Empty;
