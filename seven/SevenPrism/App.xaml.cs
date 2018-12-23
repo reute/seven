@@ -12,9 +12,6 @@ using SevenPrism.Helpers;
 
 namespace SevenPrism
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App
     {
         // Logger
@@ -32,8 +29,7 @@ namespace SevenPrism
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-         
+        {         
             containerRegistry.RegisterSingleton(typeof(DatabaseContext));          
         }      
     }

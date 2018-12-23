@@ -6,13 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:SevenPrism.Properties"
     xmlns:prism="http://prismlibrary.com/"
-    x:Name="root"
     d:DesignHeight="450"
     d:DesignWidth="800"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
-    <!--  Alternative to creating the CollectionViewSource in ViewModel like with Sales  -->
+    <!--  Alternative to creating the CollectionViewSource in ViewModel like with Articles and Binding to DataContext  -->
     <UserControl.Resources>
         <CollectionViewSource x:Key="Refs" Source="{Binding Refs}" />
     </UserControl.Resources>
@@ -89,7 +88,7 @@
                                 IsEditable="True"
                                 IsSynchronizedWithCurrentItem="False"
                                 IsTextSearchEnabled="True"
-                                ItemsSource="{Binding DataContext.Articles, ElementName=root}"
+                                ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.Articles}"
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
                                 Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus}" />
                         </DataTemplate>

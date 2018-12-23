@@ -23,18 +23,18 @@ using System.Collections.Specialized;
 namespace SevenPrism.ViewModels
 {
     public class SalesViewModel : BindableBase
-    {   
-        // CollectionView for DataGrid, used for Binding, Selecting Item and Filtering
-        public ICollectionView SalesCollectionView { get; }      
-        // Needed for the ComboBoxes
+    {
+        // Sales List
+        private readonly ObservableCollection<Sale> Sales;
+        public ICollectionView  SalesCollectionView { get; }    
+        
+        // Additional Lists needed for SalesList
         public List<Referent> Refs { get; set; }
         public List<Category> Categories { get; set; }
-        public ObservableCollection<Article> Articles { get; }   
+        public ObservableCollection<Article> Articles { get; }
 
-        // Commands
-        public DelegateCommand AddNewSaleCommand { get; }
-        public DelegateCommand<object> RemoveSaleCommand { get; }
-        // FilterString for the SalesCollectionView
+        // For filtering Sales List
+        private string _filterString = string.Empty;
         public string FilterString
         {
             get => _filterString;
@@ -51,44 +51,49 @@ namespace SevenPrism.ViewModels
                     Ea.GetEvent<GridInEditModeEvent>().Publish();
                 }
             }
-        }  
+        }
 
-        //public Sale SelectedSale {
-        //    get;
-        //    set; }
+        // Dependencies
+        private readonly DatabaseContext Db;      
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType); 
+        private readonly IEventAggregator Ea;
 
-        // The DatabaseContext from EF Core
-        private DatabaseContext Db;
-        // Logger
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        // Dates which are being set through EventAggregator
+        // Dates 
         private DateTime _fromDate = Settings.Default.DateSelected;
         private DateTime _toDate = DateTime.Now;
+
+        // Commands
+        public DelegateCommand AddNewSaleCommand { get; }
+        public DelegateCommand<object> RemoveSaleCommand { get; }
 
         public SalesViewModel(DatabaseContext db, IEventAggregator ea)
         {
             Ea = ea;
-            Db = db;  
-
+            Db = db;
+            XmlConfigurator.Configure();
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
             Sales               = Db.Sales.Local.ToObservableCollection();
             SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
             Refs                = Db.Referents.Local.ToList();
             Categories          = Db.Categories.Local.ToList();
-            Articles            = Db.Articles.Local.ToObservableCollection();       
+            Articles            = Db.Articles.Local.ToObservableCollection(); 
 
-            AddNewSaleCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
-            RemoveSaleCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);       
+            SalesCollectionView.Filter          += SaleViewFilterHandler;         
+            SalesCollectionView.CurrentChanged  += SalesCollectionView_CurrentChanged;
 
-            SalesCollectionView.Filter            += SaleViewFilterHandler;
-            SalesCollectionView.CollectionChanged += SalesCollectionView_CollectionChanged;      
+            AddNewSaleCommand = new DelegateCommand(AddNewSale);
+            RemoveSaleCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);
 
-            XmlConfigurator.Configure();
             log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} launch completed *****");
 
             CheckForUpdates();
-        }  
+        }
+
+        private void SalesCollectionView_CurrentChanged(object sender, EventArgs e)
+        {
+            RemoveSaleCommand.RaiseCanExecuteChanged();
+        }
 
         private async Task CheckForUpdates()
         {
@@ -96,55 +101,38 @@ namespace SevenPrism.ViewModels
             {
                 await manager.UpdateApp();
             }
-        }
-
-        private void SalesCollectionView_CollectionChanged(object sender, EventArgs e)
-        {
-            RemoveSaleCommand.RaiseCanExecuteChanged();
-        }
+        }   
 
         private void DateSelectedChangedHandler(TimePeriod timePeriod)
         {
             _fromDate   = timePeriod.FromDate;
             _toDate     = timePeriod.ToDate;
             SalesCollectionView.Refresh();      
-        }
-
-        private ObservableCollection<Sale> Sales;
-        private string _filterString = string.Empty;
-        private readonly IEventAggregator Ea;
-
-        private bool CanAddNewSale()
-        {
-            return true;
-        }
+        }       
 
         private void AddNewSale()
         {
-            var Sale = new Sale();
-
-            //TODO: Sale.Validate();
+            var Sale = new Sale();      
             Sales.Add(Sale);
             SalesCollectionView.MoveCurrentTo(Sale);      
         }
 
-        private bool CanRemoveSale(object selectedSales)
+        private bool CanRemoveSale(object selectedItems)
         {
-            if (selectedSales == null)
+            if (selectedItems == null)
                 return false;
 
-            var listSelectedSales = (IList)selectedSales;
-
-            if (listSelectedSales.Count == 0)
+            var listSelectedItems = (IList)selectedItems;
+            if (listSelectedItems.Count == 0)
                 return false;
             else
                 return true;
         }
 
-        private void RemoveSale(object selectedSales)
+        private void RemoveSale(object selectedItems)
         {
-            var listSelectedSales = (IList)selectedSales;
-            var removeList = listSelectedSales.Cast<Sale>().ToList();          
+            var listSelectedItems = (IList)selectedItems;
+            var removeList = listSelectedItems.Cast<Sale>().ToList();          
             foreach (Sale Sale in removeList)
             {              
                 Sales.Remove(Sale);
@@ -174,7 +162,11 @@ namespace SevenPrism.ViewModels
 /* 
   
 1.0
-
+ - DB migration
+ - run without privilidges
+ - installation procedure
+ - logging
+ - lokalisierung
 
 2.0
 
@@ -185,7 +177,6 @@ namespace SevenPrism.ViewModels
 
 sonstiges
 
-- lokalisierung
 - Tests
 
 

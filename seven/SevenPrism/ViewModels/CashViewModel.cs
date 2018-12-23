@@ -19,36 +19,37 @@ namespace SevenPrism.ViewModels
 {
     class CashViewModel : BindableBase
     { 
-        // All Deposits
-        public ObservableCollection<Deposit> Deposits;
+        // Deposits List
+        private readonly ObservableCollection<Deposit> Deposits;
         public ICollectionView DepositsCollectionView { get; }
         public string DepositsSum => DepositsCollectionView.Cast<Deposit>().Sum(x => x.Amount).ToString();
 
-        // List which shows all Sales per Day
-        public ObservableCollection<SalesDaily> SalesDaily = new ObservableCollection<SalesDaily>();
+        // List Sales per Day
+        private readonly ObservableCollection<SalesDaily> SalesDaily = new ObservableCollection<SalesDaily>();
         public ICollectionView SalesDailyCollectionView { get; }
-        public string SalesDailySum => SalesDailyCollectionView.Cast<SalesDaily>().Sum(x => x.Amount).ToString();      
+        public string SalesDailySum => SalesDailyCollectionView.Cast<SalesDaily>().Sum(x => x.Amount).ToString(); 
 
+        // Sales List needed to create SalesDaily List
+        private readonly ObservableCollection<Sale> Sales;
+
+        // Dates for Filter
+        private DateTime _fromDate = Settings.Default.DateSelected;
+        private DateTime _toDate = DateTime.Now;
+
+        // Commands
         public DelegateCommand AddNewDepositCommand { get; }
         public DelegateCommand<object> RemoveDepositCommand { get; }
 
-        // The Sales List which is needed to create SalesDaily List
-        private readonly ObservableCollection<Sale> Sales;
-        private readonly IEventAggregator Ea; 
+        // Dependencies
+        private readonly IEventAggregator Ea;
         private readonly DatabaseContext Db;
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private DateTime _fromDate = Settings.Default.DateSelected;
-        private DateTime _toDate = DateTime.Now;
-      
+
         public CashViewModel(DatabaseContext db, IEventAggregator ea)
         {  
             Db = db;
             Ea = ea;
-
-            Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
-
-            AddNewDepositCommand = new DelegateCommand(AddNewDeposit, CanAddNewDeposit);
-            RemoveDepositCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit);
+            Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);    
 
             Sales = Db.Sales.Local.ToObservableCollection();
             Deposits = Db.Deposits.Local.ToObservableCollection();
@@ -57,12 +58,12 @@ namespace SevenPrism.ViewModels
             DepositsCollectionView.Filter += new Predicate<object>(DepositsViewFilterHandler);
             DepositsCollectionView.CurrentChanged += DepositsCollectionView_CurrentChanged;
 
+            CreateSaleDailyCollection(SalesDaily, Sales);
             SalesDailyCollectionView = CollectionViewSource.GetDefaultView(SalesDaily);
-            SalesDailyCollectionView.Filter += new Predicate<object>(SalesDailyViewFilterHandler);            
+            SalesDailyCollectionView.Filter += new Predicate<object>(SalesDailyViewFilterHandler);
 
             // DEPOSITS
-            // register for PropertyChanged event
-            // 1. for all existing items in Deposits
+            // 1. register for PropertyChanged event for all existing items in Deposits
             foreach (var item in Deposits)            
                 item.PropertyChanged += Deposit_PropertyChanged;
             
@@ -70,15 +71,15 @@ namespace SevenPrism.ViewModels
             Deposits.CollectionChanged += Deposits_CollectionChanged;
 
             // ORDERS
-            // register for PropertyChanged event
-            // 1. for all existing items in Orders
+            // 1. register for PropertyChanged event for all existing items in Orders
             foreach (var item in Sales)            
                 item.PropertyChanged += Sale_PropertyChanged;
             
             // 2. for all items which are going to be removed or added to Orders
-            Sales.CollectionChanged += Sales_CollectionChanged;     
+            Sales.CollectionChanged += Sales_CollectionChanged; 
 
-            CreateSaleDailyCollection(SalesDaily, Sales);
+            AddNewDepositCommand = new DelegateCommand(AddNewDeposit);
+            RemoveDepositCommand = new DelegateCommand<object>(RemoveDeposit, CanRemoveDeposit);
         }
 
         private void DepositsCollectionView_CurrentChanged(object sender, EventArgs e)
@@ -140,8 +141,7 @@ namespace SevenPrism.ViewModels
         private void Deposit_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("Amount"))            
-                RaisePropertyChanged(nameof(DepositsSum));
-             
+                RaisePropertyChanged(nameof(DepositsSum));             
         }
 
         private void Sales_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -196,34 +196,7 @@ namespace SevenPrism.ViewModels
             // Add last SalesDaily
             salesDaily.Add(new SalesDaily(lastDate, sumDay));
             RaisePropertyChanged(nameof(SalesDailySum));
-        }
-
-        //private ObservableCollection<SaleDaily> UpdateSalesDailyItem(ObservableCollection<Sale> orders, PropertyChangedEventArgs e)
-        //{
-        //    // remove SaleDaily item
-        //    SalesDaily.Remove();
-        //    var newEarning = CreateNewEarning(orders, e);
-        //    SalesDaily.Add(newEarning);      
-        //}
-
-
-        //private SaleDaily CreateNewEarning(ObservableCollection<Sale> orders, PropertyChangedEventArgs e)
-        //{
-        //    return new SaleDaily(DateTime.Now, 100);
-        //}
-
-        private bool CanAddNewDeposit()
-        {
-            return true;
-        }
-
-        //public Deposit SelectedDeposit
-        //{
-        //    get => selectedDeposit;
-        //    set => SetProperty(ref selectedDeposit, value);
-        //}
-
-        //private Deposit selectedDeposit;
+        }  
 
         private void AddNewDeposit()
         {

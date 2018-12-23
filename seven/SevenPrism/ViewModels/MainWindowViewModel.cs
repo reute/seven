@@ -19,9 +19,8 @@ using log4net.Config;
 namespace SevenPrism.ViewModels
 {
     public class MainWindowViewModel : BindableBase
-    {
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+    {  
+        // From To Dates
         private DateTime _fromDate = Settings.Default.DateSelected; 
         public DateTime FromDate {
             get
@@ -49,6 +48,7 @@ namespace SevenPrism.ViewModels
             }
         }
 
+        // Commands
         public DelegateCommand AboutCommand { get; }
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand ExitCommand { get; }
@@ -56,39 +56,34 @@ namespace SevenPrism.ViewModels
         public string DatabasePath { get; } 
         public string Title { get; } = ApplicationInfo.ProductName;
 
+        // Dependencies
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator Ea;
+        private readonly DatabaseContext Dc;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="regionManager"></param>
         public MainWindowViewModel(DatabaseContext dc, IRegionManager regionManager, IEventAggregator ea)
-        {
-            XmlConfigurator.Configure();        
-
+        {     
             Dc = dc;
             Ea = ea;
-
             DatabasePath = Dc.FullDatabasePath;
+            XmlConfigurator.Configure();
 
-            AboutCommand = new DelegateCommand(ShowAboutMessage);
-            SaveCommand = new DelegateCommand(OnSave);
-            ExitCommand = new DelegateCommand(OnExit);
-
+            // Registering Regions
             regionManager.RegisterViewWithRegion("SalesRegion", typeof(Sales));
             regionManager.RegisterViewWithRegion("CashRegion", typeof(Cash));
             regionManager.RegisterViewWithRegion("ArticlesRegion", typeof(Articles));
             regionManager.RegisterViewWithRegion("ReportRegion", typeof(Report));
-        }
-      
+
+            AboutCommand = new DelegateCommand(ShowAboutMessage);
+            SaveCommand = new DelegateCommand(OnSave);
+            ExitCommand = new DelegateCommand(OnExit);
+        }      
 
         private void OnExit()
         {
             OnClosing(this, null);
             Application.Current.Shutdown();          
         }
-
-        private DatabaseContext Dc;
 
         private void ShowAboutMessage()
         {

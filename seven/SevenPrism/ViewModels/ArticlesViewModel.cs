@@ -12,23 +12,22 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace SevenPrism.ViewModels
 {
     public class ArticlesViewModel : BindableBase
     {
-        // CollectionView for DataGrid, used for Binding, Selecting Item and Filtering
+        // ArticlesList
+        private ObservableCollection<Article> Articles;
         public ICollectionView ArticlesCollectionView { get; }
-        // Needed for the ComboBoxes
+
+        // Needed for Articles List
         public List<Category> Categories { get; set; }
         public List<Manufacturer> Manufacturers { get; set; }
-        // Commands
-        public DelegateCommand AddCommand { get; }
-        public DelegateCommand<object> RemoveCommand { get; }
-        // FilterString for the SalesCollectionView
+
+        // FilterString for the ArticlesList
+        private string _filterString = string.Empty;
         public string FilterString
         {
             get => _filterString;
@@ -47,10 +46,14 @@ namespace SevenPrism.ViewModels
             }
         }
 
-        // The DatabaseContext from EF Core
-        private DatabaseContext Db;
-        // Logger
+        // Dependencies
+        private readonly DatabaseContext Db;
+        private readonly IEventAggregator Ea;
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        // Commands
+        public DelegateCommand AddCommand { get; }
+        public DelegateCommand<object> RemoveCommand { get; }
 
         public ArticlesViewModel(DatabaseContext db, IEventAggregator ea)
         {
@@ -62,26 +65,16 @@ namespace SevenPrism.ViewModels
             Categories = Db.Categories.Local.ToList();
             Manufacturers = Db.Manufacturers.Local.ToList();
 
-            AddCommand = new DelegateCommand(Add, CanAdd);
+            ArticlesCollectionView.Filter += FilterHandler;         
+            ArticlesCollectionView.CurrentChanged += ArticlesCollectionView_CurrentChanged;
+
+            AddCommand = new DelegateCommand(Add);
             RemoveCommand = new DelegateCommand<object>(Remove, CanRemove);
-
-            ArticlesCollectionView.Filter += FilterHandler;
-            ArticlesCollectionView.CollectionChanged += CollectionChanged;             
         }
-        
 
-        private void CollectionChanged(object sender, EventArgs e)
+        private void ArticlesCollectionView_CurrentChanged(object sender, EventArgs e)
         {
             RemoveCommand.RaiseCanExecuteChanged();
-        }    
-
-        private ObservableCollection<Article> Articles;
-        private string _filterString = string.Empty;
-        private readonly IEventAggregator Ea;
-
-        private bool CanAdd()
-        {
-            return true;
         }
 
         private void Add()
@@ -91,13 +84,12 @@ namespace SevenPrism.ViewModels
             ArticlesCollectionView.MoveCurrentTo(article);
         }
 
-        private bool CanRemove(object selectedItem)
+        private bool CanRemove(object selectedItems)
         {
-            if (selectedItem == null)
+            if (selectedItems == null)
                 return false;
 
-            var listSelectedItems = (IList)selectedItem;
-
+            var listSelectedItems = (IList)selectedItems;
             if (listSelectedItems.Count == 0)
                 return false;
             else
@@ -126,6 +118,5 @@ namespace SevenPrism.ViewModels
 
             return true;
         }
-
     }
 }

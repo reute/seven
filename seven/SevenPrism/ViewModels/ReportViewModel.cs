@@ -20,24 +20,32 @@ namespace SevenPrism.ViewModels
 {
     public class ReportViewModel : BindableBase
     {
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        DatabaseContext Db;
-
-        private readonly IEventAggregator Ea;
+        private FlowDocument _report;
+        public FlowDocument Report
+        {
+            get => _report;
+            set => SetProperty(ref _report, value);
+        }
 
         private DateTime _fromDate = Settings.Default.DateSelected;
         private DateTime _toDate = DateTime.Now;
 
+        // Dependencies
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly DatabaseContext Db;
+        private readonly IEventAggregator Ea;
+
+        public DelegateCommand CreateSalesListReportCommand { get; set; }
+        public DelegateCommand CreateArticlesListReportCommand { get; set; }
+
         public ReportViewModel(DatabaseContext db, IEventAggregator ea)
         {
-            CreateSalesListReportCommand = new DelegateCommand(CreateSalesListReport);
-            CreateArticlesListReportCommand = new DelegateCommand(CreateArticlesListReport);
-
             Db = db;
             Ea = ea;
-
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
+
+            CreateSalesListReportCommand = new DelegateCommand(CreateSalesListReport);
+            CreateArticlesListReportCommand = new DelegateCommand(CreateArticlesListReport);
         }
 
         private void DateSelectedChangedHandler(TimePeriod timePeriod)
@@ -55,16 +63,5 @@ namespace SevenPrism.ViewModels
         {          
             Report = new SalesListReport(Db.Sales.Where(x => x.Date.Date >= _fromDate.Date || x.Date.Date <= _toDate.Date).ToList());           
         }
-
-        private FlowDocument _report;
-        public FlowDocument Report
-        {
-            get => _report;
-            set => SetProperty(ref _report, value);
-        }
-
-        public DelegateCommand CreateSalesListReportCommand { get; set; }
-
-        public DelegateCommand CreateArticlesListReportCommand { get; set; }
     }
 }
