@@ -51,9 +51,9 @@ namespace SevenPrism.ViewModels
             }
         }  
 
-        public Sale SelectedSale {
-            get;
-            set; }
+        //public Sale SelectedSale {
+        //    get;
+        //    set; }
 
         // The DatabaseContext from EF Core
         private DatabaseContext Db;

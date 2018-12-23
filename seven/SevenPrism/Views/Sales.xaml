@@ -52,8 +52,7 @@
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding SalesCollectionView}"
             RowHeaderWidth="15"
-            ScrollViewer.CanContentScroll="False"
-            SelectedItem="{Binding SelectedSale}"
+            ScrollViewer.CanContentScroll="False"          
             SelectionUnit="CellOrRowHeader"
             VerticalScrollBarVisibility="Auto">
 
@@ -92,7 +91,7 @@
                                 IsTextSearchEnabled="True"
                                 ItemsSource="{Binding Source={StaticResource Articles}}"
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
-                                Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
+                                Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus }" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -34,34 +34,13 @@ namespace SevenPrism.Models
             }
             set
             {
-                if (value is Article)
-                {
-                    _article = value;
+                _article = value;
+                if (value is Article)                                  
                     Price = value.Price;
-                }                   
-                else
-                    _article = null;
             }
         }
 
-        private string _articleDescription;
-        public string ArticleDescription
-        {
-            get
-            {
-                if (_article != null)
-                    return _article.Description;
-                else
-                    return _articleDescription;
-
-            }
-            set
-            {
-                _articleDescription = value;
-            }
-        }
-
-        //public string ArticleDescription { get; set; } = string.Empty;
+        public string ArticleDescription { get; set; } = string.Empty;
 
         public Referent Ref { get; set; }
 
