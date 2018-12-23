@@ -53,6 +53,7 @@
             ItemsSource="{Binding SalesCollectionView}"
             RowHeaderWidth="15"
             ScrollViewer.CanContentScroll="False"
+            SelectedItem="{Binding SelectedSale}"
             SelectionUnit="CellOrRowHeader"
             VerticalScrollBarVisibility="Auto">
 
@@ -89,6 +90,7 @@
                                 IsEditable="True"
                                 IsTextSearchEnabled="True"
                                 ItemsSource="{Binding Source={StaticResource Articles}}"
+                                IsSynchronizedWithCurrentItem="False"
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
                                 Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
                         </DataTemplate>

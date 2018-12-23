@@ -61,15 +61,7 @@
                         BorderBrush="#FF4F81BD"
                         BorderThickness="0,0,1,1">
                         <Paragraph>
-                            <Run Text="Category" />
-                        </Paragraph>
-                    </TableCell>
-                    <TableCell
-                        Padding="4,2"
-                        BorderBrush="#FF4F81BD"
-                        BorderThickness="0,0,1,1">
-                        <Paragraph>
-                            <Run Text="Detail" />
+                            <Run Text="Article" />
                         </Paragraph>
                     </TableCell>
                     <TableCell
@@ -116,15 +108,7 @@
                             BorderBrush="#FF4F81BD"
                             BorderThickness="0,0,1,1">
                             <Paragraph>
-                                <Run Text="{Binding Category, Mode=OneTime}" />
-                            </Paragraph>
-                        </TableCell>
-                        <TableCell
-                            Padding="4,2"
-                            BorderBrush="#FF4F81BD"
-                            BorderThickness="0,0,1,1">
-                            <Paragraph>
-                                <Run Text="{Binding Detail, Mode=OneTime}" />
+                                <Run Text="{Binding ArticleDescription, Mode=OneTime}" />
                             </Paragraph>
                         </TableCell>
                         <TableCell

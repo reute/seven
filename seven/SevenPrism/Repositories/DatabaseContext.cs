@@ -57,15 +57,15 @@ namespace SevenPrism.Repository
 
             Categories.Add(new Category
             {
-                Name = "Bremsen"
+                Name = "Bremse"
             });
             Categories.Add(new Category
             {
-                Name = "Schläuche"
+                Name = "Schlauch"
             });
             Categories.Add(new Category
             {
-                Name = "Ketten"
+                Name = "Kette"
             });
 
             Manufacturers.Add(new Manufacturer
@@ -88,7 +88,7 @@ namespace SevenPrism.Repository
             Articles.Add(new Article
             {
                 Date = DateTime.Now,
-                Cat = Categories.Single(m => m.Name.Equals("Schläuche")),
+                Cat = Categories.Single(m => m.Name.Equals("Schlauch")),
                 Manufacturer = Manufacturers.Single(m => m.Name.Equals("Schwalbe")),
                 Model = "AV13",
                 Price = 5                
@@ -97,7 +97,7 @@ namespace SevenPrism.Repository
             Articles.Add(new Article
             {
                 Date = DateTime.Now,
-                Cat = Categories.Single(m => m.Name.Equals("Ketten")),
+                Cat = Categories.Single(m => m.Name.Equals("Kette")),
                 Manufacturer = Manufacturers.Single(m => m.Name.Equals("Shimano")),
                 Model = "9fach",
                 Price = 9
@@ -106,7 +106,7 @@ namespace SevenPrism.Repository
             Articles.Add(new Article
             {
                 Date = DateTime.Now,
-                Cat = Categories.Single(m => m.Name.Equals("Bremsen")),
+                Cat = Categories.Single(m => m.Name.Equals("Bremse")),
                 Manufacturer = Manufacturers.Single(m => m.Name.Equals("Magura")),
                 Model = "HS33",
                 Price = 80
