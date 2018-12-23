@@ -71,14 +71,12 @@
                     Width="*"
                     DisplayMemberPath="Name"
                     Header="{x:Static p:Resources.ColumnHeaderCategory}"
-                    IsReadOnly="True"
                     ItemsSource="{Binding Source={StaticResource Categories}}"
                     SelectedItemBinding="{Binding Cat, UpdateSourceTrigger=LostFocus}" />
                 <DataGridComboBoxColumn
                     Width="*"
                     DisplayMemberPath="Name"
                     Header="Manufacturer"
-                    IsReadOnly="True"
                     ItemsSource="{Binding Source={StaticResource Manufacturers}}"
                     SelectedItemBinding="{Binding Manufacturer, UpdateSourceTrigger=LostFocus}" />
                 <DataGridTextColumn

@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:SevenPrism.Properties"
     xmlns:prism="http://prismlibrary.com/"
+    x:Name="root"
     d:DesignHeight="450"
     d:DesignWidth="800"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -14,7 +15,6 @@
     <!--  Alternative to creating the CollectionViewSource in ViewModel like with Sales  -->
     <UserControl.Resources>
         <CollectionViewSource x:Key="Refs" Source="{Binding Refs}" />
-        <CollectionViewSource x:Key="Articles" Source="{Binding Articles}" />
     </UserControl.Resources>
 
     <DockPanel>
@@ -52,7 +52,7 @@
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding SalesCollectionView}"
             RowHeaderWidth="15"
-            ScrollViewer.CanContentScroll="False"          
+            ScrollViewer.CanContentScroll="False"
             SelectionUnit="CellOrRowHeader"
             VerticalScrollBarVisibility="Auto">
 
@@ -89,9 +89,9 @@
                                 IsEditable="True"
                                 IsSynchronizedWithCurrentItem="False"
                                 IsTextSearchEnabled="True"
-                                ItemsSource="{Binding Source={StaticResource Articles}}"
+                                ItemsSource="{Binding DataContext.Articles, ElementName=root}"
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
-                                Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus }" />
+                                Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

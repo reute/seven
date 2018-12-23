@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Squirrel;
 using log4net.Config;
 using SevenPrism.Helpers;
+using System.Collections.Specialized;
 
 namespace SevenPrism.ViewModels
 {
@@ -28,7 +29,8 @@ namespace SevenPrism.ViewModels
         // Needed for the ComboBoxes
         public List<Referent> Refs { get; set; }
         public List<Category> Categories { get; set; }
-        public List<Article> Articles { get; set; }
+        public ObservableCollection<Article> Articles { get; }   
+
         // Commands
         public DelegateCommand AddNewSaleCommand { get; }
         public DelegateCommand<object> RemoveSaleCommand { get; }
@@ -74,19 +76,19 @@ namespace SevenPrism.ViewModels
             SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
             Refs                = Db.Referents.Local.ToList();
             Categories          = Db.Categories.Local.ToList();
-            Articles            = Db.Articles.Local.ToList();       
+            Articles            = Db.Articles.Local.ToObservableCollection();       
 
             AddNewSaleCommand = new DelegateCommand(AddNewSale, CanAddNewSale);
             RemoveSaleCommand = new DelegateCommand<object>(RemoveSale, CanRemoveSale);       
 
             SalesCollectionView.Filter            += SaleViewFilterHandler;
-            SalesCollectionView.CollectionChanged += SalesCollectionView_CollectionChanged;
-            
+            SalesCollectionView.CollectionChanged += SalesCollectionView_CollectionChanged;      
+
             XmlConfigurator.Configure();
             log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} launch completed *****");
 
             CheckForUpdates();
-        }
+        }  
 
         private async Task CheckForUpdates()
         {
