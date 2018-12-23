@@ -88,9 +88,9 @@
                             <ComboBox
                                 DisplayMemberPath="Description"
                                 IsEditable="True"
+                                IsSynchronizedWithCurrentItem="False"
                                 IsTextSearchEnabled="True"
                                 ItemsSource="{Binding Source={StaticResource Articles}}"
-                                IsSynchronizedWithCurrentItem="False"
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
                                 Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus, Mode=OneWayToSource}" />
                         </DataTemplate>

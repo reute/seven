@@ -48,6 +48,7 @@ namespace SevenPrism.ViewModels
 
         private void CreateArticlesListReport()
         {
+            Report = new ArticlesListReport(Db.Articles.ToList());
         }
 
         private void CreateSalesListReport()

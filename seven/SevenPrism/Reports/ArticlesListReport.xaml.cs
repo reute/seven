@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenPrism.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,19 @@ namespace SevenPrism.Reports
     /// <summary>
     /// Interaction logic for ArticlesListReport.xaml
     /// </summary>
-    public partial class ArticlesListReport : UserControl
+    public partial class ArticlesListReport : FlowDocument
     {
-        public ArticlesListReport()
+        public ArticlesListReport(List<Article> articles)
         {
             InitializeComponent();
+            DataContext = this;
+            Articles = articles;
         }
+
+        public List<Article> Articles { get; }
+
+        public int ArticlesCount => Articles.Count;
+
+        public DateTime Date => DateTime.Now;
     }
 }

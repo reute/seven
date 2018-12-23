@@ -29,6 +29,12 @@ namespace SevenPrism.Models
 
         public Manufacturer Manufacturer { get; set; } = new Manufacturer();
 
+        [Required]
+        public string Model { get; set; } = string.Empty;
+
+        [Required]
+        public decimal Price { get; set; }
+
         public string Description
         {
             get
@@ -36,11 +42,5 @@ namespace SevenPrism.Models
                 return $"{Cat.Name} {Manufacturer.Name} {Model}";
             }
         }
-
-        [Required]
-        public string Model { get; set; } = string.Empty;
-
-        [Required]
-        public decimal Price { get; set; }
     }
 }
