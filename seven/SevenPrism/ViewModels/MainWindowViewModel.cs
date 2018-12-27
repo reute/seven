@@ -65,7 +65,7 @@ namespace SevenPrism.ViewModels
         {     
             Dc = dc;
             Ea = ea;
-            DatabasePath = Dc.FullDatabasePath;
+            DatabasePath = Dc.DataSource;
             XmlConfigurator.Configure();
 
             // Registering Regions

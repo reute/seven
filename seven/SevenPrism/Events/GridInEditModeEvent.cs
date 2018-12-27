@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SevenPrism.Events
 {
-    public class GridInEditModeEvent : PubSubEvent { }
+    public class SalesGridInEditModeEvent : PubSubEvent { }
 
     public class ArticlesGridInEditModeEvent : PubSubEvent { }
 }

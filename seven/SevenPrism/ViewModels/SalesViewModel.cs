@@ -48,7 +48,7 @@ namespace SevenPrism.ViewModels
                 catch (InvalidOperationException)
                 {
                     // Tell view to leave the edit mode that causes the exception
-                    Ea.GetEvent<GridInEditModeEvent>().Publish();
+                    Ea.GetEvent<SalesGridInEditModeEvent>().Publish();
                 }
             }
         }
@@ -143,12 +143,14 @@ namespace SevenPrism.ViewModels
         {
             var sale = obj as Sale;
 
-            // if Sales date is older than set date
-            if (sale.Date.Date < _fromDate.Date || sale.Date.Date > _toDate.Date)            
+            // Filter Date : if Sales date is older than set date
+            if (sale.Date.Date < _fromDate.Date || sale.Date.Date > _toDate.Date)     
+                // do not show this sale in filtered list
                 return false;
 
-            // if string is not found in sales detail column
-            if (sale.ArticleDescription.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0)
+            // Filter String : if Searchstring is not found in sales detail or Employee column
+            if (sale.ArticleDescription.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 &&
+                sale.Ref.Name.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0)
                 return false;                
 
             return true;

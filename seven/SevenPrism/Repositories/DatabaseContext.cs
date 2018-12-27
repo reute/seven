@@ -7,6 +7,7 @@ using System;
 using System.Reflection;
 using log4net.Config;
 using System.Linq;
+using System.IO;
 
 namespace SevenPrism.Repository
 {
@@ -15,7 +16,7 @@ namespace SevenPrism.Repository
         // Logger
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public string FullDatabasePath;
+        public string DataSource;
 
         public DatabaseContext() : base()
         {
@@ -25,11 +26,11 @@ namespace SevenPrism.Repository
             var tmp = Database.EnsureCreated();
             if (tmp)
             {
-                log.Info($"Db not found, created new {FullDatabasePath}");            
+                log.Info($"Db not found, created new {DataSource}");            
                 initDb(); 
             } else
             {
-                log.Info($"Found Db at {FullDatabasePath}");       
+                log.Info($"Found Db at {DataSource}");       
             }
             Sales.Load();
             Deposits.Load();
@@ -114,28 +115,30 @@ namespace SevenPrism.Repository
 
             SaveChanges();
 
-            log.Info($"Added initial values to Db at {FullDatabasePath}");
+            log.Info($"Added initial values to Db at {DataSource}");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {      
+        { 
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             var appFolder = ApplicationInfo.ProductName;
-            var databasePath = $"{appDataPath}\\{appFolder}";
+            var databasePath = Path.Combine(appDataPath,appFolder);
             try
             {
-                System.IO.Directory.CreateDirectory(databasePath);
+                Directory.CreateDirectory(databasePath);
                 var databaseName = Settings.Default.DatabaseName;
-                FullDatabasePath = $"{databasePath}\\{databaseName}";
+                DataSource = Path.Combine(databasePath, databaseName);
                 log.Info($"Using {databasePath} as folder for db");
             }
+            // if dir cannot be created
             catch (Exception e)
             {
-                FullDatabasePath = Settings.Default.DatabaseName; ;
+                // using application folder
+                DataSource = Settings.Default.DatabaseName;
                 log.Info($"Could not create folder {databasePath}, using application folder for db");
             }
         
-            var connectionString = $"Data Source={FullDatabasePath}"; 
+            var connectionString = $"Data Source={DataSource}"; 
             optionsBuilder.UseSqlite(connectionString);
         }  
 

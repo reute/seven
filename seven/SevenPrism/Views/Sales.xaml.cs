@@ -20,7 +20,7 @@ namespace SevenPrism.Views
         {
             InitializeComponent();
             Ea = ea;
-            Ea.GetEvent<GridInEditModeEvent>().Subscribe(GridInEditModeEventHandler);
+            Ea.GetEvent<SalesGridInEditModeEvent>().Subscribe(GridInEditModeEventHandler);
         }
 
         private void GridInEditModeEventHandler()

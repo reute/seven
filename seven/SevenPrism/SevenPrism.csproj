@@ -76,7 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="CustomControls\BindableTable.cs" />
     <Compile Include="CustomControls\ContentElement.cs" />
-    <Compile Include="Events\StartingDateChanged.cs" />
+    <Compile Include="Events\DateSelectedChangedEvent.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Manufacturer.cs" />
