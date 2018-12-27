@@ -1,4 +1,4 @@
-﻿namespace SevenPrism.Helpers
+﻿namespace SevenPrism.CustomControls
 {
     using System;
     using System.Collections;

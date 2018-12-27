@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace SevenPrism.Helpers
+namespace SevenPrism.CustomControls
 {
     public static class ApplicationInfo
     {

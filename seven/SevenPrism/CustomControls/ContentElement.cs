@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace SevenPrism.Helpers
+namespace SevenPrism.CustomControls
 {
     [ContentProperty(nameof(Content))]
     public class ContentElement : FrameworkElement

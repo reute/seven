@@ -138,7 +138,6 @@
     <Compile Include="Converters\ValidationErrorConverter.cs" />
     <Compile Include="Events\GridInEditModeEvent.cs" />
     <Compile Include="Helpers\ApplicationInfo.cs" />
-    <Compile Include="Helpers\DataGridHelper.cs" />
     <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Repositories\DatabaseContext.cs" />

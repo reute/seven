@@ -7,7 +7,7 @@ using Prism.Mvvm;
 using SevenPrism.Properties;
 using Prism.Regions;
 using SevenPrism.Views;
-using SevenPrism.Helpers;
+using SevenPrism.CustomControls;
 using SevenPrism.Repository;
 using System.Linq;
 using Prism.Events;
@@ -94,6 +94,7 @@ namespace SevenPrism.ViewModels
         private void OnSave()
         {
             Dc.SaveChanges();
+            log.Info("Saved to Db");
         }
 
         public void OnClosing(object sender, CancelEventArgs e)
@@ -104,12 +105,13 @@ namespace SevenPrism.ViewModels
             {
                 ShowUnsavedChangesDialog();
             }
+            log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} closed normally *****\n");
         }
 
         public void ShowUnsavedChangesDialog()
         {
             var messageBoxText = "There are unsaved changes. Click Yes to save or No to discard.";
-            var caption = "Obacht";
+            var caption = "Warning";
             var buttons = MessageBoxButton.YesNo;
             var icon = MessageBoxImage.Warning;
 
@@ -118,7 +120,7 @@ namespace SevenPrism.ViewModels
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 Dc.SaveChanges();
-            }            
+            }           
         }
     }
 }

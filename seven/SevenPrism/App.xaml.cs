@@ -8,7 +8,7 @@ using SevenPrism.Properties;
 using log4net;
 using log4net.Config;
 using System.Reflection;
-using SevenPrism.Helpers;
+using SevenPrism.CustomControls;
 
 namespace SevenPrism
 {

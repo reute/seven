@@ -17,7 +17,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Squirrel;
 using log4net.Config;
-using SevenPrism.Helpers;
+using SevenPrism.CustomControls;
 using System.Collections.Specialized;
 
 namespace SevenPrism.ViewModels
