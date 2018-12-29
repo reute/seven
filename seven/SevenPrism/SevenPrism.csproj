@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ValidationErrorsConverter.cs" />
     <Compile Include="CustomControls\BindableTable.cs" />
     <Compile Include="CustomControls\ContentElement.cs" />
     <Compile Include="Events\DateSelectedChangedEvent.cs" />
@@ -111,7 +112,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Converter.xaml">
+    <Page Include="Resources\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,7 +137,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
-    <Compile Include="Converters\ValidationErrorConverter.cs" />
     <Compile Include="Events\GridInEditModeEvent.cs" />
     <Compile Include="Helpers\ApplicationInfo.cs" />
     <Compile Include="Models\Deposit.cs" />

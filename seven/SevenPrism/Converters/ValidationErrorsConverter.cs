@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace SevenPrism.Converter
+namespace SevenPrism.Converters
 {
-    public sealed class ValidationErrorsConverter : IMultiValueConverter
+    public class ValidationErrorsConverter : IMultiValueConverter
     {
         /// <summary>
         /// Gets the default instance of this converter.
         /// </summary>
         public static ValidationErrorsConverter Default { get; } = new ValidationErrorsConverter();
-
 
         /// <summary>
         /// Converts a collection of <see cref="ValidationError"/> objects into a multi-line string of error messages.

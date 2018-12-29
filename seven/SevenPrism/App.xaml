@@ -15,8 +15,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Images.xaml" />
+                <!--  Order of Dictionaries important, otherwise error !! https://stackoverflow.com/questions/9994020/provide-value-on-system-windows-markup-staticresourceholder-threw-an-exception  -->
+                <ResourceDictionary Source="Resources/Converters.xaml" />
                 <ResourceDictionary Source="Resources/Controls.xaml" />
-                <ResourceDictionary Source="Resources/Converter.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

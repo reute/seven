@@ -28,11 +28,16 @@ namespace SevenPrism.Repository
             if (tmp)
             {
                 log.Info($"Db not found, created new {DataSource}");            
-                initDb(); 
+                FillDb(); 
             } else
             {
                 log.Info($"Found Db at {DataSource}");       
             }
+            LoadTables();
+        }
+
+        private void LoadTables()
+        {
             Sales.Load();
             Deposits.Load();
             Referents.Load();
@@ -42,7 +47,7 @@ namespace SevenPrism.Repository
         }
 
         // fill db with initial values
-        private void initDb()
+        private void FillDb()
         {
             Referents.Add(new Referent
             {

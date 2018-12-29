@@ -41,6 +41,7 @@
             </ToolBar>
         </ToolBarTray>
 
+
         <DataGrid
             x:Name="SalesGrid"
             AlternatingRowBackground="AntiqueWhite"
@@ -98,8 +99,11 @@
 
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Amount, UpdateSourceTrigger=LostFocus}"
+                    Binding="{Binding Amount, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                    EditingElementStyle="{StaticResource TextCellEditingStyle}"
+                    ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderNumber}" />
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Price, UpdateSourceTrigger=LostFocus}"
@@ -112,6 +116,10 @@
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
+
+    <!--
+        EditingElementStyle="{StaticResource TextCellEditingStyle}"
+    -->
     <!--<DataGridTextColumn
                     Width="5*"
                     Binding="{Binding Book.Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
