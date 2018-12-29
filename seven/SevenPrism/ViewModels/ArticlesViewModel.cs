@@ -1,7 +1,5 @@
-﻿using log4net;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 using SevenPrism.Events;
 using SevenPrism.Models;
 using SevenPrism.Repository;
@@ -11,12 +9,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Data;
 
 namespace SevenPrism.ViewModels
 {
-    public class ArticlesViewModel : BindableBase
+    public class ArticlesViewModel : BaseViewModel
     {
         // ArticlesList
         private ObservableCollection<Article> Articles;
@@ -46,24 +43,16 @@ namespace SevenPrism.ViewModels
             }
         }
 
-        // Dependencies
-        private readonly DatabaseContext Db;
-        private readonly IEventAggregator Ea;
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         // Commands
         public DelegateCommand AddCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
 
-        public ArticlesViewModel(DatabaseContext db, IEventAggregator ea)
-        {
-            Ea = ea;
-            Db = db;        
-
-            Articles = Db.Articles.Local.ToObservableCollection();
+        public ArticlesViewModel(DatabaseContext db, IEventAggregator ea) : base(db, ea)
+        { 
+            Articles = Dc.Articles.Local.ToObservableCollection();
             ArticlesCollectionView = CollectionViewSource.GetDefaultView(Articles);        
-            Categories = Db.Categories.Local.ToList();
-            Manufacturers = Db.Manufacturers.Local.ToList();
+            Categories = Dc.Categories.Local.ToList();
+            Manufacturers = Dc.Manufacturers.Local.ToList();
 
             ArticlesCollectionView.Filter += FilterHandler;         
             ArticlesCollectionView.CurrentChanged += ArticlesCollectionView_CurrentChanged;

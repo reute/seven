@@ -22,7 +22,7 @@ using System.Collections.Specialized;
 
 namespace SevenPrism.ViewModels
 {
-    public class SalesViewModel : BindableBase
+    public class SalesViewModel : BaseViewModel
     {
         // Sales List
         private readonly ObservableCollection<Sale> Sales;
@@ -51,12 +51,7 @@ namespace SevenPrism.ViewModels
                     Ea.GetEvent<SalesGridInEditModeEvent>().Publish();
                 }
             }
-        }
-
-        // Dependencies
-        private readonly DatabaseContext Db;      
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType); 
-        private readonly IEventAggregator Ea;
+        }  
 
         // Dates 
         private DateTime _fromDate = Settings.Default.DateSelected;
@@ -66,18 +61,15 @@ namespace SevenPrism.ViewModels
         public DelegateCommand AddNewSaleCommand { get; }
         public DelegateCommand<object> RemoveSaleCommand { get; }
 
-        public SalesViewModel(DatabaseContext db, IEventAggregator ea)
-        {
-            Ea = ea;
-            Db = db;
-            XmlConfigurator.Configure();
+        public SalesViewModel(DatabaseContext dc, IEventAggregator ea) : base(dc, ea)
+        {          
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);
 
-            Sales               = Db.Sales.Local.ToObservableCollection();
+            Sales               = Dc.Sales.Local.ToObservableCollection();
             SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
-            Refs                = Db.Referents.Local.ToList();
-            Categories          = Db.Categories.Local.ToList();
-            Articles            = Db.Articles.Local.ToObservableCollection(); 
+            Refs                = Dc.Referents.Local.ToList();
+            Categories          = Dc.Categories.Local.ToList();
+            Articles            = Dc.Articles.Local.ToObservableCollection(); 
 
             SalesCollectionView.Filter          += SaleViewFilterHandler;         
             SalesCollectionView.CurrentChanged  += SalesCollectionView_CurrentChanged;

@@ -18,7 +18,7 @@ using log4net.Config;
 
 namespace SevenPrism.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : BaseViewModel
     {  
         // From To Dates
         private DateTime _fromDate = Settings.Default.DateSelected; 
@@ -53,21 +53,11 @@ namespace SevenPrism.ViewModels
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand ExitCommand { get; }
 
-        public string DatabasePath { get; } 
+        public string DatabasePath { get; } = Application.Current.Properties["DataSource"].ToString();
         public string Title { get; } = ApplicationInfo.ProductName;
 
-        // Dependencies
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IEventAggregator Ea;
-        private readonly DatabaseContext Dc;
-
-        public MainWindowViewModel(DatabaseContext dc, IRegionManager regionManager, IEventAggregator ea)
-        {     
-            Dc = dc;
-            Ea = ea;
-            DatabasePath = Application.Current.Properties["DataSource"].ToString();
-            XmlConfigurator.Configure();
-
+        public MainWindowViewModel(DatabaseContext dc, IEventAggregator ea, IRegionManager regionManager) : base(dc, ea)
+        {  
             // Registering Regions
             regionManager.RegisterViewWithRegion("SalesRegion", typeof(Sales));
             regionManager.RegisterViewWithRegion("CashRegion", typeof(Cash));

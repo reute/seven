@@ -12,12 +12,10 @@ using Prism.Mvvm;
 using Prism.Events;
 using SevenPrism.Events;
 using SevenPrism.Properties;
-using log4net;
-using System.Reflection;
 
 namespace SevenPrism.ViewModels
 {
-    class CashViewModel : BindableBase
+    class CashViewModel : BaseViewModel
     { 
         // Deposits List
         private readonly ObservableCollection<Deposit> Deposits;
@@ -38,21 +36,14 @@ namespace SevenPrism.ViewModels
 
         // Commands
         public DelegateCommand AddNewDepositCommand { get; }
-        public DelegateCommand<object> RemoveDepositCommand { get; }
+        public DelegateCommand<object> RemoveDepositCommand { get; } 
 
-        // Dependencies
-        private readonly IEventAggregator Ea;
-        private readonly DatabaseContext Db;
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        public CashViewModel(DatabaseContext db, IEventAggregator ea)
-        {  
-            Db = db;
-            Ea = ea;
+        public CashViewModel(DatabaseContext db, IEventAggregator ea) : base(db, ea)
+        {           
             Ea.GetEvent<DateSelectedChangedEvent>().Subscribe(DateSelectedChangedHandler);    
 
-            Sales = Db.Sales.Local.ToObservableCollection();
-            Deposits = Db.Deposits.Local.ToObservableCollection();
+            Sales = Dc.Sales.Local.ToObservableCollection();
+            Deposits = Dc.Deposits.Local.ToObservableCollection();
 
             DepositsCollectionView = CollectionViewSource.GetDefaultView(Deposits);
             DepositsCollectionView.Filter += new Predicate<object>(DepositsViewFilterHandler);

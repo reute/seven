@@ -88,6 +88,7 @@
       <DependentUpon>SalesListReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="Views\Articles.xaml.cs">
       <DependentUpon>Articles.xaml</DependentUpon>
