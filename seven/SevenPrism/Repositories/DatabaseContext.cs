@@ -8,15 +8,16 @@ using System.Reflection;
 using log4net.Config;
 using System.Linq;
 using System.IO;
+using System.Windows;
 
 namespace SevenPrism.Repository
 {
     public class DatabaseContext : DbContext
     {
         // Logger
-        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType); 
 
-        public string DataSource;
+        private string DataSource;
 
         public DatabaseContext() : base()
         {
@@ -115,7 +116,7 @@ namespace SevenPrism.Repository
 
             SaveChanges();
 
-            log.Info($"Added initial values to Db at {DataSource}");
+            log.Info($"Added initial values to Db at {Application.Current.Properties["DataSource"]}");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -123,10 +124,11 @@ namespace SevenPrism.Repository
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             var appFolder = ApplicationInfo.ProductName;
             var databasePath = Path.Combine(appDataPath,appFolder);
+           
             try
             {
                 Directory.CreateDirectory(databasePath);
-                var databaseName = Settings.Default.DatabaseName;
+                var databaseName = Settings.Default.DatabaseName;               
                 DataSource = Path.Combine(databasePath, databaseName);
                 log.Info($"Using {databasePath} as folder for db");
             }
@@ -137,8 +139,10 @@ namespace SevenPrism.Repository
                 DataSource = Settings.Default.DatabaseName;
                 log.Info($"Could not create folder {databasePath}, using application folder for db");
             }
-        
-            var connectionString = $"Data Source={DataSource}"; 
+    
+            var connectionString = $"Data Source={DataSource}";
+            // Using Applicaiton Property to store Path
+            Application.Current.Properties["DataSource"] = DataSource;
             optionsBuilder.UseSqlite(connectionString);
         }  
 

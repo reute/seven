@@ -14,7 +14,7 @@ namespace SevenPrism.Models
         public int Id { get; set; }
 
         private DateTime _date = DateTime.Now;
-        [Required]
+        [Required(ErrorMessage = "An Date is required")]
         public DateTime Date
         {
             get => _date;
@@ -40,8 +40,10 @@ namespace SevenPrism.Models
             }
         }
 
+        [Required(ErrorMessage = "An ArticleDescription is required")]
         public string ArticleDescription { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "An Referent is required")]
         public Referent Ref { get; set; }
 
         private int _amount;
