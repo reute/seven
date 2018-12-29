@@ -8,67 +8,95 @@ using System.Threading.Tasks;
 
 namespace SevenPrism.Models
 {
-    public class Sale : BindableBase
+    public class Sale : ValidatableModel
     {
+        public Sale()
+        {
+            Date = DateTime.Now;
+            ArticleDescription = string.Empty;
+            Article = new Article();
+            Ref = null;
+        }
 
         public int Id { get; set; }
 
-        private DateTime _date = DateTime.Now;
-        [Required(ErrorMessage = "An Date is required")]
+        private DateTime _date;
+        [Required]
         public DateTime Date
         {
             get => _date;
 
             set
             {
-                SetProperty(ref _date, value);
+                SetPropertyAndValidate(ref _date, value);
             }
         }
+
         public Category Cat { get; set; }
 
-        private Article _article = new Article();
-        public Article Article {
-            get
-            {
-                return _article;
-            }
+        private Article _article;
+        public Article Article
+        {
+            get => _article;
             set
             {
                 _article = value;
-                if (value is Article)                                  
+                if (value is Article)
                     Price = value.Price;
             }
         }
 
+        private string _articleDescription;
         [Required(ErrorMessage = "An ArticleDescription is required")]
-        public string ArticleDescription { get; set; } = string.Empty;
+        [StringLength(50, ErrorMessage = "Article Description not longer than [1} characters")]
+        public string ArticleDescription
+        {
+            get => _articleDescription;
+            set
+            {
+                SetPropertyAndValidate(ref _articleDescription, value);
+            }
+        }
 
-        [Required(ErrorMessage = "An Referent is required")]
-        public Referent Ref { get; set; }
-
+        private Referent _ref;
+        [Required(ErrorMessage = "A Referent is required")]
+        public Referent Ref
+        {
+            get => _ref;
+            set
+            {
+                SetPropertyAndValidate(ref _ref, value);
+            }
+        }
+  
         private int _amount;
+        [Range(1, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")]
+        [Required]
         public int Amount
         {
             get => _amount;
             set
             {
-                if (SetProperty(ref _amount, value))
+                if (SetPropertyAndValidate(ref _amount, value))
                     Sum = _amount * _price;
             }
         }
 
         private decimal _price;
+        [Range(0, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")]
+        [Required]
         public decimal Price
         {
             get => _price;
             set
             {
-                if (SetProperty(ref _price, value))
+                if (SetPropertyAndValidate(ref _price, value))
                     Sum = _amount * _price;
             }
         }
 
         private decimal _sum;
+        [Required]
         public decimal Sum
         {
             get => _sum;

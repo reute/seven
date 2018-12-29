@@ -47,8 +47,9 @@ namespace SevenPrism.ViewModels
         public DelegateCommand AddCommand { get; }
         public DelegateCommand<object> RemoveCommand { get; }
 
-        public ArticlesViewModel(DatabaseContext db, IEventAggregator ea) : base(db, ea)
-        { 
+        public ArticlesViewModel(DatabaseContext dc, IEventAggregator ea) : base(dc, ea)
+        {
+           
             Articles = Dc.Articles.Local.ToObservableCollection();
             ArticlesCollectionView = CollectionViewSource.GetDefaultView(Articles);        
             Categories = Dc.Categories.Local.ToList();

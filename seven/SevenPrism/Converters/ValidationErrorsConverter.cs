@@ -28,11 +28,13 @@ namespace SevenPrism.Converters
         /// </returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values?.FirstOrDefault() is IEnumerable<ValidationError> validationErrors)
-            {
-                return string.Join(Environment.NewLine, validationErrors.Select(x => x.ErrorContent.ToString()));
-            }
-            return DependencyProperty.UnsetValue;
+            if (!(values?.FirstOrDefault() is IEnumerable<ValidationError>))
+                return DependencyProperty.UnsetValue;
+
+            var validationErrors = values.FirstOrDefault() as IEnumerable<ValidationError>;
+           
+            var tmp2 = string.Join(Environment.NewLine, validationErrors.Select(x => x.ErrorContent.ToString()));
+            return tmp2;  
         }
 
         /// <summary>

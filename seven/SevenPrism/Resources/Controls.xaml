@@ -55,7 +55,7 @@
                     Background="Transparent">
                     <Path
                         Margin="3,3,1,0"
-                        Data="M 0,6 L0,0 L6,0 z"
+                        Data="M 0,12 L0,0 L12,0 z"
                         Fill="#FFDC000C" />
                     <Path
                         Margin="3,3,1,0"
@@ -65,6 +65,19 @@
             </Border>
         </Grid>
     </ControlTemplate>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Padding" Value="1,3" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ErrorTemplate}" />
+    </Style>
+
+    <Style TargetType="DatePicker">
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ErrorTemplate}" />
+    </Style>
+
+    <Style TargetType="ToolBarTray">
+        <Setter Property="IsLocked" Value="True" />
+    </Style>
 
 
     <Style TargetType="DataGrid">
@@ -76,7 +89,7 @@
     </Style>
 
     <Style x:Key="TextCellElementStyle" TargetType="TextBlock">
-        <Setter Property="Padding" Value="4,2,4,3" />
+        <Setter Property="Padding" Value="6,2,4,3" />
         <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />
     </Style>
 
@@ -96,6 +109,22 @@
         BasedOn="{StaticResource {x:Type Label}}"
         TargetType="Label">
         <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style TargetType="MenuItem">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                <Setter Property="Opacity" Value="0.6" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="False">
+                <Setter Property="Opacity" Value="0.35" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!--<Style TargetType="TableCell">

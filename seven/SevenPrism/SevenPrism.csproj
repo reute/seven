@@ -82,6 +82,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Referent.cs" />
+    <Compile Include="Models\ValidatableModel.cs" />
     <Compile Include="Reports\ArticlesListReport.xaml.cs">
       <DependentUpon>ArticlesListReport.xaml</DependentUpon>
     </Compile>

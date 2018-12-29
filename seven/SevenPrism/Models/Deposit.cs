@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SevenPrism.Models
 {
-    public class Deposit : BindableBase
+    public class Deposit : ValidatableModel
     {
         public int Id { get; set; }
 

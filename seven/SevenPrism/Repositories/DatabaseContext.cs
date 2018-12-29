@@ -34,6 +34,7 @@ namespace SevenPrism.Repository
                 log.Info($"Found Db at {DataSource}");       
             }
             LoadTables();
+            
         }
 
         private void LoadTables()
