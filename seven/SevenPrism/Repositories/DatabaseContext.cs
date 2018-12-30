@@ -92,6 +92,7 @@ namespace SevenPrism.Repository
             });
 
             SaveChanges();
+            
 
             Articles.Add(new Article
             {

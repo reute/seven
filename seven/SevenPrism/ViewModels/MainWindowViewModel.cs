@@ -71,8 +71,9 @@ namespace SevenPrism.ViewModels
 
         private bool CanSave()
         {
-            var tmp = true;
-            return tmp;
+            var tmp = Dc.Sales.Any(x => x.HasErrors);
+         
+            return !tmp;
         }
 
         private void OnExit()

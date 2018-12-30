@@ -27,7 +27,7 @@ namespace SevenPrism.Models
         [NotMapped]
         public bool HasErrors
         {
-            get => hasErrors;
+            get =>  hasErrors;
             private set => SetProperty(ref hasErrors, value);
         }
 

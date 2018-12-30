@@ -27,7 +27,12 @@ namespace SevenPrism.Views
         {
             SalesGrid.CancelEdit();
             SalesGrid.CancelEdit();
-        } 
+        }
+
+        private void DataGridTextColumn_Error(object sender, ValidationErrorEventArgs e)
+        {
+            ;
+        }
 
         //public void FocusFirstCell()
         //{

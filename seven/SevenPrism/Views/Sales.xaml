@@ -66,7 +66,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Date, StringFormat=d, UpdateSourceTrigger=LostFocus}"
+                    Binding="{Binding Date, StringFormat=d, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
                     ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderDate}" />
@@ -79,7 +79,7 @@
                     Header="{x:Static p:Resources.ColumnHeaderStaff}"
                     IsReadOnly="false"
                     ItemsSource="{Binding Source={StaticResource Refs}}"
-                    SelectedItemBinding="{Binding Ref, UpdateSourceTrigger=LostFocus}" />
+                    SelectedItemBinding="{Binding Ref, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
@@ -96,20 +96,20 @@
                                 ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.Articles}"
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
                                 Style="{StaticResource ComboBoxElementStyle}"
-                                Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus}" />
+                                Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Amount, UpdateSourceTrigger=LostFocus}"
+                    Binding="{Binding Amount, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
                     ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderNumber}" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Price, UpdateSourceTrigger=LostFocus}"
+                    Binding="{Binding Price, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
                     ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderPrice}" />
