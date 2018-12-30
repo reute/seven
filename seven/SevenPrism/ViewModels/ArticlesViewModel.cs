@@ -13,7 +13,7 @@ using System.Windows.Data;
 
 namespace SevenPrism.ViewModels
 {
-    public class ArticlesViewModel : BaseViewModel
+    public class ArticlesViewModel : ViewModelBase
     {
         // ArticlesList
         private ObservableCollection<Article> Articles;

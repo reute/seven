@@ -11,14 +11,14 @@ using System.Reflection;
 
 namespace SevenPrism.ViewModels
 {
-    public class BaseViewModel : BindableBase
+    public abstract class ViewModelBase : BindableBase
     {
         protected readonly DatabaseContext Dc;
         protected readonly IEventAggregator Ea;
 
         protected readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public BaseViewModel(DatabaseContext dc, IEventAggregator ea)
+        public ViewModelBase(DatabaseContext dc, IEventAggregator ea)
         {
             Ea = ea;
             Dc = dc;

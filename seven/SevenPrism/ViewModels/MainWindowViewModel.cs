@@ -18,7 +18,7 @@ using log4net.Config;
 
 namespace SevenPrism.ViewModels
 {
-    public class MainWindowViewModel : BaseViewModel
+    public class MainWindowViewModel : ViewModelBase
     {  
         // From To Dates
         private DateTime _fromDate = Settings.Default.DateSelected; 
@@ -65,9 +65,15 @@ namespace SevenPrism.ViewModels
             regionManager.RegisterViewWithRegion("ReportRegion", typeof(Report));
 
             AboutCommand = new DelegateCommand(ShowAboutMessage);
-            SaveCommand = new DelegateCommand(OnSave);
+            SaveCommand = new DelegateCommand(OnSave, CanSave);
             ExitCommand = new DelegateCommand(OnExit);
-        }      
+        }
+
+        private bool CanSave()
+        {
+            var tmp = true;
+            return tmp;
+        }
 
         private void OnExit()
         {
@@ -93,24 +99,43 @@ namespace SevenPrism.ViewModels
             Settings.Default.Save();
             if (Dc.ChangeTracker.HasChanges())
             {
-                ShowUnsavedChangesDialog();
+                if (CanSave())
+                {
+                    if (ShowSaveChangesDialog() == MessageBoxResult.Yes)
+                    {                        
+                        Dc.SaveChanges();                        
+                    }
+                }
+                else
+                {
+                    if (ShowLoseChanges() == MessageBoxResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    } 
+                }
             }
-            log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} closed normally *****\n");
+            if (!e.Cancel)
+                log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} closed normally *****\n");
         }
 
-        public void ShowUnsavedChangesDialog()
+        public MessageBoxResult ShowSaveChangesDialog()
         {
-            var messageBoxText = "There are unsaved changes. Click Yes to save or No to discard.";
+            var messageBoxText = "Do you want to save the changes?";
             var caption = "Warning";
             var buttons = MessageBoxButton.YesNo;
             var icon = MessageBoxImage.Warning;
 
-            var messageBoxResult = MessageBox.Show(messageBoxText, caption, buttons, icon);
-          
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                Dc.SaveChanges();
-            }           
+            return MessageBox.Show(messageBoxText, caption, buttons, icon); 
+        }
+
+        public MessageBoxResult ShowLoseChanges()
+        {
+            var messageBoxText = "Do you really want to close the application and lose the changes you made?";
+            var caption = "Warning";
+            var buttons = MessageBoxButton.OKCancel;
+            var icon = MessageBoxImage.Warning;
+
+            return MessageBox.Show(messageBoxText, caption, buttons, icon);
         }
     }
 }

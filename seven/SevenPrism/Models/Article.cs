@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SevenPrism.Models
 {
-    public class Article : ValidatableModel
+    public class Article : ModelBase
     {
         public int Id { get; set; }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SevenPrism.Models
 {
-    public class Sale : ValidatableModel
+    public class Sale : ModelBase
     {
         public Sale()
         {
@@ -30,9 +30,7 @@ namespace SevenPrism.Models
             {
                 SetPropertyAndValidate(ref _date, value);
             }
-        }
-
-        public Category Cat { get; set; }
+        } 
 
         private Article _article;
         public Article Article
@@ -111,5 +109,8 @@ namespace SevenPrism.Models
         {
             return string.Format(ArticleDescription, Amount, Price, Sum);
         }
+
+        // TODO: delete
+        public Category Cat { get; set; }
     }
 }

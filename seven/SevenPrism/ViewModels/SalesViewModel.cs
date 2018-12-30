@@ -22,7 +22,7 @@ using System.Collections.Specialized;
 
 namespace SevenPrism.ViewModels
 {
-    public class SalesViewModel : BaseViewModel
+    public class SalesViewModel : ViewModelBase
     {
         // Sales List
         private readonly ObservableCollection<Sale> Sales;

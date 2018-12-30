@@ -82,7 +82,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Referent.cs" />
-    <Compile Include="Models\ValidatableModel.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Reports\ArticlesListReport.xaml.cs">
       <DependentUpon>ArticlesListReport.xaml</DependentUpon>
     </Compile>
@@ -90,7 +90,7 @@
       <DependentUpon>SalesListReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="Views\Articles.xaml.cs">
       <DependentUpon>Articles.xaml</DependentUpon>

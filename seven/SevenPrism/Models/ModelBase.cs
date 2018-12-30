@@ -10,8 +10,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SevenPrism.Models
 {
- 
-    public abstract class ValidatableModel : BindableBase, INotifyDataErrorInfo
+    // Copied from  https://github.com/jbe2277/waf
+    public abstract class ModelBase : BindableBase, INotifyDataErrorInfo
     {      
         private static readonly ValidationResult[] noErrors = Array.Empty<ValidationResult>();
 

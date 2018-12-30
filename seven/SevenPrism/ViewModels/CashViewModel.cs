@@ -15,7 +15,7 @@ using SevenPrism.Properties;
 
 namespace SevenPrism.ViewModels
 {
-    class CashViewModel : BaseViewModel
+    class CashViewModel : ViewModelBase
     { 
         // Deposits List
         private readonly ObservableCollection<Deposit> Deposits;

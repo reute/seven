@@ -41,6 +41,7 @@
             </ToolBar>
         </ToolBarTray>
 
+        <!--  Deactivated Row header, ignoring row validation because of https://stackoverflow.com/questions/5099039/wpf-datagrid-validation-errors-not-clearing  -->
         <DataGrid
             x:Name="SalesGrid"
             AlternatingRowBackground="LightGoldenrodYellow"
@@ -53,7 +54,7 @@
             RowHeaderWidth="15"
             ScrollViewer.CanContentScroll="False"
             SelectionUnit="FullRow"
-            VerticalScrollBarVisibility="Auto">          
+            VerticalScrollBarVisibility="Auto">
 
             <DataGrid.InputBindings>
                 <KeyBinding
@@ -99,7 +100,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-          
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Amount, UpdateSourceTrigger=LostFocus}"
@@ -120,5 +121,5 @@
                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
-    </DockPanel> 
+    </DockPanel>
 </UserControl>

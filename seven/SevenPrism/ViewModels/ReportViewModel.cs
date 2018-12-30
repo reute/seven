@@ -18,7 +18,7 @@ using System.Windows.Documents;
 
 namespace SevenPrism.ViewModels
 {
-    public class ReportViewModel : BaseViewModel
+    public class ReportViewModel : ViewModelBase
     {
         private FlowDocument _report;
         public FlowDocument Report
