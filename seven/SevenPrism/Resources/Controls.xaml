@@ -79,13 +79,18 @@
         <Setter Property="IsLocked" Value="True" />
     </Style>
 
-
     <Style TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="CanUserAddRows" Value="False" />
         <Setter Property="CanUserReorderColumns" Value="False" />
         <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
         <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
+    </Style>
+
+    <Style x:Key="ComboBoxElementStyle" TargetType="ComboBox">
+        <Setter Property="Padding" Value="6,2,4,3" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />
+        <Setter Property="IsSynchronizedWithCurrentItem" Value="False" />
     </Style>
 
     <Style x:Key="TextCellElementStyle" TargetType="TextBlock">

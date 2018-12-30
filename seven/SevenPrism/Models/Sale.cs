@@ -65,7 +65,7 @@ namespace SevenPrism.Models
             get => _ref;
             set
             {
-                SetPropertyAndValidate(ref _ref, value);
+                SetPropertyAndValidate(ref _ref, value);                
             }
         }
   
@@ -105,6 +105,11 @@ namespace SevenPrism.Models
             {
                 SetProperty(ref _sum, value);
             }
+        }
+
+        public string ToString(string format)
+        {
+            return string.Format(ArticleDescription, Amount, Price, Sum);
         }
     }
 }

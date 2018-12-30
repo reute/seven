@@ -41,20 +41,19 @@
             </ToolBar>
         </ToolBarTray>
 
-
         <DataGrid
             x:Name="SalesGrid"
-            AlternatingRowBackground="AntiqueWhite"
-            AlternationCount="3"
+            AlternatingRowBackground="LightGoldenrodYellow"
+            AlternationCount="2"
             BorderThickness="0"
             CanUserDeleteRows="False"
-            HeadersVisibility="All"
+            HeadersVisibility="Column"
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding SalesCollectionView}"
             RowHeaderWidth="15"
             ScrollViewer.CanContentScroll="False"
-            SelectionUnit="CellOrRowHeader"
-            VerticalScrollBarVisibility="Auto">
+            SelectionUnit="FullRow"
+            VerticalScrollBarVisibility="Auto">          
 
             <DataGrid.InputBindings>
                 <KeyBinding
@@ -66,13 +65,16 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Date, StringFormat=d, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                    Binding="{Binding Date, StringFormat=d, UpdateSourceTrigger=LostFocus}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
                     ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderDate}" />
+
                 <DataGridComboBoxColumn
                     Width="*"
                     DisplayMemberPath="Name"
+                    EditingElementStyle="{StaticResource ComboBoxElementStyle}"
+                    ElementStyle="{StaticResource ComboBoxElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderStaff}"
                     IsReadOnly="false"
                     ItemsSource="{Binding Source={StaticResource Refs}}"
@@ -89,106 +91,34 @@
                             <ComboBox
                                 DisplayMemberPath="Description"
                                 IsEditable="True"
-                                IsSynchronizedWithCurrentItem="False"
                                 IsTextSearchEnabled="True"
                                 ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.Articles}"
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
+                                Style="{StaticResource ComboBoxElementStyle}"
                                 Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
-                <!--  ValidatesOnExceptions=True == Ob die Exception Validation Rule benutzt wird oder nicht  -->
-                <!--  , NotifyOnValidationError=True  -->
-                <!--  ValidatesOnNotifyDataErrors= True  -->
-                <!--  , ValidatesOnExceptions=True  -->
+          
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Amount, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}"
+                    Binding="{Binding Amount, UpdateSourceTrigger=LostFocus}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
                     ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderNumber}" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Price, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                    Binding="{Binding Price, UpdateSourceTrigger=LostFocus}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
                     ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderPrice}" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Sum, Mode=OneWay}"
+                    ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderSum}"
                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
-    </DockPanel>
-
-    <!--
-        EditingElementStyle="{StaticResource TextCellEditingStyle}"
-    -->
-    <!--<DataGridTextColumn
-                    Width="5*"
-                    Binding="{Binding Book.Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
-                    EditingElementStyle="{StaticResource TextCellEditingStyle}"
-                    ElementStyle="{StaticResource TextCellElementStyle}"
-                    Header="{x:Static p:Resources.Title}" />
-
-
-
-    <DataGrid
-            x:Name="DataGridRevenues"
-            HorizontalAlignment="Left"
-            AlternatingRowBackground="Beige"
-            AlternationCount="3"
-            AutoGenerateColumns="False"
-            CanUserAddRows="True"
-            CanUserDeleteRows="True"
-            HorizontalScrollBarVisibility="Disabled"
-            ItemsSource="{Binding RevenuesViewSource.Source}"
-            ScrollViewer.CanContentScroll="False"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            SelectionUnit="CellOrRowHeader"
-            VerticalScrollBarVisibility="Visible">
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Margin" Value="10,0,10,0" />
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn
-                    x:Name="TextColumnDate"
-                    Binding="{Binding Datum, StringFormat=d}"
-                    Header="{lex:Loc TextColumnDate}" />
-                <DataGridComboBoxColumn
-                    x:Name="ComboBoxColumnReferent"
-                    Header="{lex:Loc ComboBoxColumnReferent}"
-                    IsReadOnly="False"
-                    ItemsSource="{Binding Source={StaticResource ReferentEnum}}"
-                    SelectedItemBinding="{Binding Referent}" />
-                <DataGridTextColumn
-                    x:Name="TextColumnDetail"
-                    Binding="{Binding Detail}"
-                    Header="{lex:Loc TextColumnDetail}" />
-                <DataGridComboBoxColumn
-                    x:Name="ComboBoxColumnCategory"
-                    Header="{lex:Loc ComboBoxColumnCategory}"
-                    IsReadOnly="False"
-                    ItemsSource="{Binding Source={StaticResource KategorieEnum}}"
-                    SelectedItemBinding="{Binding Kategorie}" />
-                <DataGridTextColumn
-                    x:Name="TextColumnAmount"
-                    Binding="{Binding Menge}"
-                    Header="{lex:Loc TextColumnAmount}" />
-                <DataGridTextColumn
-                    x:Name="TextColumnPrice"
-                    Binding="{Binding Einzelpreis}"
-                    Header="{lex:Loc TextColumnPrice}" />
-                <DataGridTextColumn
-                    x:Name="TextColumnPriceTotal"
-                    Binding="{Binding Gesamtpreis}"
-                    Header="{lex:Loc TextColumnPriceTotal}" />
-            </DataGrid.Columns>
-        </DataGrid>-->
-
-
+    </DockPanel> 
 </UserControl>
