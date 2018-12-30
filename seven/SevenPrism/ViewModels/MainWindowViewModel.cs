@@ -48,6 +48,16 @@ namespace SevenPrism.ViewModels
             }
         }
 
+        private bool isValid = true;
+        public new bool IsValid
+        {
+            get => isValid;
+            set
+            {
+                SetProperty(ref isValid, value);               
+            }
+        }
+
         // Commands
         public DelegateCommand AboutCommand { get; }
         public DelegateCommand SaveCommand { get; }
@@ -64,16 +74,21 @@ namespace SevenPrism.ViewModels
             regionManager.RegisterViewWithRegion("ArticlesRegion", typeof(Articles));
             regionManager.RegisterViewWithRegion("ReportRegion", typeof(Report));
 
+            Ea.GetEvent<ValidationEvent>().Subscribe(ValidationEventHandler);
+
             AboutCommand = new DelegateCommand(ShowAboutMessage);
-            SaveCommand = new DelegateCommand(OnSave, CanSave);
+            SaveCommand = new DelegateCommand(OnSave, CanSave).ObservesProperty(() => IsValid);
             ExitCommand = new DelegateCommand(OnExit);
         }
 
-        private bool CanSave()
+        private void ValidationEventHandler(bool obj)
         {
-            var tmp = Dc.Sales.Any(x => x.HasErrors);
-         
-            return !tmp;
+            IsValid = obj;
+        }
+
+        private bool CanSave()
+        { 
+            return IsValid;
         }
 
         private void OnExit()

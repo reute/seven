@@ -78,6 +78,10 @@
     <Compile Include="CustomControls\BindableTable.cs" />
     <Compile Include="CustomControls\ContentElement.cs" />
     <Compile Include="Events\DateSelectedChangedEvent.cs" />
+    <Compile Include="Events\ValidationEvent.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
+    <Compile Include="Helpers\ValidationReloadedTracker.cs" />
+    <Compile Include="Helpers\ValidationTracker.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Manufacturer.cs" />

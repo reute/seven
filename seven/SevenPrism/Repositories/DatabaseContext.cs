@@ -19,6 +19,8 @@ namespace SevenPrism.Repository
 
         private string DataSource;
 
+        public bool IsValid = true;       
+
         public DatabaseContext() : base()
         {
            

@@ -51,7 +51,7 @@ namespace SevenPrism.ViewModels
                     Ea.GetEvent<SalesGridInEditModeEvent>().Publish();
                 }
             }
-        }  
+        }      
 
         // Dates 
         private DateTime _fromDate = Settings.Default.DateSelected;
