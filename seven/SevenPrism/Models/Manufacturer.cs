@@ -9,8 +9,18 @@ namespace SevenPrism.Models
 {
     public class Manufacturer : ModelBase
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
+
+        private string _name = string.Empty;
         [Required]
-        public string Name { get; set; } = string.Empty;
+        [StringLength(20, ErrorMessage = "Manufacturer not longer than [1} characters")]
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                SetPropertyAndValidate(ref _name, value);
+            }
+        }
     }
 }

@@ -16,12 +16,13 @@ namespace SevenPrism.Models
 
         private int _amount;
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")]
         public int Amount
         {
             get => _amount;
             set
             {
-                SetProperty(ref _amount, value);
+                SetPropertyAndValidate(ref _amount, value);
             }
         }
     }

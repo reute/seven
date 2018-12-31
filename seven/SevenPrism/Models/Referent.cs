@@ -10,7 +10,17 @@ namespace SevenPrism.Models
     public class Referent : ModelBase
     {
         public int Id { get; set; }
+
+        private string _name = string.Empty;
         [Required]
-        public string Name { get; set; }
+        [StringLength(20, ErrorMessage = "Name not longer than [1} characters")]
+        public string Name
+        {
+            get =>  _name;
+            set
+            {
+                SetPropertyAndValidate(ref _name, value);
+            }
+        } 
     }
 }

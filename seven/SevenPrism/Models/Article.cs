@@ -20,7 +20,7 @@ namespace SevenPrism.Models
 
             set
             {
-                SetProperty(ref _date, value);
+                SetPropertyAndValidate(ref _date, value);
             }
         }
 
@@ -29,11 +29,29 @@ namespace SevenPrism.Models
 
         public Manufacturer Manufacturer { get; set; } = new Manufacturer();
 
+        private string _model = string.Empty;
         [Required]
-        public string Model { get; set; } = string.Empty;
+        [StringLength(50, ErrorMessage = "Model Description not longer than [1} characters")]
+        public string Model
+        {
+            get => _model;
+            set
+            {
+                SetPropertyAndValidate(ref _model, value);
+            }
+        } 
 
+        private decimal _price;
         [Required]
-        public decimal Price { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")]
+        public decimal Price
+        {
+            get => _price;
+            set
+            {
+                SetPropertyAndValidate(ref _price, value);
+            }
+        }
 
         public string Description
         {
