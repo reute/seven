@@ -27,7 +27,7 @@ namespace SevenPrism.Helpers
         /// for this property.
         /// </remarks>
         public static readonly DependencyProperty IsValidProperty = DependencyProperty.RegisterAttached("IsValid",
-            typeof(bool), typeof(ValidationHelper), new FrameworkPropertyMetadata(true, IsValidChangedCallback));
+            typeof(bool), typeof(ValidationHelper), new FrameworkPropertyMetadata(true));
 
 
         /// <summary>
@@ -85,34 +85,34 @@ namespace SevenPrism.Helpers
             new ValidationTracker(obj);
         }
 
-        private static void IsValidChangedCallback(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        {
-            if (!GetIsEnabled(obj))
-            {
-                throw new InvalidOperationException("The IsValid attached property can only be used when the IsEnabled "
-                    + "attached property is set to true.");
-            }
+        //private static void IsValidChangedCallback(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (!GetIsEnabled(obj))
+        //    {
+        //        throw new InvalidOperationException("The IsValid attached property can only be used when the IsEnabled "
+        //            + "attached property is set to true.");
+        //    }
 
-            Binding binding = BindingOperations.GetBinding(obj, IsValidProperty);
-            if (binding != null)
-            {
-                //CheckBindingMode(binding.Mode);
-                return;
-            }
+        //    Binding binding = BindingOperations.GetBinding(obj, IsValidProperty);
+        //    if (binding != null)
+        //    {
+        //        //CheckBindingMode(binding.Mode);
+        //        return;
+        //    }
 
-            MultiBinding multiBinding = BindingOperations.GetMultiBinding(obj, IsValidProperty);
-            if (multiBinding != null)
-            {
-                //CheckBindingMode(multiBinding.Mode);
-                return;
-            }
+        //    MultiBinding multiBinding = BindingOperations.GetMultiBinding(obj, IsValidProperty);
+        //    if (multiBinding != null)
+        //    {
+        //        //CheckBindingMode(multiBinding.Mode);
+        //        return;
+        //    }
 
-            PriorityBinding priorityBinding = BindingOperations.GetPriorityBinding(obj, IsValidProperty);
-            if (priorityBinding != null)
-            {
-                throw new InvalidOperationException("PriorityBinding is not supported for the IsValid attached dependency property!");
-            }
-        }
+        //    PriorityBinding priorityBinding = BindingOperations.GetPriorityBinding(obj, IsValidProperty);
+        //    if (priorityBinding != null)
+        //    {
+        //        throw new InvalidOperationException("PriorityBinding is not supported for the IsValid attached dependency property!");
+        //    }
+        //}
 
         //private static void CheckBindingMode(BindingMode bindingMode)
         //{

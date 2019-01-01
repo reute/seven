@@ -9,7 +9,11 @@
     Height="600"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Icon="{StaticResource BookLibraryImageSource}">
-
+    <!--
+        xmlns:helpers="clr-namespace:SevenPrism.Helpers"
+        helpers:ValidationHelper.IsEnabled="false"
+        helpers:ValidationHelper.IsValid="{Binding IsValid, Mode=OneWayToSource}"
+    -->
     <Window.InputBindings>
         <KeyBinding
             Key="S"

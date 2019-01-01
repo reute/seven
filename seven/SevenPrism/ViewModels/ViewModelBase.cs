@@ -26,7 +26,7 @@ namespace SevenPrism.ViewModels
             set
             {
                 SetProperty(ref isValid, value);
-                Ea.GetEvent<ValidationEvent>().Publish(value);
+                Ea.GetEvent<ValidationEvent>().Publish(new VmValPar { Vm = this, IsValid = value });
             }
         }
 

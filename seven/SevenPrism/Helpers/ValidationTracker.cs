@@ -89,7 +89,8 @@ namespace SevenPrism.Helpers
                 }
             }
 
-            ValidationHelper.InternalSetIsValid(owner, !errors.Any());
+            // do not propagate this to viewmodel
+            //ValidationHelper.InternalSetIsValid(owner, !errors.Any());
         }
     }
 }

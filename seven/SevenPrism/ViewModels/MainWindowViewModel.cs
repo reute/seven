@@ -15,6 +15,7 @@ using SevenPrism.Events;
 using log4net;
 using System.Reflection;
 using log4net.Config;
+using System.Collections.Generic;
 
 namespace SevenPrism.ViewModels
 {
@@ -48,15 +49,21 @@ namespace SevenPrism.ViewModels
             }
         }
 
-        private bool isValid = true;
-        public new bool IsValid
-        {
-            get => isValid;
-            set
-            {
-                SetProperty(ref isValid, value);               
-            }
-        }
+        //private bool isValid = true;
+        //public new bool IsValid
+        //{
+        //    get
+        //    {
+               
+        //    }
+           
+        //    //set
+        //    //{
+        //    //    SetProperty(ref isValid, value);               
+        //    //}
+        //}
+
+        private Dictionary<ViewModelBase, bool> VmIsValid = new Dictionary<ViewModelBase, bool>();
 
         // Commands
         public DelegateCommand AboutCommand { get; }
@@ -77,18 +84,26 @@ namespace SevenPrism.ViewModels
             Ea.GetEvent<ValidationEvent>().Subscribe(ValidationEventHandler);
 
             AboutCommand = new DelegateCommand(ShowAboutMessage);
-            SaveCommand = new DelegateCommand(OnSave, CanSave).ObservesProperty(() => IsValid);
+            SaveCommand = new DelegateCommand(OnSave, CanSave);
             ExitCommand = new DelegateCommand(OnExit);
         }
 
-        private void ValidationEventHandler(bool obj)
+        private void ValidationEventHandler(VmValPar obj)
         {
-            IsValid = obj;
+            if (VmIsValid.ContainsKey(obj.Vm))
+            {
+                VmIsValid[obj.Vm] = obj.IsValid;
+            } else
+            {
+                VmIsValid.Add(obj.Vm, obj.IsValid);
+            }           
+            SaveCommand.RaiseCanExecuteChanged();
         }
 
         private bool CanSave()
-        { 
-            return IsValid;
+        {
+            var tmp = VmIsValid.Any(x => x.Value == false);
+            return !tmp;          
         }
 
         private void OnExit()
