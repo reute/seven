@@ -133,21 +133,24 @@ namespace SevenPrism.Repository
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             var appFolder = ApplicationInfo.ProductName;
             var databasePath = Path.Combine(appDataPath,appFolder);
-           
-            try
+            var databaseName = Settings.Default.DatabaseName;
+
+            if (!Directory.Exists(databasePath))
             {
-                Directory.CreateDirectory(databasePath);
-                var databaseName = Settings.Default.DatabaseName;               
-                DataSource = Path.Combine(databasePath, databaseName);
-                log.Info($"Using {databasePath} as folder for db");
-            }
-            // if dir cannot be created
-            catch (Exception e)
-            {
-                // using application folder
-                DataSource = Settings.Default.DatabaseName;
-                log.Info($"Could not create folder {databasePath}, using application folder for db");
-            }
+                try
+                {
+                    Directory.CreateDirectory(databasePath);                    
+                    DataSource = Path.Combine(databasePath, databaseName);
+                    log.Info($"Using {databasePath} as folder for db");
+                }
+                // if dir cannot be created
+                catch (Exception e)
+                {
+                    // using application folder
+                    DataSource = databaseName;
+                    log.Info($"Could not create folder {databasePath}, using application folder for db");
+                }
+            }         
     
             var connectionString = $"Data Source={DataSource}";
             // Using Applicaiton Property to store Path
