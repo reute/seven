@@ -9,6 +9,7 @@ using log4net.Config;
 using System.Linq;
 using System.IO;
 using System.Windows;
+using System.Configuration;
 
 namespace SevenPrism.Repository
 {
@@ -35,8 +36,78 @@ namespace SevenPrism.Repository
             {
                 log.Info($"Found Db at {DataSource}");       
             }
-            LoadTables();
-            
+            LoadTables();            
+        }      
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        { 
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            var appFolder = ApplicationInfo.ProductName;
+            var databasePath = Path.Combine(appDataPath,appFolder);
+            var databaseName = ConfigurationManager.ConnectionStrings["SevenDatabase"].ConnectionString;
+
+            if (!Directory.Exists(databasePath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(databasePath);                    
+                    DataSource = Path.Combine(databasePath, databaseName);
+                    log.Info($"Using {databasePath} as folder for db");
+                }
+                // if dir cannot be created
+                catch (Exception e)
+                {
+                    // using application folder
+                    DataSource = databaseName;
+                    log.Info($"Could not create folder {databasePath}, using application folder for db");
+                }
+            }
+            else
+            {
+                DataSource = Path.Combine(databasePath, databaseName);
+                log.Info($"Using {databasePath} as folder for db");
+            }       
+    
+            var connectionString = $"Data Source={DataSource}";
+            // Using Application Property to store Path
+            Application.Current.Properties["DataSource"] = DataSource;
+            optionsBuilder.UseSqlite(connectionString);
+        }  
+
+        public DbSet<Sale> Sales
+        {
+            get;
+            set;
+        }
+
+        public DbSet<Deposit> Deposits
+        {
+            get;
+            set;
+        }
+
+        public DbSet<Referent> Referents
+        {
+            get;
+            set;
+        }
+
+        public DbSet<Category> Categories
+        {
+            get;
+            set;
+        }
+
+        public DbSet<Article> Articles
+        {
+            get;
+            set;
+        }
+
+        public DbSet<Manufacturer> Manufacturers
+        {
+            get;
+            set;
         }
 
         private void LoadTables()
@@ -94,7 +165,7 @@ namespace SevenPrism.Repository
             });
 
             SaveChanges();
-            
+
 
             Articles.Add(new Article
             {
@@ -102,7 +173,7 @@ namespace SevenPrism.Repository
                 Cat = Categories.Single(m => m.Name.Equals("Schlauch")),
                 Manufacturer = Manufacturers.Single(m => m.Name.Equals("Schwalbe")),
                 Model = "AV13",
-                Price = 5                
+                Price = 5
             });
 
             Articles.Add(new Article
@@ -126,72 +197,6 @@ namespace SevenPrism.Repository
             SaveChanges();
 
             log.Info($"Added initial values to Db at {Application.Current.Properties["DataSource"]}");
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        { 
-            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            var appFolder = ApplicationInfo.ProductName;
-            var databasePath = Path.Combine(appDataPath,appFolder);
-            var databaseName = Settings.Default.DatabaseName;
-
-            if (!Directory.Exists(databasePath))
-            {
-                try
-                {
-                    Directory.CreateDirectory(databasePath);                    
-                    DataSource = Path.Combine(databasePath, databaseName);
-                    log.Info($"Using {databasePath} as folder for db");
-                }
-                // if dir cannot be created
-                catch (Exception e)
-                {
-                    // using application folder
-                    DataSource = databaseName;
-                    log.Info($"Could not create folder {databasePath}, using application folder for db");
-                }
-            }         
-    
-            var connectionString = $"Data Source={DataSource}";
-            // Using Applicaiton Property to store Path
-            Application.Current.Properties["DataSource"] = DataSource;
-            optionsBuilder.UseSqlite(connectionString);
-        }  
-
-        public DbSet<Sale> Sales
-        {
-            get;
-            set;
-        }
-
-        public DbSet<Deposit> Deposits
-        {
-            get;
-            set;
-        }
-
-        public DbSet<Referent> Referents
-        {
-            get;
-            set;
-        }
-
-        public DbSet<Category> Categories
-        {
-            get;
-            set;
-        }
-
-        public DbSet<Article> Articles
-        {
-            get;
-            set;
-        }
-
-        public DbSet<Manufacturer> Manufacturers
-        {
-            get;
-            set;
         }
     }
 }

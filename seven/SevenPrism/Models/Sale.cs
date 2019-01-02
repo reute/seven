@@ -108,9 +108,6 @@ namespace SevenPrism.Models
         public string ToString(string format)
         {
             return string.Format(ArticleDescription, Amount, Price, Sum);
-        }
-
-        // TODO: delete
-        public Category Cat { get; set; }
+        }    
     }
 }
