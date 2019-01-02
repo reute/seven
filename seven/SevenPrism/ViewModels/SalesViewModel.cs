@@ -29,8 +29,8 @@ namespace SevenPrism.ViewModels
         public ICollectionView  SalesCollectionView { get; }    
         
         // Additional Lists needed for SalesList
-        public List<Referent> Refs { get; set; }
-        public List<Category> Categories { get; set; }
+        public List<Referent> Refs { get; }
+        public List<Category> Categories { get; }
         public ObservableCollection<Article> Articles { get; }
 
         // For filtering Sales List

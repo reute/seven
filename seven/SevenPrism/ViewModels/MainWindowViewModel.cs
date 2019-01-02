@@ -47,21 +47,7 @@ namespace SevenPrism.ViewModels
                 _toDate = value;
                 Ea.GetEvent<DateSelectedChangedEvent>().Publish(new TimePeriod(FromDate, value));
             }
-        }
-
-        //private bool isValid = true;
-        //public new bool IsValid
-        //{
-        //    get
-        //    {
-               
-        //    }
-           
-        //    //set
-        //    //{
-        //    //    SetProperty(ref isValid, value);               
-        //    //}
-        //}
+        }    
 
         private Dictionary<ViewModelBase, bool> VmIsValid = new Dictionary<ViewModelBase, bool>();
 

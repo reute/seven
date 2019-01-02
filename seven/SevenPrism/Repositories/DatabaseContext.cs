@@ -18,9 +18,7 @@ namespace SevenPrism.Repository
         // Logger
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType); 
 
-        private string DataSource;
-
-        public bool IsValid = true;       
+        private string DataSource;   
 
         public DatabaseContext() : base()
         {
@@ -50,23 +48,19 @@ namespace SevenPrism.Repository
             {
                 try
                 {
-                    Directory.CreateDirectory(databasePath);                    
-                    DataSource = Path.Combine(databasePath, databaseName);
-                    log.Info($"Using {databasePath} as folder for db");
+                    Directory.CreateDirectory(databasePath);
                 }
                 // if dir cannot be created
                 catch (Exception e)
                 {
                     // using application folder
-                    DataSource = databaseName;
-                    log.Info($"Could not create folder {databasePath}, using application folder for db");
-                }
+                    databasePath = string.Empty;
+                    log.Info($"Error creating {databasePath}");
+                }                
             }
-            else
-            {
-                DataSource = Path.Combine(databasePath, databaseName);
-                log.Info($"Using {databasePath} as folder for db");
-            }       
+           
+            DataSource = Path.Combine(databasePath, databaseName);
+            log.Info($"Using {databasePath} as folder for db");                   
     
             var connectionString = $"Data Source={DataSource}";
             // Using Application Property to store Path
