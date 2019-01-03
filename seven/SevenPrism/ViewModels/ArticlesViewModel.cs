@@ -101,12 +101,12 @@ namespace SevenPrism.ViewModels
         {
             var item = obj as Article;         
 
-            // if string is not found in sales detail column
-            if (item.Manufacturer.Name.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 && 
-                item.Model.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 )
-                return false;
-
-            return true;
+            // if string is found in sales manufacturer or detail column display this in result list
+            if (item.Manufacturer != null && item.Manufacturer.Name.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) != -1 || 
+                item.Model != null && item.Model.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) != -1)
+                return true;
+         
+            return false;            
         }
     }
 }

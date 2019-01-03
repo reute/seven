@@ -64,7 +64,7 @@
                     Command="{Binding RemoveCommand}"
                     CommandParameter="{Binding ElementName=ArticlesGrid, Path=SelectedItems}" />
             </DataGrid.InputBindings>
-
+      
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
@@ -75,16 +75,16 @@
                 <DataGridComboBoxColumn
                     Width="*"
                     DisplayMemberPath="Name"
-                    EditingElementStyle="{StaticResource ComboBoxElementStyle}"
-                    ElementStyle="{StaticResource ComboBoxElementStyle}"
+                    EditingElementStyle="{StaticResource ComboBoxColumnEditingStyle}"
+                    ElementStyle="{StaticResource ComboBoxColumnElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderCategory}"
                     ItemsSource="{Binding Source={StaticResource Categories}}"
                     SelectedItemBinding="{Binding Cat, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
                 <DataGridComboBoxColumn
                     Width="*"
                     DisplayMemberPath="Name"
-                    EditingElementStyle="{StaticResource ComboBoxElementStyle}"
-                    ElementStyle="{StaticResource ComboBoxElementStyle}"
+                    EditingElementStyle="{StaticResource ComboBoxColumnEditingStyle}"
+                    ElementStyle="{StaticResource ComboBoxColumnElementStyle}"
                     Header="Manufacturer"
                     ItemsSource="{Binding Source={StaticResource Manufacturers}}"
                     SelectedItemBinding="{Binding Manufacturer, UpdateSourceTrigger=LostFocus}" />

@@ -87,10 +87,22 @@
         <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
     </Style>
 
-    <Style x:Key="ComboBoxElementStyle" TargetType="ComboBox">
+    <Style TargetType="ComboBox">
         <Setter Property="Padding" Value="6,2,4,3" />
-        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />    
+    </Style>
+
+    <Style x:Key="ComboBoxColumnElementStyle" TargetType="ComboBox">
+        <Setter Property="Padding" Value="6,2,4,3" />
         <Setter Property="IsSynchronizedWithCurrentItem" Value="False" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />
+    </Style>
+
+    <Style x:Key="ComboBoxColumnEditingStyle" TargetType="ComboBox">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="6,2,2,3" />
+        <Setter Property="IsSynchronizedWithCurrentItem" Value="False" />
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />
     </Style>
 
     <Style x:Key="TextCellElementStyle" TargetType="TextBlock">

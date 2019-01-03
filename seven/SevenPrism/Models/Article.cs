@@ -24,13 +24,13 @@ namespace SevenPrism.Models
             }
         }
 
-        [Required]
-        public Category Cat { get; set; } = new Category();
+        [Required(ErrorMessage = "A Category is required")]
+        public Category Cat { get; set; }
 
-        public Manufacturer Manufacturer { get; set; } = new Manufacturer();
+        public Manufacturer Manufacturer { get; set; }
 
         private string _model = string.Empty;
-        [Required]
+        [Required(ErrorMessage = "A Model is required")]
         [StringLength(50, ErrorMessage = "Model Description not longer than [1} characters")]
         public string Model
         {
