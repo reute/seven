@@ -94,7 +94,7 @@ namespace SevenPrism.ViewModels
 
         private void OnExit()
         {
-            OnClosing(this, null);
+            OnClosing(this, new CancelEventArgs(false));
             Application.Current.Shutdown();          
         }
 
