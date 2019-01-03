@@ -19,6 +19,7 @@ using Squirrel;
 using log4net.Config;
 using SevenPrism.CustomControls;
 using System.Collections.Specialized;
+using System.Windows.Controls;
 
 namespace SevenPrism.ViewModels
 {
@@ -126,10 +127,18 @@ namespace SevenPrism.ViewModels
         {
             var listSelectedItems = (IList)selectedItems;
             var removeList = listSelectedItems.Cast<Sale>().ToList();          
-            foreach (Sale Sale in removeList)
-            {              
-                Sales.Remove(Sale);
-            }          
+            foreach (Sale sale in removeList)
+            {  
+                // Workaround: Before deleting invalid sale, correct it so new validation is triggered
+                if (sale.HasErrors)
+                {                 
+                    sale.Ref = new Referent();
+                    sale.ArticleDescription = "zug";
+                    sale.Amount = 1;
+                }
+                Sales.Remove(sale);
+            }
+            
         }
 
         private bool SaleViewFilterHandler(object obj)

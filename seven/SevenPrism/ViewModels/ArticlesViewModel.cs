@@ -93,7 +93,13 @@ namespace SevenPrism.ViewModels
 
             for (int i = enumerable.Count() - 1; i >= 0; i--)
             {
-                Articles.Remove(enumerable.ElementAt(i));
+                var article = enumerable.ElementAt(i);
+                if (article.HasErrors)
+                {
+                    article.Cat = new Category();
+                    article.Model = "zug";                   
+                }
+                Articles.Remove(article);
             }
         }
 
