@@ -12,6 +12,7 @@ namespace SevenPrism.Views
         {
             InitializeComponent();
             Closing += (DataContext as MainWindowViewModel).OnClosing;
+            Closed += (DataContext as MainWindowViewModel).ViewClosed;
         }      
     }
 }

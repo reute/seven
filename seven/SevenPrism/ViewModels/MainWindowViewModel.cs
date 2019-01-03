@@ -94,8 +94,9 @@ namespace SevenPrism.ViewModels
 
         private void OnExit()
         {
-            OnClosing(this, new CancelEventArgs(false));
-            Application.Current.Shutdown();          
+            // does not work, end app no matter if  e.Cancel = true; or false
+            // Application.Current.Shutdown();
+            Application.Current.MainWindow.Close();
         }
 
         private void ShowAboutMessage()
@@ -130,9 +131,12 @@ namespace SevenPrism.ViewModels
                         e.Cancel = true;
                     } 
                 }
-            }
-            if (!e.Cancel)
-                log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} closed normally *****\n");
+            }          
+        }
+
+        public void ViewClosed(object sender, EventArgs e)
+        {
+            log.Info($"***** {ApplicationInfo.ProductName} Version {ApplicationInfo.Version} closed normally *****\n");
         }
 
         public MessageBoxResult ShowSaveChangesDialog()
