@@ -10,9 +10,15 @@ namespace SevenPrism.Models
 {
     public class Article : ModelBase
     {
+
+        public Article()
+        {           
+            Date = DateTime.Now;            
+        }
+
         public int Id { get; set; }
 
-        private DateTime _date = DateTime.Now;
+        private DateTime _date;
         [Required]
         public DateTime Date
         {
@@ -24,12 +30,20 @@ namespace SevenPrism.Models
             }
         }
 
+        private Category _cat;
         [Required(ErrorMessage = "A Category is required")]
-        public Category Cat { get; set; }
+        public Category Cat
+        {
+            get => _cat;
+            set
+            {
+                SetPropertyAndValidate(ref _cat, value);
+            }
+        }
 
         public Manufacturer Manufacturer { get; set; }
 
-        private string _model = string.Empty;
+        private string _model;
         [Required(ErrorMessage = "A Model is required")]
         [StringLength(50, ErrorMessage = "Model Description not longer than [1} characters")]
         public string Model
@@ -57,7 +71,8 @@ namespace SevenPrism.Models
         {
             get
             {
-                return $"{Cat.Name} {Manufacturer.Name} {Model}";
+                var tmp = $"{Cat?.Name} {Manufacturer?.Name} {Model}";
+                return tmp;
             }
         }
     }

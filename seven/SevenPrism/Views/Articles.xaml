@@ -64,7 +64,7 @@
                     Command="{Binding RemoveCommand}"
                     CommandParameter="{Binding ElementName=ArticlesGrid, Path=SelectedItems}" />
             </DataGrid.InputBindings>
-      
+
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
@@ -87,7 +87,7 @@
                     ElementStyle="{StaticResource ComboBoxColumnElementStyle}"
                     Header="Manufacturer"
                     ItemsSource="{Binding Source={StaticResource Manufacturers}}"
-                    SelectedItemBinding="{Binding Manufacturer, UpdateSourceTrigger=LostFocus}" />
+                    SelectedItemBinding="{Binding Manufacturer, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Model, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"

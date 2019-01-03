@@ -89,7 +89,7 @@
 
     <Style TargetType="ComboBox">
         <Setter Property="Padding" Value="6,2,4,3" />
-        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />    
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource DataGridErrorTemplate}" />
     </Style>
 
     <Style x:Key="ComboBoxColumnElementStyle" TargetType="ComboBox">

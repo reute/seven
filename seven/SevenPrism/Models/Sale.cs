@@ -13,9 +13,9 @@ namespace SevenPrism.Models
         public Sale()
         {
             Date = DateTime.Now;
-            ArticleDescription = string.Empty;
-            Article = new Article();
-            Ref = null;
+            //ArticleDescription = string.Empty;
+            //Article = new Article();
+            //Ref = null;
         }
 
         public int Id { get; set; }
@@ -68,8 +68,8 @@ namespace SevenPrism.Models
         }
   
         private int _amount;
-        [Range(1, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")]
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")] 
         public int Amount
         {
             get => _amount;
@@ -81,8 +81,8 @@ namespace SevenPrism.Models
         }
 
         private decimal _price;
-        [Range(0, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")]
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Must be between {1} and {2}")]
         public decimal Price
         {
             get => _price;

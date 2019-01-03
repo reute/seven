@@ -16,7 +16,7 @@ namespace SevenPrism.ViewModels
     public class ArticlesViewModel : ViewModelBase
     {
         // ArticlesList
-        private ObservableCollection<Article> Articles;
+        private readonly ObservableCollection<Article> Articles;
         public ICollectionView ArticlesCollectionView { get; }
 
         // Needed for Articles List
@@ -99,7 +99,10 @@ namespace SevenPrism.ViewModels
 
         private bool FilterHandler(object obj)
         {
-            var item = obj as Article;         
+            var item = obj as Article;
+
+            if (FilterString.Equals(string.Empty))
+                return true;
 
             // if string is found in sales manufacturer or detail column display this in result list
             if (item.Manufacturer != null && item.Manufacturer.Name.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) != -1 || 

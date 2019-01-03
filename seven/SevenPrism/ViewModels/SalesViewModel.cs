@@ -104,9 +104,10 @@ namespace SevenPrism.ViewModels
 
         private void AddNewSale()
         {
-            var Sale = new Sale();      
-            Sales.Add(Sale);
-            SalesCollectionView.MoveCurrentTo(Sale);      
+            var sale = new Sale();      
+            Sales.Add(sale);
+            RaisePropertyChanged(nameof(SalesCollectionView));
+            SalesCollectionView.MoveCurrentTo(sale);      
         }
 
         private bool CanRemoveSale(object selectedItems)
@@ -136,16 +137,19 @@ namespace SevenPrism.ViewModels
             var sale = obj as Sale;
 
             // Filter Date : if Sales date is older than set date
-            if (sale.Date.Date < _fromDate.Date || sale.Date.Date > _toDate.Date)     
+            if (sale.Date.Date < _fromDate.Date || sale.Date.Date > _toDate.Date)
                 // do not show this sale in filtered list
                 return false;
 
+            if (FilterString.Equals(string.Empty))
+                return true;
             // Filter String : if Searchstring is not found in sales detail or Employee column
-            if (sale.ArticleDescription.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0 &&
-                sale.Ref.Name.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) < 0)
-                return false;                
+            if (
+                sale.ArticleDescription != null && sale.ArticleDescription.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) != -1 ||
+                sale.Ref != null && sale.Ref.Name.IndexOf(FilterString, StringComparison.OrdinalIgnoreCase) != -1)
+                return true;                
 
-            return true;
+            return false;
         }
     }
 }

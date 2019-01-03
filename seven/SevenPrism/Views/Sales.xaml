@@ -71,16 +71,15 @@
                     Width="*"
                     Binding="{Binding Date, StringFormat=d, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
                     EditingElementStyle="{StaticResource TextCellEditingStyle}"
-                    ElementStyle="{StaticResource TextCellElementStyle}"                    
+                    ElementStyle="{StaticResource TextCellElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderDate}" />
 
-                <!--CellStyle="{StaticResource ComboBoxColumnElementStyle}"-->
+                <!--  CellStyle="{StaticResource ComboBoxColumnElementStyle}"  -->
                 <DataGridComboBoxColumn
                     Width="*"
                     DisplayMemberPath="Name"
                     EditingElementStyle="{StaticResource ComboBoxColumnEditingStyle}"
                     ElementStyle="{StaticResource ComboBoxColumnElementStyle}"
-                   
                     Header="{x:Static p:Resources.ColumnHeaderStaff}"
                     IsReadOnly="false"
                     ItemsSource="{Binding Source={StaticResource Refs}}"

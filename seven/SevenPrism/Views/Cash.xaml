@@ -75,7 +75,7 @@
                             Header="Amount" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel  Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock
                         Grid.Column="0"
                         Width="{Binding ElementName=DepositGrid, Path=Columns[0].ActualWidth}"
