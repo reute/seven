@@ -27,10 +27,10 @@ namespace SevenPrism.ViewModels
     {
         // Sales List
         private readonly ObservableCollection<Sale> Sales;
-        public ICollectionView  SalesCollectionView { get; }    
-        
+        public ICollectionView  SalesCollectionView { get; }   
+
         // Additional Lists needed for SalesList
-        public List<Referent> Refs { get; }
+        public ObservableCollection<Referent> Refs { get; }
         public List<Category> Categories { get; }
         public ObservableCollection<Article> Articles { get; }
 
@@ -68,7 +68,8 @@ namespace SevenPrism.ViewModels
 
             Sales               = Dc.Sales.Local.ToObservableCollection();
             SalesCollectionView = CollectionViewSource.GetDefaultView(Sales);
-            Refs                = Dc.Referents.Local.ToList();
+            Refs                = Dc.Referents.Local.ToObservableCollection();
+         
             Categories          = Dc.Categories.Local.ToList();
             Articles            = Dc.Articles.Local.ToObservableCollection(); 
 

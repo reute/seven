@@ -16,6 +16,7 @@ using log4net;
 using System.Reflection;
 using log4net.Config;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace SevenPrism.ViewModels
 {
@@ -72,7 +73,13 @@ namespace SevenPrism.ViewModels
             AboutCommand = new DelegateCommand(ShowAboutMessage);
             SaveCommand = new DelegateCommand(OnSave, CanSave);
             ExitCommand = new DelegateCommand(OnExit);
+
+            //Dc.ChangeTracker.StateChanged += StateChangedHandler;
         }
+
+        //private void StateChangedHandler(object sender, EntityStateChangedEventArgs e) {
+        //    SaveCommand.RaiseCanExecuteChanged();
+        //}
 
         private void ValidationEventHandler(VmValPar obj)
         {
@@ -88,8 +95,9 @@ namespace SevenPrism.ViewModels
 
         private bool CanSave()
         {
-            var tmp = VmIsValid.Any(x => x.Value == false);
-            return !tmp;          
+           // Dc.ChangeTracker.HasChanges() &
+               var tmp =  VmIsValid.All(x => x.Value == true);
+            return tmp;          
         }
 
         private void OnExit()

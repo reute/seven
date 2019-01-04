@@ -44,6 +44,44 @@
             </ToolBar>
         </ToolBarTray>
 
+        <Expander DockPanel.Dock="Bottom" Header="Predefined Values">
+            
+            <DataGrid
+                HorizontalAlignment="Left"
+               
+                x:Name="RefGrid"
+                AlternatingRowBackground="LightGoldenrodYellow"
+                AlternationCount="2"
+                BorderThickness="0"
+                CanUserDeleteRows="True"
+                CanUserAddRows="True"
+                HeadersVisibility="Column"
+                IsSynchronizedWithCurrentItem="True"
+                ItemsSource="{Binding Refs}"
+                RowHeaderWidth="15"
+                ScrollViewer.CanContentScroll="False"
+                SelectionUnit="FullRow"
+                VerticalScrollBarVisibility="Auto">
+
+            
+            <!--<DataGrid.InputBindings>
+                    <KeyBinding
+                    Key="Del"
+                    Command="{Binding RemoveRefCommand}"
+                    CommandParameter="{Binding ElementName=SalesGrid, Path=SelectedItems}" />
+                </DataGrid.InputBindings>-->
+            
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn                       
+                        Binding="{Binding Name, StringFormat=d, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                        EditingElementStyle="{StaticResource TextCellEditingStyle}"
+                        ElementStyle="{StaticResource TextCellElementStyle}"
+                        Header="Employees" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Expander>
+
         <!--  Deactivated Row header, ignoring row validation because of https://stackoverflow.com/questions/5099039/wpf-datagrid-validation-errors-not-clearing  -->
         <DataGrid
             x:Name="SalesGrid"
@@ -82,9 +120,11 @@
                     ElementStyle="{StaticResource ComboBoxColumnElementStyle}"
                     Header="{x:Static p:Resources.ColumnHeaderStaff}"
                     IsReadOnly="false"
-                    ItemsSource="{Binding Source={StaticResource Refs}}"
+                        ItemsSource="{Binding Source={StaticResource Refs}}"  
                     SelectedItemBinding="{Binding Ref, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
+
                 <DataGridTemplateColumn>
+                  
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="Article" />
@@ -101,6 +141,7 @@
                                 SelectedItem="{Binding Article, UpdateSourceTrigger=LostFocus}"
                                 Text="{Binding ArticleDescription, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
                         </DataTemplate>
+
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
@@ -124,5 +165,7 @@
                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
+
+
     </DockPanel>
 </UserControl>
