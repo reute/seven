@@ -20,8 +20,8 @@ namespace SevenPrism.ViewModels
         public ICollectionView ArticlesCollectionView { get; }
 
         // Needed for Articles List
-        public List<Category> Categories { get; set; }
-        public List<Manufacturer> Manufacturers { get; set; }
+        public ObservableCollection<Category> Categories { get;  }
+        public ObservableCollection<Manufacturer> Manufacturers { get; }
 
         // FilterString for the ArticlesList
         private string _filterString = string.Empty;
@@ -52,8 +52,8 @@ namespace SevenPrism.ViewModels
            
             Articles = Dc.Articles.Local.ToObservableCollection();
             ArticlesCollectionView = CollectionViewSource.GetDefaultView(Articles);        
-            Categories = Dc.Categories.Local.ToList();
-            Manufacturers = Dc.Manufacturers.Local.ToList();
+            Categories = Dc.Categories.Local.ToObservableCollection();
+            Manufacturers = Dc.Manufacturers.Local.ToObservableCollection();
 
             ArticlesCollectionView.Filter += FilterHandler;         
             ArticlesCollectionView.CurrentChanged += ArticlesCollectionView_CurrentChanged;

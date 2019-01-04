@@ -44,6 +44,60 @@
             </ToolBar>
         </ToolBarTray>
 
+        <Expander DockPanel.Dock="Bottom" Header="Predefined Values">
+            <WrapPanel Orientation="Horizontal">
+                <DataGrid
+                     Margin="0,0,5,0"
+                    x:Name="CategoriesGrid"
+                    AlternatingRowBackground="BlanchedAlmond"
+                    AlternationCount="2"
+                    BorderThickness="0"
+                    CanUserAddRows="True"
+                    CanUserDeleteRows="True"
+                    HeadersVisibility="Column"
+                    IsSynchronizedWithCurrentItem="True"
+                    ItemsSource="{Binding Categories}"
+                    RowHeaderWidth="15"
+                    ScrollViewer.CanContentScroll="False"
+                    SelectionUnit="FullRow"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Binding="{Binding Name, StringFormat=d, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                            EditingElementStyle="{StaticResource TextCellEditingStyle}"
+                            ElementStyle="{StaticResource TextCellElementStyle}"
+                            Header="Categories" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid
+                      Margin="0,0,5,0"
+                    x:Name="MenufacturerGrid"
+                    AlternatingRowBackground="BlanchedAlmond"
+                    AlternationCount="2"
+                    BorderThickness="0"
+                    CanUserAddRows="True"
+                    CanUserDeleteRows="True"
+                    HeadersVisibility="Column"
+                    IsSynchronizedWithCurrentItem="True"
+                    ItemsSource="{Binding Manufacturers}"
+                    RowHeaderWidth="15"
+                    ScrollViewer.CanContentScroll="False"
+                    SelectionUnit="FullRow"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Binding="{Binding Name, StringFormat=d, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                            EditingElementStyle="{StaticResource TextCellEditingStyle}"
+                            ElementStyle="{StaticResource TextCellElementStyle}"
+                            Header="Manufacturers" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </WrapPanel>
+        </Expander>
+
         <DataGrid
             x:Name="ArticlesGrid"
             AlternatingRowBackground="BlanchedAlmond"
